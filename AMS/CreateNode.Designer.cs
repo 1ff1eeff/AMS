@@ -56,14 +56,14 @@ namespace AMS
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(10, 23);
+            this.textBox1.Location = new System.Drawing.Point(12, 24);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(270, 20);
             this.textBox1.TabIndex = 26;
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(408, 237);
+            this.button7.Location = new System.Drawing.Point(408, 241);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(77, 20);
             this.button7.TabIndex = 1;
@@ -73,7 +73,7 @@ namespace AMS
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(490, 237);
+            this.button8.Location = new System.Drawing.Point(490, 241);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(77, 20);
             this.button8.TabIndex = 2;
@@ -83,7 +83,7 @@ namespace AMS
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(487, 133);
+            this.button10.Location = new System.Drawing.Point(489, 134);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(77, 20);
             this.button10.TabIndex = 24;
@@ -93,7 +93,7 @@ namespace AMS
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(487, 110);
+            this.button11.Location = new System.Drawing.Point(489, 111);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(77, 20);
             this.button11.TabIndex = 23;
@@ -104,7 +104,7 @@ namespace AMS
             // listBox4
             // 
             this.listBox4.FormattingEnabled = true;
-            this.listBox4.Location = new System.Drawing.Point(295, 110);
+            this.listBox4.Location = new System.Drawing.Point(297, 111);
             this.listBox4.Name = "listBox4";
             this.listBox4.Size = new System.Drawing.Size(187, 43);
             this.listBox4.TabIndex = 22;
@@ -113,7 +113,7 @@ namespace AMS
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.label12.Location = new System.Drawing.Point(295, 94);
+            this.label12.Location = new System.Drawing.Point(297, 95);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(59, 15);
             this.label12.TabIndex = 21;
@@ -209,7 +209,7 @@ namespace AMS
             "WAP",
             "X.25",
             "XNS"});
-            this.comboBox2.Location = new System.Drawing.Point(295, 210);
+            this.comboBox2.Location = new System.Drawing.Point(297, 211);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(270, 21);
             this.comboBox2.TabIndex = 20;
@@ -218,7 +218,7 @@ namespace AMS
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.label9.Location = new System.Drawing.Point(295, 194);
+            this.label9.Location = new System.Drawing.Point(297, 195);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(171, 15);
             this.label9.TabIndex = 19;
@@ -240,7 +240,7 @@ namespace AMS
             "1000Base-LX Gigabit Ethernet 1000 Mb/s",
             "1000Base-SX Gigabit Ethernet 1000 Mb/s",
             "1000Base-T Gigabit Ethernet 1000 Mb/s"});
-            this.comboBox1.Location = new System.Drawing.Point(295, 172);
+            this.comboBox1.Location = new System.Drawing.Point(297, 173);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(270, 21);
             this.comboBox1.TabIndex = 18;
@@ -249,7 +249,7 @@ namespace AMS
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.label8.Location = new System.Drawing.Point(295, 156);
+            this.label8.Location = new System.Drawing.Point(297, 157);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(163, 15);
             this.label8.TabIndex = 17;
@@ -259,7 +259,7 @@ namespace AMS
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.label6.Location = new System.Drawing.Point(436, 56);
+            this.label6.Location = new System.Drawing.Point(438, 57);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(71, 15);
             this.label6.TabIndex = 12;
@@ -269,7 +269,7 @@ namespace AMS
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.label5.Location = new System.Drawing.Point(295, 55);
+            this.label5.Location = new System.Drawing.Point(297, 56);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(56, 15);
             this.label5.TabIndex = 7;
@@ -329,7 +329,7 @@ namespace AMS
             "Ленточная библиотека",
             "ИБП",
             "Плоттер"});
-            this.listBox1.Location = new System.Drawing.Point(10, 71);
+            this.listBox1.Location = new System.Drawing.Point(12, 72);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(270, 160);
             this.listBox1.TabIndex = 4;
@@ -339,7 +339,7 @@ namespace AMS
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.label3.Location = new System.Drawing.Point(10, 55);
+            this.label3.Location = new System.Drawing.Point(12, 56);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(94, 15);
             this.label3.TabIndex = 3;
@@ -349,7 +349,7 @@ namespace AMS
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(10, 8);
+            this.label2.Location = new System.Drawing.Point(12, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(60, 15);
             this.label2.TabIndex = 1;
@@ -358,7 +358,7 @@ namespace AMS
             // panel1
             // 
             this.panel1.Controls.Add(this.button12);
-            this.panel1.Location = new System.Drawing.Point(298, 8);
+            this.panel1.Location = new System.Drawing.Point(300, 9);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(269, 45);
             this.panel1.TabIndex = 27;
@@ -378,14 +378,14 @@ namespace AMS
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(295, 72);
+            this.textBox2.Location = new System.Drawing.Point(297, 73);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(129, 20);
             this.textBox2.TabIndex = 28;
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(436, 72);
+            this.textBox3.Location = new System.Drawing.Point(438, 73);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(129, 20);
             this.textBox3.TabIndex = 29;
@@ -394,7 +394,7 @@ namespace AMS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(571, 266);
+            this.ClientSize = new System.Drawing.Size(581, 273);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.panel1);
@@ -415,7 +415,7 @@ namespace AMS
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label6);
             this.Name = "CreateNode";
-            this.Text = "Добавление устройства";
+            this.Text = "Создание новго узла";
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

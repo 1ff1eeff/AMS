@@ -17,64 +17,102 @@ namespace AMS
     public partial class CreateMap : Form
     {
         // Для связи с элементом карты главной формы
+
         public TabControl tc;
+
+        // Формируем новые узлы
+
+        List<DNodeInfo> dNodesInfo = new List<DNodeInfo>();
 
         public CreateMap()
         {
             InitializeComponent();
         }
 
+
         // ОК
         private void button6_Click(object sender, EventArgs e)
         {
             // Создаём пустую карту
+
             if (radioButton1.Checked)
             {
                 // Создаём новую вкладку на карте
+
                 TabPage tp = new TabPage(textBox9.Text);
                 tc?.TabPages.Add(tp);
                 tc?.SelectTab(tp);
             }
 
             // Создаём карту на основании сканирования IP диапазонов
+
             if (radioButton2.Checked)
             {
                 // Создаём новую карту
+
                 if (!checkBox1.Checked)
                 {
                     // Создаём новую вкладку на карте
+
                     TabPage tp = new TabPage(textBox9.Text);
                     tc?.TabPages.Add(tp);
                     tc?.SelectTab(tp);
                 }
 
-                // Формируем новые узлы
-                List<DNodeInfo> dNodesInfo = new List<DNodeInfo>();
+                // Заполняем данные нового узла
+
                 if (listView2.Items.Count > 0)
                     foreach (ListViewItem activeNodeItem in listView2.Items)
                     {
                         DNodeInfo node = new DNodeInfo();
-                        string activeNodeIP = "";
-                        string activeNodeName = "";
 
-                        if (activeNodeItem.Text != "")
-                            activeNodeIP = activeNodeItem.Text;
+                        // IP-адрес
+                        
+                        if (activeNodeItem.Text.Length > 0)
+                            node.Ip = activeNodeItem.Text;
 
-                        activeNodeName = activeNodeItem.SubItems[2].Text;
+                        // МАС-адрес
 
-                        // Заполняем данные нового узла
-                        if (activeNodeName != "")
-                            node.Name = activeNodeName;
-                        node.Ip = activeNodeIP;
+                        if (activeNodeItem.SubItems.Count > 1 && activeNodeItem.SubItems[1].Text != " - ")
+                            node.Mac = activeNodeItem.SubItems[1].Text;
+
+                        // Имя узла
+
+                        if (activeNodeItem.SubItems.Count > 2 && activeNodeItem.SubItems[2].Text != " - ")
+                            node.Name = activeNodeItem.SubItems[2].Text;
+
+                        // Сервисы
+
+                        if (activeNodeItem.SubItems.Count > 3 && activeNodeItem.SubItems[3].Text != " - ")
+                        {                            
+                            node.Services = activeNodeItem.SubItems[3].Text.Split(';');
+                        }                            
+
+                        // Тип устройства
+
+                        if (activeNodeItem.SubItems.Count > 4 && activeNodeItem.SubItems[4].Text != " - ")
+                            node.Type = activeNodeItem.SubItems[4].Text;
+
+                        // Стандарт передачи данных
+
+                        if (activeNodeItem.SubItems.Count > 5 && activeNodeItem.SubItems[5].Text != " - ")
+                            node.Standart = activeNodeItem.SubItems[5].Text;
+
+                        // Протокол передачи данных
+
+                        if (activeNodeItem.SubItems.Count > 6 && activeNodeItem.SubItems[6].Text != " - ")
+                            node.Protocol = activeNodeItem.SubItems[6].Text;
 
                         dNodesInfo.Add(node);
                     }
 
                 // Добавляем узел на карту
+
                 int x = 10, y = 0, spacer = 10;
                 foreach (DNodeInfo node in dNodesInfo)
                 {
-                    // Подготоавливаем элемент представляющий узел
+                    // Подготавливаем элемент представляющий узел
+
                     DeviceNode dn = new DeviceNode
                     {
                         Location = new Point(x, y),
@@ -85,6 +123,7 @@ namespace AMS
                     // на расстоянии ширины элемента и разделителя
                     // Если элемент слишком близко к краю формы,
                     // то переносим на следующую строку
+
                     if (x < tc?.Width - (dn.Size.Width * 2 + spacer))
                         x += dn.Size.Width + spacer;
                     else
@@ -93,6 +132,7 @@ namespace AMS
                         y += dn.Size.Height + spacer;
                     }
                     // Добавляем новый элемент на карту
+
                     tc?.TabPages[tc.SelectedIndex].Controls.Add(dn);
                 }
             }
@@ -113,6 +153,7 @@ namespace AMS
         private void textBox9_Enter(object sender, EventArgs e)
         {
             // Очищаем поле для ввода имени карты
+
             textBox9.Text = "";
         }
 
@@ -202,23 +243,32 @@ namespace AMS
             try
             {
                 // Cоздаем класс управления событиями в потоке
+
                 AutoResetEvent waiter = new AutoResetEvent(false);
+
                 // Записываем в массив байт сконвертированную строку для отправки в запросе
+
                 byte[] buffer = Encoding.ASCII.GetBytes("We are ping this IP for testing purposes.");
 
                 // Начальный и финальный IP-адреса диапазона сканирования
+
                 IPAddress firstIpAddress;
                 IPAddress lastIpAddress;
 
                 // По данным элемента формы listView1 формируем диапазон IP-адресов для сканирования
+
                 foreach (ListViewItem lvi in listView1.Items)
                 {
                     // Получаем значение начального адреса из первого столбца
+
                     firstIpAddress = IPAddress.Parse(lvi.SubItems[0].Text);
+
                     // Получаем значение финального адреса из третьего столбца
+
                     lastIpAddress = IPAddress.Parse(lvi.SubItems[2].Text);
 
-                    // Составляем список всех адресов расположеных от начального до финального IP
+                    // Составляем список всех адресов расположенных от начального до финального IP
+
                     var range = IPAddressesRange(firstIpAddress, lastIpAddress);
 
                     progressBar1.Maximum = range.Count;
@@ -227,11 +277,12 @@ namespace AMS
                     foreach (var ipAddress in range)
                     {
                         if (cancelToken.IsCancellationRequested)
-                        { return; }
+                            return; 
 
                         progressBar1.PerformStep();
 
                         // Посылаем асинхронный ping запрос с таймаутом 500 мс
+
                         PingReply resp = await ping.SendPingAsync(ipAddress, 500);
 
                         if (resp != null && resp.Status == IPStatus.Success)
@@ -242,17 +293,20 @@ namespace AMS
 
                             ListViewItem lvi2 = new ListViewItem();
 
+                            // IP-адрес
+
                             lvi2.Text = activeHostIP;
 
-                            if (activeHostName != null && activeHostName != "")
+                            if (activeHostName != null && activeHostName.Length > 0)
                             {
-                                lvi2.SubItems.Add("-");
+                                // MAC-адрес
+
+                                lvi2.SubItems.Add("");
+
+                                // Имя узла
+
                                 lvi2.SubItems.Add(activeHostName);
-                            }
-                            else
-                            {
-                                lvi2.SubItems.Add("");
-                                lvi2.SubItems.Add("");
+                                
                             }
 
                             listView2.Items.Add(lvi2);
@@ -318,6 +372,25 @@ namespace AMS
             return ipAddressesInTheRange;
         }
 
+        private void button8_Click(object sender, EventArgs e)
+        {
+            ListViewItem selectedItem = new ListViewItem();
+            if (listView2.SelectedItems.Count != 0)
+            {
+                //selectedItem = listView2.SelectedItems[0];
 
+                EditNode editNode = new EditNode()
+                {
+                    lv = listView2,
+                    lvi = listView2.SelectedItems[0]                    
+                };
+
+                foreach (ListViewItem eachItem in listView2.SelectedItems)
+                    listView2.Items.Remove(eachItem);
+
+                editNode.ShowDialog();
+            }
+
+        }
     }
 }

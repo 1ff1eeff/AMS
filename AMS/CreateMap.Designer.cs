@@ -31,7 +31,7 @@ namespace AMS
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
             "192.168.0.102",
             "-",
             "192.168.0.102"}, -1);
@@ -44,6 +44,7 @@ namespace AMS
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button6 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button8 = new System.Windows.Forms.Button();
             this.listView2 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -65,6 +66,9 @@ namespace AMS
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -118,9 +122,9 @@ namespace AMS
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(506, 276);
+            this.button4.Location = new System.Drawing.Point(354, 277);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 20);
+            this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 18;
             this.button4.Text = "Отмена";
             this.button4.UseVisualStyleBackColor = true;
@@ -137,9 +141,9 @@ namespace AMS
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(425, 276);
+            this.button6.Location = new System.Drawing.Point(273, 277);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 20);
+            this.button6.Size = new System.Drawing.Size(75, 23);
             this.button6.TabIndex = 36;
             this.button6.Text = "ОК";
             this.button6.UseVisualStyleBackColor = true;
@@ -147,6 +151,7 @@ namespace AMS
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button8);
             this.panel1.Controls.Add(this.listView2);
             this.panel1.Controls.Add(this.button7);
             this.panel1.Controls.Add(this.label2);
@@ -163,8 +168,18 @@ namespace AMS
             this.panel1.Enabled = false;
             this.panel1.Location = new System.Drawing.Point(10, 49);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(577, 222);
+            this.panel1.Size = new System.Drawing.Size(419, 222);
             this.panel1.TabIndex = 37;
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(216, 194);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(101, 23);
+            this.button8.TabIndex = 36;
+            this.button8.Text = "Редактировать";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // listView2
             // 
@@ -172,11 +187,14 @@ namespace AMS
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
-            this.columnHeader4});
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6,
+            this.columnHeader7});
             this.listView2.HideSelection = false;
             this.listView2.Location = new System.Drawing.Point(216, 82);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(358, 109);
+            this.listView2.Size = new System.Drawing.Size(204, 109);
             this.listView2.TabIndex = 35;
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.View = System.Windows.Forms.View.Details;
@@ -203,9 +221,9 @@ namespace AMS
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(123, 196);
+            this.button7.Location = new System.Drawing.Point(3, 195);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(86, 20);
+            this.button7.Size = new System.Drawing.Size(100, 23);
             this.button7.TabIndex = 34;
             this.button7.Text = "Сканировать";
             this.button7.UseVisualStyleBackColor = true;
@@ -222,9 +240,9 @@ namespace AMS
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(216, 196);
+            this.button3.Location = new System.Drawing.Point(323, 195);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 20);
+            this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 32;
             this.button3.Text = "Удалить";
             this.button3.UseVisualStyleBackColor = true;
@@ -238,7 +256,7 @@ namespace AMS
             this.LastIP});
             this.listView1.HideSelection = false;
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem11});
+            listViewItem3});
             this.listView1.Location = new System.Drawing.Point(5, 82);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(204, 109);
@@ -263,9 +281,9 @@ namespace AMS
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(5, 196);
+            this.button5.Location = new System.Drawing.Point(109, 195);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 20);
+            this.button5.Size = new System.Drawing.Size(100, 23);
             this.button5.TabIndex = 29;
             this.button5.Text = "Удалить";
             this.button5.UseVisualStyleBackColor = true;
@@ -315,9 +333,9 @@ namespace AMS
             this.radioButton2.AutoSize = true;
             this.radioButton2.Location = new System.Drawing.Point(5, 43);
             this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(210, 17);
+            this.radioButton2.Size = new System.Drawing.Size(184, 17);
             this.radioButton2.TabIndex = 43;
-            this.radioButton2.Text = "Карта на основе сканирования сети";
+            this.radioButton2.Text = "Карта на основе сканирования";
             this.radioButton2.UseVisualStyleBackColor = true;
             this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
@@ -346,18 +364,33 @@ namespace AMS
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(15, 270);
+            this.progressBar1.Location = new System.Drawing.Point(13, 270);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(203, 14);
+            this.progressBar1.Size = new System.Drawing.Size(206, 20);
             this.progressBar1.Step = 1;
             this.progressBar1.TabIndex = 45;
             this.progressBar1.Visible = false;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Тип узла";
+            this.columnHeader5.Width = 120;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Стандарт передачи данных";
+            this.columnHeader6.Width = 120;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "Протокол передачи данных";
+            this.columnHeader7.Width = 120;
             // 
             // CreateMap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(591, 307);
+            this.ClientSize = new System.Drawing.Size(448, 307);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button6);
@@ -407,5 +440,9 @@ namespace AMS
         private CheckBox checkBox1;
         private ProgressBar progressBar1;
         private ColumnHeader columnHeader4;
+        private Button button8;
+        private ColumnHeader columnHeader5;
+        private ColumnHeader columnHeader6;
+        private ColumnHeader columnHeader7;
     }
 }

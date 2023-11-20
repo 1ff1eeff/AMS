@@ -20,6 +20,7 @@ namespace AMS
         List<DNodeInfo> selectedNodes = new List<DNodeInfo>();
         int pingTimeout = 1000;
 
+
         public Form1()
         {
             InitializeComponent();
@@ -99,7 +100,7 @@ namespace AMS
         CancellationTokenSource cts = new CancellationTokenSource();
 
         // Начать/остановить мониторинг узлов
-        private async void button3_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
             if (listView1.Items.Count > 0)
             {
@@ -107,27 +108,35 @@ namespace AMS
                 {
                     button3.Text = "Прекратить  мониторинг";
                     button2.Enabled = false;
+
+                    //Всего узлов
+                    label2.Text = listView1.Items.Count.ToString();
+
                     if (cts != null)
-                        cts.Dispose();
+                        cts.Dispose();                   
+
                     cts = new CancellationTokenSource();
-                    await PingItemList(cts.Token);
+                    PingItemList(cts.Token);
                 }
                 else
                 {
                     button3.Text = "Начать мониторинг";
                     button2.Enabled = true;
+
                     if (cts != null)
                         cts.Cancel();
                 }
             }
         }
 
-        async Task PingItemList(CancellationToken cancelToken)
+        void PingItemList(CancellationToken cancelToken)
         {
             var ping = new Ping();
             var failedPings = 0;
             var pingAmount = 4;
             var packetLoss = 0;
+            int nodesOnline = 0;
+            int nodesOffline = 0;
 
             listView1.Invoke(new Action(async () =>
             {
@@ -137,6 +146,7 @@ namespace AMS
                     lvTesting.Add(item);
 
                 while (!cancelToken.IsCancellationRequested)
+                {
                     foreach (ListViewItem item in lvTesting)
                     {
                         await Task.Delay(pingTimeout);  // Тут задержка между пинг-запросами из настроек
@@ -144,12 +154,26 @@ namespace AMS
                         PingReply resp = await ping.SendPingAsync(ip);
                         if (resp != null)
                         {
+                            // Доступность
                             if (item.SubItems[2].Text.ToString() != " - ")
-                                item.SubItems[2].Text = resp.Status == IPStatus.Success ? "Online" : "Offline";
+                            {
+                                if (resp.Status == IPStatus.Success)
+                                {
+                                    item.SubItems[2].Text = "Online";
+                                    nodesOnline++;                                    
+                                }
+                                else
+                                {
+                                    item.SubItems[2].Text = "Offline";
+                                    nodesOffline++;
+                                }
+                            }
 
+                            // Время отклика
                             if (item.SubItems[3].Text.ToString() != " - " && resp.Status == IPStatus.Success)
-                                item.SubItems[3].Text = resp.RoundtripTime.ToString();
+                                item.SubItems[3].Text = resp.RoundtripTime.ToString() + " мс";
 
+                            // Потери пакетов
                             if (item.SubItems[4].Text.ToString() != " - ")
                             {
                                 PingReply respPL = await ping.SendPingAsync(ip);
@@ -157,13 +181,13 @@ namespace AMS
                                     if (respPL.Status != IPStatus.Success)
                                         failedPings += 1;
                                 packetLoss = Convert.ToInt32((Convert.ToDouble(failedPings) / Convert.ToDouble(pingAmount)) * 100);
-                                item.SubItems[4].Text = packetLoss.ToString();
+                                item.SubItems[4].Text = packetLoss.ToString() + "%";
                                 failedPings = 0;
                                 packetLoss = 0;
                             }
 
                             //if (item.SubItems[5].Text.ToString() != " - "
-                            //    && item.SubItems[5].Text.ToString() != "")
+                            //    && item.SubItems[5].Text.Length > 0)
                             //{
                             //    // Службы указанные для мониторинга
                             //    string[] mServices = item.SubItems[5].Text.Split("; ");
@@ -180,7 +204,7 @@ namespace AMS
                             //                foreach (Process rP in runningProcesses)
                             //                {
                             //                    // Если служба найдена
-                            //                    if (rP.ProcessName != "")
+                            //                    if (rP.ProcessName.Length > 0)
                             //                    {
                             //                        // Уведомляем
                             //                        // Выделяем зелёным цветом 
@@ -207,6 +231,14 @@ namespace AMS
                             //}
                         }
                     }
+
+                    label3.Text = nodesOnline.ToString();
+                    label7.Text = nodesOffline.ToString();
+                    
+                    nodesOnline = 0;
+                    nodesOffline = 0;
+                }
+
             }));
 
         }

@@ -12,6 +12,9 @@ namespace AMS
 {
     public partial class CreateNode : Form
     {
+        // Для связи с главной формой
+        public TabControl tc;
+
         public CreateNode()
         {
             InitializeComponent();
@@ -39,9 +42,7 @@ namespace AMS
             CreateService createService = new CreateService();
             createService.lbService = listBox4;
             createService.ShowDialog();
-        }
-
-        public TabControl tc;
+        }       
 
         // ОК
         private void button7_Click(object sender, EventArgs e)
@@ -90,7 +91,7 @@ namespace AMS
         // Удалить сервис из списка
         private void button10_Click(object sender, EventArgs e)
         {
-            if (listBox4.Items.Count > 0)
+            if (listBox4.Items.Count > 0 && listBox4.SelectedIndex >= 0)
                 listBox4.Items.RemoveAt(listBox4.SelectedIndex);
 
         }
