@@ -40,8 +40,8 @@ namespace AMS
                 // Создаём новую вкладку на карте
 
                 TabPage tp = new TabPage(textBox9.Text);
-                tc?.TabPages.Add(tp);
-                tc?.SelectTab(tp);
+                tc.TabPages.Add(tp);
+                tc.SelectTab(tp);
             }
 
             // Создаём карту на основании сканирования IP диапазонов
@@ -55,8 +55,8 @@ namespace AMS
                     // Создаём новую вкладку на карте
 
                     TabPage tp = new TabPage(textBox9.Text);
-                    tc?.TabPages.Add(tp);
-                    tc?.SelectTab(tp);
+                    tc.TabPages.Add(tp);
+                    tc.SelectTab(tp);
                 }
 
                 // Заполняем данные нового узла
@@ -124,7 +124,7 @@ namespace AMS
                     // Если элемент слишком близко к краю формы,
                     // то переносим на следующую строку
 
-                    if (x < tc?.Width - (dn.Size.Width * 2 + spacer))
+                    if (x < tc.Width - (dn.Size.Width * 2 + spacer))
                         x += dn.Size.Width + spacer;
                     else
                     {
@@ -132,8 +132,8 @@ namespace AMS
                         y += dn.Size.Height + spacer;
                     }
                     // Добавляем новый элемент на карту
-
-                    tc?.TabPages[tc.SelectedIndex].Controls.Add(dn);
+                    
+                        tc.TabPages[tc.SelectedIndex].Controls.Add(dn);
                 }
             }
             Close();

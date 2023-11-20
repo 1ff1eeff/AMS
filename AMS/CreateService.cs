@@ -22,7 +22,7 @@ namespace AMS
         // ОК
         private void button7_Click(object sender, EventArgs e)
         {
-            lbService?.Items.Add(textBox1.Text);
+            lbService.Items.Add(textBox1.Text);
             Close();
         }
 

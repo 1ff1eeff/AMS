@@ -64,7 +64,7 @@ namespace AMS
                 dNodeInfo = node
             };
 
-            tc?.TabPages[tc.SelectedIndex].Controls.Add(dn);
+            tc.TabPages[tc.SelectedIndex].Controls.Add(dn);
 
             Close();
         }

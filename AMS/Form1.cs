@@ -11,12 +11,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace AMS
 {
     public partial class Form1 : Form
     {
         // Выбранные узлы
+
         List<DNodeInfo> selectedNodes = new List<DNodeInfo>();
         int pingTimeout = 1000;
 
@@ -49,6 +51,7 @@ namespace AMS
             selectedNodes.Clear();
 
             // Сохраняем все узлы выделенные на текущей карте
+
             foreach (var node in tabControl1.SelectedTab.Controls.OfType<DeviceNode>())
             {
                 if (node.dNodeInfo.IsSelected)
@@ -58,6 +61,7 @@ namespace AMS
             CreateTest createTest = new CreateTest()
             {
                 // Передаём данные о выделенных узлах в модуль мониторинга
+
                 selectedNodes = selectedNodes,
                 lvMonitoringNodes = listView1
             };
@@ -155,6 +159,7 @@ namespace AMS
                         if (resp != null)
                         {
                             // Доступность
+
                             if (item.SubItems[2].Text.ToString() != " - ")
                             {
                                 if (resp.Status == IPStatus.Success)
@@ -170,10 +175,12 @@ namespace AMS
                             }
 
                             // Время отклика
+
                             if (item.SubItems[3].Text.ToString() != " - " && resp.Status == IPStatus.Success)
                                 item.SubItems[3].Text = resp.RoundtripTime.ToString() + " мс";
 
                             // Потери пакетов
+
                             if (item.SubItems[4].Text.ToString() != " - ")
                             {
                                 PingReply respPL = await ping.SendPingAsync(ip);
@@ -186,49 +193,57 @@ namespace AMS
                                 packetLoss = 0;
                             }
 
-                            //if (item.SubItems[5].Text.ToString() != " - "
-                            //    && item.SubItems[5].Text.Length > 0)
-                            //{
-                            //    // Службы указанные для мониторинга
-                            //    string[] mServices = item.SubItems[5].Text.Split("; ");
+                            if (item.SubItems[5].Text.ToString() != " - "
+                                && item.SubItems[5].Text.Length > 0)
+                            {
+                                // Службы указанные для мониторинга
 
-                            //    foreach (string mS in mServices)
-                            //    {
-                            //        try
-                            //        {
-                            //            // Узнаём статус службы на удалённом ПК
-                            //            Process[] runningProcesses = Process.GetProcessesByName(mS, item.SubItems[0].Text);
+                                string[] mServices = item.SubItems[5].Text.Split(';');
 
-                            //            if (runningProcesses.Length > 0)
-                            //            {
-                            //                foreach (Process rP in runningProcesses)
-                            //                {
-                            //                    // Если служба найдена
-                            //                    if (rP.ProcessName.Length > 0)
-                            //                    {
-                            //                        // Уведомляем
-                            //                        // Выделяем зелёным цветом 
-                            //                        //item.UseItemStyleForSubItems = false;
-                            //                        //item.SubItems[5].ForeColor = Color.Green;
-                            //                    }
-                            //                }
-                            //            }
-                            //            else
-                            //            {
-                            //                //item.UseItemStyleForSubItems = false;
-                            //                //item.SubItems[5].ForeColor = Color.Red;                                            
-                            //            }
-                            //        }
-                            //        catch (Exception)
-                            //        {
-                            //            // Уведомляем
-                            //            // Выделяем красным цветом
+                                List<string> servicesOnline = new List<string>();
+                                List<string> servicesOffline = new List<string>();
 
+                                foreach (string mService in mServices)
+                                {
+                                    try
+                                    {
+                                        // Узнаём статус службы на удалённом ПК
 
-                            //            throw;
-                            //        }
-                            //    }
-                            //}
+                                        Process[] runningProcesses = Process.GetProcessesByName(mService, item.SubItems[0].Text);
+
+                                        if (runningProcesses.Length > 0)
+                                        {
+                                            servicesOnline.Add(mService);
+
+                                        }
+                                        else
+                                        {
+                                            if (mService.Length > 0)
+                                            {
+                                                servicesOffline.Add(mService);
+
+                                                // Уведомить пользователя о проблеме - "служба не выполняется"
+
+                                                MessageBox.Show("Служба " + mService + " не найдена на устройстве " + item.SubItems[0].Text);
+                                                label5.Text = servicesOffline.Count.ToString();
+                                            }
+                                        }
+                                        
+                                    }
+                                    catch (Exception)
+                                    {
+                                       
+                                    }
+                                }
+
+                                item.SubItems[5].Text = "";
+
+                                foreach (string service in servicesOnline)
+                                {
+                                    item.SubItems[5].Text += service + ";";
+                                }                                
+
+                            }
                         }
                     }
 

@@ -38,7 +38,10 @@ namespace AMS
 
                     if (selectedNode.Services != null)
                         foreach (string service in selectedNode.Services)
-                            nodeStatus[5] += service + "; ";
+                        {
+                            if (service != "")
+                                nodeStatus[5] += service + ";";
+                        }
 
                     if (!checkBox1.Checked) { nodeStatus[2] = " - "; }
                     if (!checkBox2.Checked) { nodeStatus[3] = " - "; }
