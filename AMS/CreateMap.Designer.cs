@@ -31,7 +31,7 @@ namespace AMS
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
             "192.168.0.102",
             "-",
             "192.168.0.102"}, -1);
@@ -50,6 +50,9 @@ namespace AMS
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.button7 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
@@ -66,9 +69,6 @@ namespace AMS
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -219,6 +219,21 @@ namespace AMS
             this.columnHeader4.Text = "Сервисы";
             this.columnHeader4.Width = 120;
             // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Тип узла";
+            this.columnHeader5.Width = 120;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Стандарт передачи данных";
+            this.columnHeader6.Width = 120;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "Протокол передачи данных";
+            this.columnHeader7.Width = 120;
+            // 
             // button7
             // 
             this.button7.Location = new System.Drawing.Point(3, 195);
@@ -242,7 +257,7 @@ namespace AMS
             // 
             this.button3.Location = new System.Drawing.Point(323, 195);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.Size = new System.Drawing.Size(96, 23);
             this.button3.TabIndex = 32;
             this.button3.Text = "Удалить";
             this.button3.UseVisualStyleBackColor = true;
@@ -256,7 +271,7 @@ namespace AMS
             this.LastIP});
             this.listView1.HideSelection = false;
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem3});
+            listViewItem2});
             this.listView1.Location = new System.Drawing.Point(5, 82);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(204, 109);
@@ -314,7 +329,6 @@ namespace AMS
             this.textBox9.Size = new System.Drawing.Size(211, 20);
             this.textBox9.TabIndex = 40;
             this.textBox9.Text = "Новая карта";
-            this.textBox9.Enter += new System.EventHandler(this.textBox9_Enter);
             // 
             // radioButton1
             // 
@@ -370,21 +384,6 @@ namespace AMS
             this.progressBar1.Step = 1;
             this.progressBar1.TabIndex = 45;
             this.progressBar1.Visible = false;
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "Тип узла";
-            this.columnHeader5.Width = 120;
-            // 
-            // columnHeader6
-            // 
-            this.columnHeader6.Text = "Стандарт передачи данных";
-            this.columnHeader6.Width = 120;
-            // 
-            // columnHeader7
-            // 
-            this.columnHeader7.Text = "Протокол передачи данных";
-            this.columnHeader7.Width = 120;
             // 
             // CreateMap
             // 

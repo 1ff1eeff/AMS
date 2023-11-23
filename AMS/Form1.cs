@@ -17,17 +17,16 @@ namespace AMS
 {
     public partial class Form1 : Form
     {
-        // Выбранные узлы
-
         List<DNodeInfo> selectedNodes = new List<DNodeInfo>();
+        CancellationTokenSource cts = new CancellationTokenSource();
         int pingTimeout = 1000;
-
 
         public Form1()
         {
             InitializeComponent();
         }
 
+        // Создать карту
         private void CreateMap_Click(object sender, EventArgs e)
         {
             CreateMap createMap = new CreateMap()
@@ -37,6 +36,7 @@ namespace AMS
             createMap.ShowDialog();
         }
 
+        // Добавить устройство
         private void CreateNode_Click(object sender, EventArgs e)
         {
             CreateNode createNode = new CreateNode()
@@ -46,6 +46,7 @@ namespace AMS
             createNode.ShowDialog();
         }
 
+        // Модуль мониторинга
         private void CreateTest_Click(object sender, EventArgs e)
         {
             selectedNodes.Clear();
@@ -68,18 +69,21 @@ namespace AMS
             createTest.ShowDialog();
         }
 
+        // Модуль анализа
         private void GraphAndStat_Click(object sender, EventArgs e)
         {
             GraphAndStat createGraph = new GraphAndStat();
             createGraph.Show();
         }
 
+        // Индикаторы
         private void Indicators_Click(object sender, EventArgs e)
         {
             Indicators createIndicators = new Indicators();
             createIndicators.Show();
         }
 
+        // Настройки
         private void Settings_Click(object sender, EventArgs e)
         {
             Settings settings = new Settings();
@@ -99,9 +103,7 @@ namespace AMS
             for (int i = listView1.Items.Count - 1; i >= 0; i--)
                 if (listView1.Items[i].Selected)
                     listView1.Items[i].Remove();
-        }
-
-        CancellationTokenSource cts = new CancellationTokenSource();
+        }       
 
         // Начать/остановить мониторинг узлов
         private void button3_Click(object sender, EventArgs e)
@@ -132,7 +134,10 @@ namespace AMS
                 }
             }
         }
-
+        /// <summary>
+        /// Ping-запрос на каждый элемент ListViewItem
+        /// </summary>
+        /// <param name="cancelToken"></param>
         void PingItemList(CancellationToken cancelToken)
         {
             var ping = new Ping();
@@ -153,98 +158,92 @@ namespace AMS
                 {
                     foreach (ListViewItem item in lvTesting)
                     {
-                        await Task.Delay(pingTimeout);  // Тут задержка между пинг-запросами из настроек
+                        await Task.Delay(pingTimeout);  // Тут задержка между ping-запросами из настроек
                         var ip = IPAddress.Parse(item.SubItems[1].Text.ToString());
-                        PingReply resp = await ping.SendPingAsync(ip);
-                        if (resp != null)
+
+                        try
                         {
-                            // Доступность
-
-                            if (item.SubItems[2].Text.ToString() != " - ")
+                            PingReply resp = await ping.SendPingAsync(ip);
+                            if (resp != null)
                             {
-                                if (resp.Status == IPStatus.Success)
+                                // Доступность
+
+                                if (item.SubItems[2].Text.ToString() != " - ")
                                 {
-                                    item.SubItems[2].Text = "Online";
-                                    nodesOnline++;                                    
-                                }
-                                else
-                                {
-                                    item.SubItems[2].Text = "Offline";
-                                    nodesOffline++;
-                                }
-                            }
-
-                            // Время отклика
-
-                            if (item.SubItems[3].Text.ToString() != " - " && resp.Status == IPStatus.Success)
-                                item.SubItems[3].Text = resp.RoundtripTime.ToString() + " мс";
-
-                            // Потери пакетов
-
-                            if (item.SubItems[4].Text.ToString() != " - ")
-                            {
-                                PingReply respPL = await ping.SendPingAsync(ip);
-                                for (int i = 0; i < pingAmount; i++)
-                                    if (respPL.Status != IPStatus.Success)
-                                        failedPings += 1;
-                                packetLoss = Convert.ToInt32((Convert.ToDouble(failedPings) / Convert.ToDouble(pingAmount)) * 100);
-                                item.SubItems[4].Text = packetLoss.ToString() + "%";
-                                failedPings = 0;
-                                packetLoss = 0;
-                            }
-
-                            if (item.SubItems[5].Text.ToString() != " - "
-                                && item.SubItems[5].Text.Length > 0)
-                            {
-                                // Службы указанные для мониторинга
-
-                                string[] mServices = item.SubItems[5].Text.Split(';');
-
-                                List<string> servicesOnline = new List<string>();
-                                List<string> servicesOffline = new List<string>();
-
-                                foreach (string mService in mServices)
-                                {
-                                    try
+                                    if (resp.Status == IPStatus.Success)
                                     {
-                                        // Узнаём статус службы на удалённом ПК
+                                        item.SubItems[2].Text = "Online";
+                                        nodesOnline++;
+                                    }
+                                    else
+                                    {
+                                        item.SubItems[2].Text = "Offline";
+                                        nodesOffline++;
+                                    }
+                                }
 
-                                        Process[] runningProcesses = Process.GetProcessesByName(mService, item.SubItems[0].Text);
+                                // Время отклика
 
-                                        if (runningProcesses.Length > 0)
+                                if (item.SubItems[3].Text.ToString() != " - " && resp.Status == IPStatus.Success)
+                                    item.SubItems[3].Text = resp.RoundtripTime.ToString() + " мс";
+
+                                // Потери пакетов
+
+                                if (item.SubItems[4].Text.ToString() != " - ")
+                                {
+                                    PingReply respPL = await ping.SendPingAsync(ip);
+                                    for (int i = 0; i < pingAmount; i++)
+                                        if (respPL.Status != IPStatus.Success)
+                                            failedPings += 1;
+                                    packetLoss = Convert.ToInt32((Convert.ToDouble(failedPings) / Convert.ToDouble(pingAmount)) * 100);
+                                    item.SubItems[4].Text = packetLoss.ToString() + "%";
+                                    failedPings = 0;
+                                    packetLoss = 0;
+                                }
+
+                                if (item.SubItems[5].Text.ToString() != " - "
+                                    && item.SubItems[5].Text.Length > 0)
+                                {
+                                    // Службы указанные для мониторинга
+
+                                    string[] mServices = item.SubItems[5].Text.Split(';');
+
+                                    List<string> servicesOnline = new List<string>();
+                                    List<string> servicesOffline = new List<string>();
+
+                                    foreach (string mService in mServices)
+                                    {
+                                        try
                                         {
-                                            servicesOnline.Add(mService);
+                                            // Узнаём статус службы на удалённом ПК
 
-                                        }
-                                        else
-                                        {
-                                            if (mService.Length > 0)
+                                            Process[] runningProcesses = Process.GetProcessesByName(mService, item.SubItems[0].Text);
+
+                                            if (runningProcesses.Length > 0)                                            
+                                                servicesOnline.Add(mService);                                            
+                                            else if(mService.Length > 0)
                                             {
                                                 servicesOffline.Add(mService);
 
                                                 // Уведомить пользователя о проблеме - "служба не выполняется"
 
                                                 MessageBox.Show("Служба " + mService + " не найдена на устройстве " + item.SubItems[0].Text);
-                                                label5.Text = servicesOffline.Count.ToString();
+                                                label5.Text = servicesOffline.Count.ToString();                                                
                                             }
                                         }
-                                        
+                                        catch (Exception){}
                                     }
-                                    catch (Exception)
+                                    item.SubItems[5].Text = "";
+
+                                    foreach (string service in servicesOnline)
                                     {
-                                       
+                                        item.SubItems[5].Text += service + ";";
                                     }
+
                                 }
-
-                                item.SubItems[5].Text = "";
-
-                                foreach (string service in servicesOnline)
-                                {
-                                    item.SubItems[5].Text += service + ";";
-                                }                                
-
                             }
                         }
+                        catch (Exception){}
                     }
 
                     label3.Text = nodesOnline.ToString();

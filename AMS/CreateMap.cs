@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Runtime.InteropServices;
 
 namespace AMS
 {
@@ -19,6 +21,9 @@ namespace AMS
         // Для связи с элементом карты главной формы
 
         public TabControl tc;
+
+        [DllImport("iphlpapi.dll", ExactSpelling = true)]
+        private static extern int SendARP(int destIp, int srcIP, byte[] macAddr, ref uint physicalAddrLen);
 
         // Формируем новые узлы
 
@@ -96,7 +101,7 @@ namespace AMS
                         // Стандарт передачи данных
 
                         if (activeNodeItem.SubItems.Count > 5 && activeNodeItem.SubItems[5].Text != " - ")
-                            node.Standart = activeNodeItem.SubItems[5].Text;
+                            node.Standard = activeNodeItem.SubItems[5].Text;
 
                         // Протокол передачи данных
 
@@ -242,7 +247,7 @@ namespace AMS
 
             try
             {
-                // Cоздаем класс управления событиями в потоке
+                // Создаём класс управления событиями в потоке
 
                 AutoResetEvent waiter = new AutoResetEvent(false);
 
@@ -297,16 +302,30 @@ namespace AMS
 
                             lvi2.Text = activeHostIP;
 
+                            // Находим MAC-адрес узла
+
+                            if (IsInMyIPv4Subnet(lvi.Text))
+                            {
+                                
+                                IPAddress ip = IPAddress.Parse(lvi.Text); // IP-адрес узла для определения MAC-адреса
+
+                                byte[] macAddr = new byte[6];
+                                uint macAddrLen = (uint)macAddr.Length;
+
+                                if (SendARP(BitConverter.ToInt32(ip.GetAddressBytes(), 0), 0, macAddr, ref macAddrLen) != 0)
+                                    throw new InvalidOperationException("SendARP failed.");
+
+                                string[] str = new string[(int)macAddrLen];
+                                for (int i = 0; i < macAddrLen; i++)
+                                    str[i] = macAddr[i].ToString("x2");
+                                if (str.Length > 0)
+                                    lvi2.SubItems.Add(string.Join(":", str));
+                            }
+
                             if (activeHostName != null && activeHostName.Length > 0)
                             {
-                                // MAC-адрес
-
-                                lvi2.SubItems.Add("");
-
                                 // Имя узла
-
-                                lvi2.SubItems.Add(activeHostName);
-                                
+                                lvi2.SubItems.Add(activeHostName);                                
                             }
 
                             listView2.Items.Add(lvi2);
@@ -385,12 +404,37 @@ namespace AMS
                     lvi = listView2.SelectedItems[0]                    
                 };
 
-                foreach (ListViewItem eachItem in listView2.SelectedItems)
-                    listView2.Items.Remove(eachItem);
-
                 editNode.ShowDialog();
             }
 
+        }
+
+        // Находится ли узел в одной подсети с АСМ
+        private static bool IsInMyIPv4Subnet(string IP)
+        {
+            IPAddress[] addresses = Dns.GetHostAddresses(Dns.GetHostName());
+            foreach (IPAddress address in addresses)
+                if (address.AddressFamily == AddressFamily.InterNetwork && IsMatchMask(IPAddress.Parse(IP), address, 16))
+                    return true;
+            return false;
+        }
+
+        // Находятся ли два узла в одной подсети
+        private static bool IsMatchMask(IPAddress ipAddress, IPAddress subnetAsIp, byte subnetLength)
+        {
+            if (ipAddress.AddressFamily != AddressFamily.InterNetwork
+                || subnetAsIp.AddressFamily != AddressFamily.InterNetwork
+                || subnetLength >= 32)
+                return false;
+
+            byte[] ipBytes = ipAddress.GetAddressBytes();
+            byte[] maskBytes = subnetAsIp.GetAddressBytes();
+
+            uint ip = (uint)unchecked((ipBytes[0] << 24) | (ipBytes[1] << 16) | (ipBytes[2] << 8) | ipBytes[3]);
+            uint mask = (uint)unchecked((maskBytes[0] << 24) | (maskBytes[1] << 16) | (maskBytes[2] << 8) | maskBytes[3]);
+            uint significantBits = uint.MaxValue << (32 - subnetLength);
+
+            return (ip & significantBits) == (mask & significantBits);
         }
     }
 }

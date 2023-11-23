@@ -64,7 +64,8 @@ namespace AMS
         {
             // Получаем имя узла
 
-            textBox1.Text = lvi.SubItems[2].Text;
+            if (lvi.SubItems.Count > 2)
+                textBox1.Text = lvi.SubItems[2].Text;
 
             if (lvi.Text.Length > 0)
             {
@@ -105,10 +106,7 @@ namespace AMS
                                     detectedProcesses.Add(runningProcess.ProcessName);
                         }
                     }
-                    catch (Exception exception)
-                    {
-                        MessageBox.Show(exception.Message);
-                    }
+                    catch (Exception){}
                 }
             }
 
@@ -215,6 +213,8 @@ namespace AMS
                 activeNode.SubItems.Add(" - ");
 
             // Передаём новые данные узла в конструктор карты
+            foreach (ListViewItem eachItem in lv.SelectedItems)
+                lv.Items.Remove(eachItem);
 
             lv.Items.Add(activeNode);
 
@@ -224,6 +224,7 @@ namespace AMS
         // Отмена
         private void button8_Click(object sender, EventArgs e)
         {
+
             Close();
         }
     }

@@ -51,7 +51,7 @@ namespace AMS
             {
                 Name = textBox1.Text,
                 Type = listBox1.Text,
-                Standart = comboBox1.Text,
+                Standard = comboBox1.Text,
                 Protocol = comboBox2.Text,
                 Ip = textBox2.Text,
                 Mac = textBox3.Text,

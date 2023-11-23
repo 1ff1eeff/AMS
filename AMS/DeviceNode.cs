@@ -86,8 +86,8 @@ namespace AMS
             if (!String.IsNullOrEmpty(dNodeInfo.Type))
                 tip += "Тип устройства: " + dNodeInfo.Type + "\n";
 
-            if (!String.IsNullOrEmpty(dNodeInfo.Standart))
-                tip += "Стандарт передачи: " + dNodeInfo.Standart + "\n";
+            if (!String.IsNullOrEmpty(dNodeInfo.Standard))
+                tip += "Стандарт передачи: " + dNodeInfo.Standard + "\n";
 
             if (!String.IsNullOrEmpty(dNodeInfo.Protocol))
                 tip += "Протокол передачи: " + dNodeInfo.Protocol + "\n";

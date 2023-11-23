@@ -36,7 +36,6 @@ namespace AMS
             this.CreateNode = new System.Windows.Forms.Button();
             this.CreateTest = new System.Windows.Forms.Button();
             this.GraphAndStat = new System.Windows.Forms.Button();
-            this.Indicators = new System.Windows.Forms.Button();
             this.Settings = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
@@ -62,6 +61,7 @@ namespace AMS
             this.label2 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -111,7 +111,7 @@ namespace AMS
             this.CreateTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CreateTest.Image = ((System.Drawing.Image)(resources.GetObject("CreateTest.Image")));
             this.CreateTest.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.CreateTest.Location = new System.Drawing.Point(206, 3);
+            this.CreateTest.Location = new System.Drawing.Point(306, 4);
             this.CreateTest.Name = "CreateTest";
             this.CreateTest.Size = new System.Drawing.Size(94, 109);
             this.CreateTest.TabIndex = 2;
@@ -125,7 +125,7 @@ namespace AMS
             this.GraphAndStat.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.GraphAndStat.Image = ((System.Drawing.Image)(resources.GetObject("GraphAndStat.Image")));
             this.GraphAndStat.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.GraphAndStat.Location = new System.Drawing.Point(306, 3);
+            this.GraphAndStat.Location = new System.Drawing.Point(406, 4);
             this.GraphAndStat.Name = "GraphAndStat";
             this.GraphAndStat.Size = new System.Drawing.Size(94, 109);
             this.GraphAndStat.TabIndex = 3;
@@ -133,20 +133,6 @@ namespace AMS
             this.GraphAndStat.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.GraphAndStat.UseVisualStyleBackColor = true;
             this.GraphAndStat.Click += new System.EventHandler(this.GraphAndStat_Click);
-            // 
-            // Indicators
-            // 
-            this.Indicators.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Indicators.Image = ((System.Drawing.Image)(resources.GetObject("Indicators.Image")));
-            this.Indicators.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.Indicators.Location = new System.Drawing.Point(406, 4);
-            this.Indicators.Name = "Indicators";
-            this.Indicators.Size = new System.Drawing.Size(94, 108);
-            this.Indicators.TabIndex = 4;
-            this.Indicators.Text = "Индикаторы";
-            this.Indicators.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.Indicators.UseVisualStyleBackColor = true;
-            this.Indicators.Click += new System.EventHandler(this.Indicators_Click);
             // 
             // Settings
             // 
@@ -204,11 +190,11 @@ namespace AMS
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.button4);
             this.splitContainer1.Panel1.Controls.Add(this.CreateMap);
             this.splitContainer1.Panel1.Controls.Add(this.CreateTest);
             this.splitContainer1.Panel1.Controls.Add(this.CreateNode);
             this.splitContainer1.Panel1.Controls.Add(this.GraphAndStat);
-            this.splitContainer1.Panel1.Controls.Add(this.Indicators);
             this.splitContainer1.Panel1.Controls.Add(this.Settings);
             // 
             // splitContainer1.Panel2
@@ -238,7 +224,7 @@ namespace AMS
             this.splitContainer2.Panel2.Controls.Add(this.button3);
             this.splitContainer2.Panel2.Controls.Add(this.button1);
             this.splitContainer2.Size = new System.Drawing.Size(606, 339);
-            this.splitContainer2.SplitterDistance = 279;
+            this.splitContainer2.SplitterDistance = 280;
             this.splitContainer2.SplitterWidth = 3;
             this.splitContainer2.TabIndex = 7;
             // 
@@ -256,7 +242,7 @@ namespace AMS
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.listView1);
-            this.splitContainer3.Size = new System.Drawing.Size(606, 279);
+            this.splitContainer3.Size = new System.Drawing.Size(606, 280);
             this.splitContainer3.SplitterDistance = 173;
             this.splitContainer3.SplitterWidth = 3;
             this.splitContainer3.TabIndex = 7;
@@ -275,7 +261,7 @@ namespace AMS
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(606, 103);
+            this.listView1.Size = new System.Drawing.Size(606, 104);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -427,6 +413,19 @@ namespace AMS
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // button4
+            // 
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button4.Image = ((System.Drawing.Image)(resources.GetObject("button4.Image")));
+            this.button4.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button4.Location = new System.Drawing.Point(206, 3);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(94, 109);
+            this.button4.TabIndex = 6;
+            this.button4.Text = "Редактировать устройство";
+            this.button4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.button4.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -460,7 +459,6 @@ namespace AMS
         private Button CreateNode;
         private Button CreateTest;
         private Button GraphAndStat;
-        private Button Indicators;
         private Button Settings;
         private TabPage tabPage1;
         private TabControl tabControl1;
@@ -486,6 +484,7 @@ namespace AMS
         private Label label4;
         private Label label2;
         private Label label1;
+        private Button button4;
     }
 }
 
