@@ -51,6 +51,8 @@ namespace AMS
             this.button12 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,7 +60,7 @@ namespace AMS
             // 
             this.textBox1.Location = new System.Drawing.Point(12, 24);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(270, 20);
+            this.textBox1.Size = new System.Drawing.Size(130, 20);
             this.textBox1.TabIndex = 26;
             // 
             // button7
@@ -351,9 +353,9 @@ namespace AMS
             this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.label2.Location = new System.Drawing.Point(12, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 15);
+            this.label2.Size = new System.Drawing.Size(111, 15);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Имя узла";
+            this.label2.Text = "NetBIOS имя узла";
             // 
             // panel1
             // 
@@ -372,7 +374,7 @@ namespace AMS
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(269, 45);
             this.button12.TabIndex = 0;
-            this.button12.Text = "(Тестирование)\r\nЗаполнить поля";
+            this.button12.Text = "(Тестирование)\r\nЭтот компьютер";
             this.button12.UseVisualStyleBackColor = false;
             this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
@@ -390,11 +392,30 @@ namespace AMS
             this.textBox3.Size = new System.Drawing.Size(129, 20);
             this.textBox3.TabIndex = 29;
             // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(154, 24);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(130, 20);
+            this.textBox4.TabIndex = 31;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(154, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(111, 15);
+            this.label1.TabIndex = 30;
+            this.label1.Text = "Имя узла на карте";
+            // 
             // CreateNode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(581, 273);
+            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.panel1);
@@ -443,5 +464,7 @@ namespace AMS
         private Button button12;
         private TextBox textBox2;
         private TextBox textBox3;
+        private TextBox textBox4;
+        private Label label1;
     }
 }

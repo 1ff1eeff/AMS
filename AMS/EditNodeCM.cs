@@ -1,65 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
 using System.Net;
-using System.Net.Sockets;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace AMS
 {
-    public partial class EditNode : Form
+    public partial class EditNodeCM : Form
     {
         public System.Windows.Forms.ListView lv;
         public ListViewItem lvi;
-
-        [DllImport("iphlpapi.dll", ExactSpelling = true)]
-        private static extern int SendARP(int destIp, int srcIP, byte[] macAddr, ref uint physicalAddrLen);
-
+        
         private List<string> detectedProcesses = new List<string>();
 
-
-        // Находится ли узел в одной подсети с АСМ
-        private static bool IsInMyIPv4Subnet(string IP)
-        {
-            IPAddress[] addresses = Dns.GetHostAddresses(Dns.GetHostName());
-            foreach (IPAddress address in addresses)
-                if (address.AddressFamily == AddressFamily.InterNetwork && IsMatchMask(IPAddress.Parse(IP), address, 16))
-                    return true;
-            return false;
-        }
-
-        // Находятся ли два узла в одной подсети
-        private static bool IsMatchMask(IPAddress ipAddress, IPAddress subnetAsIp, byte subnetLength)
-        {
-            if (ipAddress.AddressFamily != AddressFamily.InterNetwork
-                || subnetAsIp.AddressFamily != AddressFamily.InterNetwork
-                || subnetLength >= 32)
-                return false;
-
-            byte[] ipBytes = ipAddress.GetAddressBytes();
-            byte[] maskBytes = subnetAsIp.GetAddressBytes();
-
-            uint ip = (uint)unchecked((ipBytes[0] << 24) | (ipBytes[1] << 16) | (ipBytes[2] << 8) | ipBytes[3]);
-            uint mask = (uint)unchecked((maskBytes[0] << 24) | (maskBytes[1] << 16) | (maskBytes[2] << 8) | maskBytes[3]);
-            uint significantBits = uint.MaxValue << (32 - subnetLength);
-
-            return (ip & significantBits) == (mask & significantBits);
-        }
-
-        public EditNode()
+        public EditNodeCM()
         {
             InitializeComponent();
         }
 
+        // Получаем информацию об узле
         private void EditNode_Load(object sender, EventArgs e)
         {
             // Получаем имя узла
@@ -67,54 +26,39 @@ namespace AMS
             if (lvi.SubItems.Count > 2)
                 textBox1.Text = lvi.SubItems[2].Text;
 
+            // Получаем имя узла на карте
+            if (lvi.SubItems.Count > 2)
+                textBox4.Text = lvi.SubItems[7].Text;
+
+            // Получаем IP-адрес узла
+
             if (lvi.Text.Length > 0)
+                textBox2.Text = lvi.Text;    
+                                             
+            // Получаем MAC-адрес узла
+            
+            if (lvi.SubItems.Count > 1)
+                textBox3.Text = lvi.SubItems[1].Text; 
+
+            // Формируем список запущенных процессов по DNS-имени узла
+            DNode node = new DNode();
+            if (node.IsInMyIPv4Subnet(IPAddress.Parse(lvi.Text)))
             {
-                // Получаем IP-адрес узла
-
-                textBox2.Text = lvi.Text;                                
-
-                if (IsInMyIPv4Subnet(lvi.Text))
+                try
                 {
-                    // Находим MAC-адрес узла
+                    Process[] runningProcesses = Process.GetProcesses(lvi.SubItems[2].Text);
 
-                    IPAddress ip = IPAddress.Parse(lvi.Text); // IP-адрес узла для определения MAC-адреса
+                    if (runningProcesses.Length > 0)
 
-                    byte[] macAddr = new byte[6];
-                    uint macAddrLen = (uint)macAddr.Length;
+                        foreach (Process runningProcess in runningProcesses)
 
-                    if (SendARP(BitConverter.ToInt32(ip.GetAddressBytes(), 0), 0, macAddr, ref macAddrLen) != 0)
-                        throw new InvalidOperationException("SendARP failed.");
+                            // Если процесс найден добавляем в список
 
-                    string[] str = new string[(int)macAddrLen];
-                    for (int i = 0; i < macAddrLen; i++)
-                        str[i] = macAddr[i].ToString("x2");
-                    if (str.Length > 0)
-                        textBox3.Text = string.Join(":", str);
-
-                    // Находим запущенные процессы
-                    try
-                    {
-                        Process[] runningProcesses = Process.GetProcesses(lvi.SubItems[2].Text);
-
-                        if (runningProcesses.Length > 0)
-                        {
-                            foreach (Process runningProcess in runningProcesses)
-
-                                // Если процесс найден
-
-                                if (runningProcess.ProcessName.Length > 0)
-                                    detectedProcesses.Add(runningProcess.ProcessName);
-                        }
-                    }
-                    catch (Exception){}
+                            if (runningProcess.ProcessName.Length > 0)
+                                detectedProcesses.Add(runningProcess.ProcessName);
                 }
+                catch (Exception) { }
             }
-
-        }
-
-        private void listBox1_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            textBox1.Text += " (" + listBox1.GetItemText(listBox1.SelectedItem) + ")";
         }
 
         // Добавить сервис
@@ -212,6 +156,13 @@ namespace AMS
             else
                 activeNode.SubItems.Add(" - ");
 
+            // Имя узла на карте
+
+            if (textBox4.Text.Length > 0)
+                activeNode.SubItems.Add(textBox4.Text);
+            else
+                activeNode.SubItems.Add(" - ");
+
             // Передаём новые данные узла в конструктор карты
             foreach (ListViewItem eachItem in lv.SelectedItems)
                 lv.Items.Remove(eachItem);
@@ -224,7 +175,6 @@ namespace AMS
         // Отмена
         private void button8_Click(object sender, EventArgs e)
         {
-
             Close();
         }
     }

@@ -1,14 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Net;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMS
@@ -16,7 +7,7 @@ namespace AMS
     public partial class CreateTest : Form
     {
         // Информация о выбранных узлах
-        public List<DNodeInfo> selectedNodes = new List<DNodeInfo>();
+        public List<DNode> selectedNodes = new List<DNode>();
         public ListView lvMonitoringNodes = new ListView();
 
         public CreateTest()
@@ -28,11 +19,11 @@ namespace AMS
         private void button1_Click(object sender, EventArgs e)
         {
             if (selectedNodes.Count != 0)
-                foreach (DNodeInfo selectedNode in selectedNodes)
+                foreach (DNode selectedNode in selectedNodes)
                 {
                     string[] nodeStatus = new string[] { "", "", "", "", "", "" };
 
-                    nodeStatus[0] = selectedNode.Name;
+                    nodeStatus[0] = selectedNode.NameOnMap;
 
                     nodeStatus[1] = selectedNode.Ip;
 
@@ -62,7 +53,7 @@ namespace AMS
         private void CreateTest_Load(object sender, EventArgs e)
         {
             if (selectedNodes.Count != 0)
-                foreach (DNodeInfo selectedNode in selectedNodes)                
+                foreach (DNode selectedNode in selectedNodes)                
                     listBox1.Items.Add(selectedNode.Name + " " + selectedNode.Ip);                
         }        
     }

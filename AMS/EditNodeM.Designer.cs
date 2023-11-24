@@ -1,6 +1,6 @@
 ﻿namespace AMS
 {
-    partial class EditNode
+    partial class EditNodeM
     {
         /// <summary>
         /// Required designer variable.
@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.button1 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.button10 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.listBox4 = new System.Windows.Forms.ListBox();
@@ -44,33 +46,59 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(204, 171);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(77, 23);
+            this.button1.TabIndex = 70;
+            this.button1.Text = "Обнаружить";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(123, 322);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(77, 23);
+            this.button7.TabIndex = 68;
+            this.button7.Text = "ОК";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(205, 322);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(77, 23);
+            this.button8.TabIndex = 69;
+            this.button8.Text = "Отмена";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // textBox3
             // 
-            this.textBox3.Enabled = false;
-            this.textBox3.Location = new System.Drawing.Point(438, 26);
+            this.textBox3.Location = new System.Drawing.Point(153, 66);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(129, 20);
-            this.textBox3.TabIndex = 48;
+            this.textBox3.TabIndex = 67;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(297, 26);
+            this.textBox2.Location = new System.Drawing.Point(12, 66);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(129, 20);
-            this.textBox2.TabIndex = 47;
+            this.textBox2.TabIndex = 66;
             // 
             // textBox1
             // 
-            this.textBox1.Enabled = false;
             this.textBox1.Location = new System.Drawing.Point(12, 26);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(270, 20);
-            this.textBox1.TabIndex = 45;
+            this.textBox1.TabIndex = 65;
             // 
             // label2
             // 
@@ -79,94 +107,35 @@
             this.label2.Location = new System.Drawing.Point(12, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(60, 15);
-            this.label2.TabIndex = 31;
+            this.label2.TabIndex = 52;
             this.label2.Text = "Имя узла";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.label3.Location = new System.Drawing.Point(12, 56);
+            this.label3.Location = new System.Drawing.Point(12, 197);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(94, 15);
-            this.label3.TabIndex = 33;
+            this.label3.TabIndex = 53;
             this.label3.Text = "Тип устройства";
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Items.AddRange(new object[] {
-            "Сеть",
-            "Компьютер",
-            "Принтер сетевой",
-            "Сервер",
-            "Роутер",
-            "Ноутбук",
-            "Web-сервер",
-            "Коммутатор",
-            "Proxy-сервер",
-            "Сервер баз данных",
-            "Факс",
-            "Брандмауэр",
-            "Здание",
-            "Почтовый сервер",
-            "Смартфон",
-            "Спутниковая антенна",
-            "Файловый сервер",
-            "Точка доступа",
-            "ADSL-модем",
-            "GPS/ГЛОНАСС",
-            "Мобильный телефон",
-            "Фотокамера",
-            "Видеокамера",
-            "Сканер",
-            "Сервер времени",
-            "Радиороутер",
-            "Игровая приставка",
-            "DVD-плеер",
-            "Медиаплеер",
-            "VoIP-шлюз",
-            "IP-видеотелефон",
-            "IP-телефон",
-            "Хаб",
-            "Принтер локальный",
-            "Мэйнфрейм",
-            "Кластер",
-            "Планшет",
-            "Видеопроектор",
-            "IP-ATC",
-            "Контроллер домена",
-            "DNS-сервер",
-            "Терминальный сервер",
-            "Виртуальный сервер",
-            "Виртуальный компьютер",
-            "Спутник",
-            "Оптический узел",
-            "Сетевое хранилище",
-            "Ленточная библиотека",
-            "ИБП",
-            "Плоттер"});
-            this.listBox1.Location = new System.Drawing.Point(12, 72);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(270, 160);
-            this.listBox1.TabIndex = 34;
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(490, 101);
+            this.button10.Location = new System.Drawing.Point(205, 141);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(77, 23);
-            this.button10.TabIndex = 44;
+            this.button10.TabIndex = 64;
             this.button10.Text = "Удалить";
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(489, 72);
+            this.button11.Location = new System.Drawing.Point(204, 112);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(77, 23);
-            this.button11.TabIndex = 43;
+            this.button11.TabIndex = 63;
             this.button11.Text = "Добавить";
             this.button11.UseVisualStyleBackColor = true;
             this.button11.Click += new System.EventHandler(this.button11_Click);
@@ -174,29 +143,29 @@
             // listBox4
             // 
             this.listBox4.FormattingEnabled = true;
-            this.listBox4.Location = new System.Drawing.Point(297, 72);
+            this.listBox4.Location = new System.Drawing.Point(12, 112);
             this.listBox4.Name = "listBox4";
             this.listBox4.Size = new System.Drawing.Size(187, 82);
-            this.listBox4.TabIndex = 42;
+            this.listBox4.TabIndex = 62;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.label5.Location = new System.Drawing.Point(297, 9);
+            this.label5.Location = new System.Drawing.Point(12, 49);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(56, 15);
-            this.label5.TabIndex = 35;
+            this.label5.TabIndex = 55;
             this.label5.Text = "IP-адрес";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.label12.Location = new System.Drawing.Point(297, 56);
+            this.label12.Location = new System.Drawing.Point(12, 96);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(59, 15);
-            this.label12.TabIndex = 41;
+            this.label12.TabIndex = 61;
             this.label12.Text = "Сервисы";
             // 
             // comboBox2
@@ -289,19 +258,19 @@
             "WAP",
             "X.25",
             "XNS"});
-            this.comboBox2.Location = new System.Drawing.Point(297, 211);
+            this.comboBox2.Location = new System.Drawing.Point(12, 293);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(270, 21);
-            this.comboBox2.TabIndex = 40;
+            this.comboBox2.TabIndex = 60;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.label9.Location = new System.Drawing.Point(297, 195);
+            this.label9.Location = new System.Drawing.Point(12, 277);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(171, 15);
-            this.label9.TabIndex = 39;
+            this.label9.TabIndex = 59;
             this.label9.Text = "Протокол передачи пакетов";
             // 
             // comboBox1
@@ -320,66 +289,96 @@
             "1000Base-LX Gigabit Ethernet 1000 Mb/s",
             "1000Base-SX Gigabit Ethernet 1000 Mb/s",
             "1000Base-T Gigabit Ethernet 1000 Mb/s"});
-            this.comboBox1.Location = new System.Drawing.Point(297, 173);
+            this.comboBox1.Location = new System.Drawing.Point(12, 255);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(270, 21);
-            this.comboBox1.TabIndex = 38;
+            this.comboBox1.TabIndex = 58;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.label8.Location = new System.Drawing.Point(297, 157);
+            this.label8.Location = new System.Drawing.Point(12, 239);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(163, 15);
-            this.label8.TabIndex = 37;
+            this.label8.TabIndex = 57;
             this.label8.Text = "Стандарт передачи данных";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.label6.Location = new System.Drawing.Point(438, 10);
+            this.label6.Location = new System.Drawing.Point(153, 50);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(71, 15);
-            this.label6.TabIndex = 36;
+            this.label6.TabIndex = 56;
             this.label6.Text = "MAC-адрес";
             // 
-            // button7
+            // comboBox3
             // 
-            this.button7.Location = new System.Drawing.Point(407, 241);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(77, 23);
-            this.button7.TabIndex = 49;
-            this.button7.Text = "ОК";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "Сеть",
+            "Компьютер",
+            "Принтер сетевой",
+            "Сервер",
+            "Роутер",
+            "Ноутбук",
+            "Web-сервер",
+            "Коммутатор",
+            "Proxy-сервер",
+            "Сервер баз данных",
+            "Факс",
+            "Брандмауэр",
+            "Здание",
+            "Почтовый сервер",
+            "Смартфон",
+            "Спутниковая антенна",
+            "Файловый сервер",
+            "Точка доступа",
+            "ADSL-модем",
+            "GPS/ГЛОНАСС",
+            "Мобильный телефон",
+            "Фотокамера",
+            "Видеокамера",
+            "Сканер",
+            "Сервер времени",
+            "Радиороутер",
+            "Игровая приставка",
+            "DVD-плеер",
+            "Медиаплеер",
+            "VoIP-шлюз",
+            "IP-видеотелефон",
+            "IP-телефон",
+            "Хаб",
+            "Принтер локальный",
+            "Мэйнфрейм",
+            "Кластер",
+            "Планшет",
+            "Видеопроектор",
+            "IP-ATC",
+            "Контроллер домена",
+            "DNS-сервер",
+            "Терминальный сервер",
+            "Виртуальный сервер",
+            "Виртуальный компьютер",
+            "Спутник",
+            "Оптический узел",
+            "Сетевое хранилище",
+            "Ленточная библиотека",
+            "ИБП",
+            "Плоттер"});
+            this.comboBox3.Location = new System.Drawing.Point(11, 215);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(270, 21);
+            this.comboBox3.TabIndex = 71;
             // 
-            // button8
-            // 
-            this.button8.Location = new System.Drawing.Point(489, 241);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(77, 23);
-            this.button8.TabIndex = 50;
-            this.button8.Text = "Отмена";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(489, 131);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(77, 23);
-            this.button1.TabIndex = 51;
-            this.button1.Text = "Обнаружить";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // EditNode
+            // EditNodeM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(581, 273);
+            this.ClientSize = new System.Drawing.Size(296, 357);
+            this.Controls.Add(this.comboBox3);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button8);
@@ -388,7 +387,6 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.button11);
             this.Controls.Add(this.listBox4);
@@ -399,9 +397,9 @@
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label6);
-            this.Name = "EditNode";
+            this.Name = "EditNodeM";
             this.Text = "Редактирование узла";
-            this.Load += new System.EventHandler(this.EditNode_Load);
+            this.Load += new System.EventHandler(this.EditNodeM_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -409,12 +407,14 @@
 
         #endregion
 
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.ListBox listBox4;
@@ -425,8 +425,6 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ComboBox comboBox3;
     }
 }

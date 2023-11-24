@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,12 +13,14 @@ namespace AMS
 {
     public partial class DeviceNode : UserControl
     {
-        // Экземпляр dNodeInfo
-        public DNodeInfo dNodeInfo = new DNodeInfo();
-        // Точка перемещения
-        Point DownPoint;
-        // Нажата ли кнопка мыши
-        bool IsDragMode;
+
+        private DNode dNode = new DNode(); // Экземпляр DNode
+
+        Point DownPoint; // Точка перемещения
+
+        bool IsDragMode; // Нажата ли кнопка мыши
+
+        public DNode DNode { get => dNode; set => dNode = value; }
 
         public DeviceNode()
         {
@@ -60,47 +63,74 @@ namespace AMS
             Parent.Controls.Remove(this);
         }
 
-        private void DeviceNode_Load(object sender, EventArgs e)
+        public string DeviceInfoTip()
         {
-            label1.Text = dNodeInfo.Name;
-
             // Текст всплывающей подсказки
 
             string tip = "";
 
-            if (!String.IsNullOrEmpty(dNodeInfo.Name))
-                tip += "Имя узла: " + dNodeInfo.Name + "\n";
+            //// ID
 
-            if (dNodeInfo.Ip.Length != 0)
+            //tip += "ID: " + DNode.Id + "\n";
+
+            // Имя узла
+
+            if (DNode.Name.Length > 0)
+                tip += "NetBIOS имя узла: " + DNode.Name + "\n";
+
+            // Имя узла на карте
+
+            if (DNode.Name.Length > 0)
+                tip += "Имя узла на карте: " + DNode.NameOnMap + "\n";
+
+            // IP-адрес
+
+            if (DNode.Ip.Length > 0)
             {
                 tip += "IP-адрес: ";
-                tip += dNodeInfo.Ip + " \n";
+                tip += DNode.Ip + " \n";
             }
 
-            if (dNodeInfo.Mac.Length != 0)
+            // MAC - адрес
+
+            if (DNode.Mac.Length > 0)
             {
                 tip += "MAC-адрес: ";
-                tip += dNodeInfo.Mac + " \n";
+                tip += DNode.Mac + " \n";
             }
 
-            if (!String.IsNullOrEmpty(dNodeInfo.Type))
-                tip += "Тип устройства: " + dNodeInfo.Type + "\n";
+            // Тип устройства
 
-            if (!String.IsNullOrEmpty(dNodeInfo.Standard))
-                tip += "Стандарт передачи: " + dNodeInfo.Standard + "\n";
+            if (DNode.Type.Length > 0)
+                tip += "Тип устройства: " + DNode.Type + "\n";
 
-            if (!String.IsNullOrEmpty(dNodeInfo.Protocol))
-                tip += "Протокол передачи: " + dNodeInfo.Protocol + "\n";
+            // Стандарт передачи
 
-            if (dNodeInfo.Services.Length != 0)
+            if (DNode.Standard.Length > 0)
+                tip += "Стандарт передачи: " + DNode.Standard + "\n";
+
+            // Протокол передачи
+
+            if (DNode.Protocol.Length > 0)
+                tip += "Протокол передачи: " + DNode.Protocol + "\n";
+
+            // Сервисы
+
+            if (DNode.Services.Length > 0)
             {
                 tip += "Сервисы: ";
-                foreach (string s in dNodeInfo.Services)
+                foreach (string s in DNode.Services)
                     tip += s + " ";
                 tip += "\n";
             }
 
-            toolTip1.SetToolTip(this, tip);
+            return tip;
+        }
+
+        private void DeviceNode_Load(object sender, EventArgs e)
+        {
+            label1.Text = DNode.NameOnMap;
+            
         }
 
         private void DeviceNode_MouseClick(object sender, MouseEventArgs e)
@@ -112,11 +142,16 @@ namespace AMS
                     if (BorderStyle == BorderStyle.None) BorderStyle = BorderStyle.FixedSingle;
                     else BorderStyle = BorderStyle.None;
 
-                    if (dNodeInfo.IsSelected) dNodeInfo.IsSelected = !dNodeInfo.IsSelected;
-                    else dNodeInfo.IsSelected = !dNodeInfo.IsSelected;
+                    if (DNode.IsSelected) DNode.IsSelected = !DNode.IsSelected;
+                    else DNode.IsSelected = !DNode.IsSelected;
 
                     break;
             }
+        }
+
+        private void DeviceNode_DoubleClick(object sender, EventArgs e)
+        {
+            MessageBox.Show(DeviceInfoTip(), DNode.NameOnMap);
         }
     }
 }

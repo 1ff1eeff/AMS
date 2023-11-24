@@ -108,12 +108,19 @@
     <Compile Include="DeviceNode.Designer.cs">
       <DependentUpon>DeviceNode.cs</DependentUpon>
     </Compile>
-    <Compile Include="DNodeInfo.cs" />
-    <Compile Include="EditNode.cs">
+    <Compile Include="DNode.cs" />
+    <Compile Include="DNodes.cs" />
+    <Compile Include="EditNodeCM.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditNode.Designer.cs">
-      <DependentUpon>EditNode.cs</DependentUpon>
+    <Compile Include="EditNodeCM.Designer.cs">
+      <DependentUpon>EditNodeCM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditNodeM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditNodeM.Designer.cs">
+      <DependentUpon>EditNodeM.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -166,9 +173,12 @@
       <DependentUpon>DeviceNode.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="EditNode.resx">
-      <DependentUpon>EditNode.cs</DependentUpon>
+    <EmbeddedResource Include="EditNodeCM.resx">
+      <DependentUpon>EditNodeCM.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditNodeM.resx">
+      <DependentUpon>EditNodeM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

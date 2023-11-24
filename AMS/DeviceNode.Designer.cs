@@ -48,6 +48,13 @@ namespace AMS
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // toolTip1
+            // 
+            this.toolTip1.AutomaticDelay = 50;
+            this.toolTip1.AutoPopDelay = 0;
+            this.toolTip1.InitialDelay = 50;
+            this.toolTip1.ReshowDelay = 10;
+            // 
             // label1
             // 
             this.label1.AutoEllipsis = true;
@@ -76,6 +83,7 @@ namespace AMS
             this.Name = "DeviceNode";
             this.Size = new System.Drawing.Size(96, 96);
             this.Load += new System.EventHandler(this.DeviceNode_Load);
+            this.DoubleClick += new System.EventHandler(this.DeviceNode_DoubleClick);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DeviceNode_MouseClick);
             this.ResumeLayout(false);
 

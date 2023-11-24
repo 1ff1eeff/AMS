@@ -17,7 +17,7 @@ namespace AMS
 {
     public partial class Form1 : Form
     {
-        List<DNodeInfo> selectedNodes = new List<DNodeInfo>();
+        List<DNode> selectedNodes = new List<DNode>();
         CancellationTokenSource cts = new CancellationTokenSource();
         int pingTimeout = 1000;
 
@@ -46,17 +46,41 @@ namespace AMS
             createNode.ShowDialog();
         }
 
+        // Редактировать одно или несколько устройств
+        private void EditNode_Click(object sender, EventArgs e)
+        {
+            selectedNodes.Clear();
+
+            // Сохраняем все выделенные узлы на текущей карте
+
+            foreach (DeviceNode node in tabControl1.SelectedTab.Controls.OfType<DeviceNode>())
+            {
+                if (node.DNode.IsSelected)
+                    selectedNodes.Add(node.DNode);
+            }
+
+            foreach (var dNode in selectedNodes)
+            {
+                EditNodeM editNodeM = new EditNodeM()
+                {
+                    Node = dNode,
+                    tc = tabControl1
+                };
+                editNodeM.Show();
+            }
+        }
+
         // Модуль мониторинга
         private void CreateTest_Click(object sender, EventArgs e)
         {
             selectedNodes.Clear();
 
-            // Сохраняем все узлы выделенные на текущей карте
+            // Сохраняем все выделенные узлы на текущей карте
 
-            foreach (var node in tabControl1.SelectedTab.Controls.OfType<DeviceNode>())
+            foreach (DeviceNode node in tabControl1.SelectedTab.Controls.OfType<DeviceNode>())
             {
-                if (node.dNodeInfo.IsSelected)
-                    selectedNodes.Add(node.dNodeInfo);
+                if (node.DNode.IsSelected)
+                    selectedNodes.Add(node.DNode);
             }
 
             CreateTest createTest = new CreateTest()
@@ -64,6 +88,7 @@ namespace AMS
                 // Передаём данные о выделенных узлах в модуль мониторинга
 
                 selectedNodes = selectedNodes,
+
                 lvMonitoringNodes = listView1
             };
             createTest.ShowDialog();
@@ -252,9 +277,7 @@ namespace AMS
                     nodesOnline = 0;
                     nodesOffline = 0;
                 }
-
             }));
-
         }
     }
 }

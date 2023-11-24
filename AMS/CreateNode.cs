@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
 using System.Windows.Forms;
+using System.Net.Sockets;
 
 namespace AMS
 {
@@ -47,21 +44,23 @@ namespace AMS
         // ОК
         private void button7_Click(object sender, EventArgs e)
         {
-            DNodeInfo node = new DNodeInfo()
+            DNode node = new DNode()
             {
-                Name = textBox1.Text,
-                Type = listBox1.Text,
-                Standard = comboBox1.Text,
-                Protocol = comboBox2.Text,
+                Id = Guid.NewGuid().ToString(),
                 Ip = textBox2.Text,
                 Mac = textBox3.Text,
-                Services = GetAllListBoxText(listBox4)
+                Name = textBox1.Text,
+                Services = GetAllListBoxText(listBox4),
+                Type = listBox1.Text,
+                Standard = comboBox1.Text,
+                Protocol = comboBox2.Text,                
+                NameOnMap = textBox4.Text                
             };
 
             DeviceNode dn = new DeviceNode
             {
                 Location = new Point(10, 10),
-                dNodeInfo = node
+                DNode = node
             };
 
             tc.TabPages[tc.SelectedIndex].Controls.Add(dn);
@@ -78,13 +77,38 @@ namespace AMS
         // ТЕСТОВЫЙ РЕЖИМ! Заполняем произвольными данными
         private void button12_Click(object sender, EventArgs e)
         {
-            textBox1.Text = "DESKTOP-HTQEQ9D";
-            textBox2.Text = "192.168.0.102";
-            textBox3.Text = "fe80::288e:fdbd:d37b:a77c";
+
+            DNode node = new DNode();                       
+            string nodeName = Dns.GetHostName();
+            if (nodeName.Length > 0)
+            {
+                textBox2.Text = Dns.GetHostAddresses(nodeName).First<IPAddress>
+                                (f => f.AddressFamily == AddressFamily.InterNetwork).ToString(); ;
+                
+                textBox1.Text = nodeName;
+
+                node.SetMac(Dns.GetHostAddresses(nodeName).First<IPAddress>
+                                (f => f.AddressFamily == AddressFamily.InterNetwork));
+                
+                textBox3.Text = node.Mac;
+            }
+            else
+            {
+                node.Ip = "192.168.0.102";
+                node.Name = "DESKTOP-HTQEQ9D";
+                node.Mac = "2a:12:4c:10:0a:21";
+            }
+
+            textBox4.Text = "Мой компьютер";
+
+            listBox1.SelectedIndex = 1;
+
             listBox4.Items.Clear();
-            listBox4.Items.Add("FTP");
+            listBox4.Items.Add("AMS");
             listBox4.Items.Add("notepad");
+
             comboBox1.SelectedIndex = 4;
+
             comboBox2.SelectedIndex = 0;
         }
 
@@ -93,8 +117,6 @@ namespace AMS
         {
             if (listBox4.Items.Count > 0 && listBox4.SelectedIndex >= 0)
                 listBox4.Items.RemoveAt(listBox4.SelectedIndex);
-
         }
-
     }
 }
