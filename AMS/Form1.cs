@@ -24,6 +24,7 @@ namespace AMS
         public Form1()
         {
             InitializeComponent();
+
         }
 
         // Создать карту
@@ -137,6 +138,8 @@ namespace AMS
             {
                 if (button3.Text == "Начать мониторинг")
                 {
+
+
                     button3.Text = "Прекратить  мониторинг";
                     button2.Enabled = false;
 

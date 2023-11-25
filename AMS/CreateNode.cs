@@ -82,12 +82,12 @@ namespace AMS
             string nodeName = Dns.GetHostName();
             if (nodeName.Length > 0)
             {
-                textBox2.Text = Dns.GetHostAddresses(nodeName).First<IPAddress>
+                textBox2.Text = Dns.GetHostAddresses(nodeName).First
                                 (f => f.AddressFamily == AddressFamily.InterNetwork).ToString(); ;
                 
                 textBox1.Text = nodeName;
 
-                node.SetMac(Dns.GetHostAddresses(nodeName).First<IPAddress>
+                node.SetMac(Dns.GetHostAddresses(nodeName).First
                                 (f => f.AddressFamily == AddressFamily.InterNetwork));
                 
                 textBox3.Text = node.Mac;

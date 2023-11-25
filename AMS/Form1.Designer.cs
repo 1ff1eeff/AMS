@@ -238,7 +238,7 @@ namespace AMS
             this.splitContainer2.Panel2.Controls.Add(this.button3);
             this.splitContainer2.Panel2.Controls.Add(this.button1);
             this.splitContainer2.Size = new System.Drawing.Size(606, 339);
-            this.splitContainer2.SplitterDistance = 281;
+            this.splitContainer2.SplitterDistance = 283;
             this.splitContainer2.SplitterWidth = 3;
             this.splitContainer2.TabIndex = 7;
             // 
@@ -256,7 +256,7 @@ namespace AMS
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.listView1);
-            this.splitContainer3.Size = new System.Drawing.Size(606, 281);
+            this.splitContainer3.Size = new System.Drawing.Size(606, 283);
             this.splitContainer3.SplitterDistance = 173;
             this.splitContainer3.SplitterWidth = 3;
             this.splitContainer3.TabIndex = 7;
@@ -275,7 +275,7 @@ namespace AMS
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(606, 105);
+            this.listView1.Size = new System.Drawing.Size(606, 107);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
