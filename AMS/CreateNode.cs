@@ -44,7 +44,7 @@ namespace AMS
         // ОК
         private void button7_Click(object sender, EventArgs e)
         {
-            DNode node = new DNode()
+            ASMNode node = new ASMNode()
             {
                 Id = Guid.NewGuid().ToString(),
                 Ip = textBox2.Text,
@@ -78,7 +78,7 @@ namespace AMS
         private void button12_Click(object sender, EventArgs e)
         {
 
-            DNode node = new DNode();                       
+            ASMNode node = new ASMNode();                       
             string nodeName = Dns.GetHostName();
             if (nodeName.Length > 0)
             {

@@ -14,13 +14,13 @@ namespace AMS
     public partial class DeviceNode : UserControl
     {
 
-        private DNode dNode = new DNode(); // Экземпляр DNode
+        private ASMNode dNode = new ASMNode(); // Экземпляр DNode
 
         Point DownPoint; // Точка перемещения
 
         bool IsDragMode; // Нажата ли кнопка мыши
 
-        public DNode DNode { get => dNode; set => dNode = value; }
+        public ASMNode DNode { get => dNode; set => dNode = value; }
 
         public DeviceNode()
         {
@@ -63,6 +63,15 @@ namespace AMS
             Parent.Controls.Remove(this);
         }
 
+        /// <summary>
+        /// Задаёт подпись устройства на карте.
+        /// </summary>
+        /// <param name="name">Имя устройства.</param>
+        public void LbSetNameOnMap (string name)
+        { 
+            label1.Text = name; 
+        }
+
         public string DeviceInfoTip()
         {
             // Текст всплывающей подсказки
@@ -80,7 +89,7 @@ namespace AMS
 
             // Имя узла на карте
 
-            if (DNode.Name.Length > 0)
+            if (DNode.NameOnMap.Length > 0)
                 tip += "Имя узла на карте: " + DNode.NameOnMap + "\n";
 
             // IP-адрес
@@ -129,8 +138,7 @@ namespace AMS
 
         private void DeviceNode_Load(object sender, EventArgs e)
         {
-            label1.Text = DNode.NameOnMap;
-            
+            LbSetNameOnMap(DNode.NameOnMap);
         }
 
         private void DeviceNode_MouseClick(object sender, MouseEventArgs e)
@@ -139,11 +147,8 @@ namespace AMS
             {
                 case MouseButtons.Right:
 
-                    if (BorderStyle == BorderStyle.None) BorderStyle = BorderStyle.FixedSingle;
-                    else BorderStyle = BorderStyle.None;
-
-                    if (DNode.IsSelected) DNode.IsSelected = !DNode.IsSelected;
-                    else DNode.IsSelected = !DNode.IsSelected;
+                    BorderStyle = BorderStyle == BorderStyle.None ? BorderStyle.FixedSingle : BorderStyle.None;
+                    DNode.IsSelected = DNode.IsSelected ? !DNode.IsSelected : !DNode.IsSelected;
 
                     break;
             }
@@ -152,6 +157,11 @@ namespace AMS
         private void DeviceNode_DoubleClick(object sender, EventArgs e)
         {
             MessageBox.Show(DeviceInfoTip(), DNode.NameOnMap);
+        }
+
+        private void DeviceNode_Paint(object sender, PaintEventArgs e)
+        {
+                
         }
     }
 }

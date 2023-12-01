@@ -7,7 +7,7 @@ namespace AMS
     public partial class CreateTest : Form
     {
         // Информация о выбранных узлах
-        public List<DNode> selectedNodes = new List<DNode>();
+        public List<ASMNode> selectedNodes = new List<ASMNode>();
         public ListView lvMonitoringNodes = new ListView();
 
         public CreateTest()
@@ -18,10 +18,10 @@ namespace AMS
         // ОК
         private void button1_Click(object sender, EventArgs e)
         {
-            if (selectedNodes.Count != 0)
-                foreach (DNode selectedNode in selectedNodes)
+            if (selectedNodes.Count > 0)
+                foreach (ASMNode selectedNode in selectedNodes)
                 {
-                    string[] nodeStatus = new string[] { "", "", "", "", "", "" };
+                    string[] nodeStatus = new string[] { "", "", "", "", "", "", "" };
 
                     nodeStatus[0] = selectedNode.NameOnMap;
 
@@ -30,9 +30,12 @@ namespace AMS
                     if (selectedNode.Services != null)
                         foreach (string service in selectedNode.Services)
                         {
-                            if (service != "")
+                            if (service.Length > 0)
                                 nodeStatus[5] += service + ";";
                         }
+
+                    if (selectedNode.Id.Length > 0)
+                        nodeStatus[6] = selectedNode.Id;
 
                     if (!checkBox1.Checked) { nodeStatus[2] = " - "; }
                     if (!checkBox2.Checked) { nodeStatus[3] = " - "; }
@@ -53,7 +56,7 @@ namespace AMS
         private void CreateTest_Load(object sender, EventArgs e)
         {
             if (selectedNodes.Count != 0)
-                foreach (DNode selectedNode in selectedNodes)                
+                foreach (ASMNode selectedNode in selectedNodes)                
                     listBox1.Items.Add(selectedNode.Name + " " + selectedNode.Ip);                
         }        
     }

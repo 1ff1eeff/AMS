@@ -83,6 +83,7 @@ namespace AMS
             this.Name = "DeviceNode";
             this.Size = new System.Drawing.Size(96, 96);
             this.Load += new System.EventHandler(this.DeviceNode_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.DeviceNode_Paint);
             this.DoubleClick += new System.EventHandler(this.DeviceNode_DoubleClick);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DeviceNode_MouseClick);
             this.ResumeLayout(false);

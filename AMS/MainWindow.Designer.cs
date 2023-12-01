@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace AMS
 {
-    partial class Form1
+    partial class MainWindow
     {
         /// <summary>
         ///  Required designer variable.
@@ -31,7 +31,7 @@ namespace AMS
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.CreateMap = new System.Windows.Forms.Button();
             this.CreateNode = new System.Windows.Forms.Button();
             this.CreateTest = new System.Windows.Forms.Button();
@@ -62,6 +62,7 @@ namespace AMS
             this.label2 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -238,7 +239,7 @@ namespace AMS
             this.splitContainer2.Panel2.Controls.Add(this.button3);
             this.splitContainer2.Panel2.Controls.Add(this.button1);
             this.splitContainer2.Size = new System.Drawing.Size(606, 339);
-            this.splitContainer2.SplitterDistance = 283;
+            this.splitContainer2.SplitterDistance = 284;
             this.splitContainer2.SplitterWidth = 3;
             this.splitContainer2.TabIndex = 7;
             // 
@@ -256,7 +257,7 @@ namespace AMS
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.listView1);
-            this.splitContainer3.Size = new System.Drawing.Size(606, 283);
+            this.splitContainer3.Size = new System.Drawing.Size(606, 284);
             this.splitContainer3.SplitterDistance = 173;
             this.splitContainer3.SplitterWidth = 3;
             this.splitContainer3.TabIndex = 7;
@@ -269,13 +270,14 @@ namespace AMS
             this.columnHeader3,
             this.columnHeader4,
             this.columnHeader5,
-            this.columnHeader6});
+            this.columnHeader6,
+            this.columnHeader7});
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(606, 107);
+            this.listView1.Size = new System.Drawing.Size(606, 108);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -427,14 +429,18 @@ namespace AMS
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // Form1
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "ID";
+            // 
+            // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(606, 457);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form1";
+            this.Name = "MainWindow";
             this.Text = "АСМ";
             this.tabControl1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -486,6 +492,7 @@ namespace AMS
         private Label label2;
         private Label label1;
         private Button button4;
+        private ColumnHeader columnHeader7;
     }
 }
 

@@ -15,13 +15,13 @@ namespace AMS
     {
         // Для связи с главной формой
 
-        private DNode node;
+        private ASMNode node;
         
         public TabControl tc;
 
         private List<string> detectedProcesses = new List<string>();        
 
-        public DNode Node { get => node; set => node = value; }
+        public ASMNode Node { get => node; set => node = value; }
 
         public EditNodeM()
         {
@@ -40,6 +40,14 @@ namespace AMS
 
                     if (textBox1.Text.Length > 0)
                         nodeOnMap.DNode.Name = textBox1.Text;
+
+                    // Задаём имя узла на карте
+
+                    if (textBox4.Text.Length > 0)
+                    {
+                        nodeOnMap.DNode.NameOnMap = textBox4.Text;
+                        nodeOnMap.LbSetNameOnMap(textBox4.Text);
+                    }
 
                     // Задаём IP-адрес
 
@@ -153,6 +161,11 @@ namespace AMS
             if (node.Name.Length > 0 ) 
                 textBox1.Text = node.Name;
 
+            // Получаем имя узла на карте
+
+            if (node.NameOnMap.Length > 0)
+                textBox4.Text = node.NameOnMap;
+            
             // Получаем IP-адрес узла
 
             if (node.Ip.Length > 0)
