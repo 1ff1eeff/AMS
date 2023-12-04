@@ -58,7 +58,7 @@ namespace AMS
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 24);
+            this.textBox1.Location = new System.Drawing.Point(152, 24);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(130, 20);
             this.textBox1.TabIndex = 26;
@@ -351,7 +351,7 @@ namespace AMS
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(12, 9);
+            this.label2.Location = new System.Drawing.Point(149, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(111, 15);
             this.label2.TabIndex = 1;
@@ -394,7 +394,7 @@ namespace AMS
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(154, 24);
+            this.textBox4.Location = new System.Drawing.Point(12, 24);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(130, 20);
             this.textBox4.TabIndex = 31;
@@ -403,7 +403,7 @@ namespace AMS
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(154, 9);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(111, 15);
             this.label1.TabIndex = 30;

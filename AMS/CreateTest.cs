@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Xml.Linq;
 
 namespace AMS
 {
     public partial class CreateTest : Form
     {
         // Информация о выбранных узлах
-        public List<ASMNode> selectedNodes = new List<ASMNode>();
-        public ListView lvMonitoringNodes = new ListView();
+        public List<AMSNode> selectedNodes = new List<AMSNode>();
+        public System.Windows.Forms.ListView lvMonitoringNodes = new System.Windows.Forms.ListView();
 
         public CreateTest()
         {
@@ -19,11 +21,11 @@ namespace AMS
         private void button1_Click(object sender, EventArgs e)
         {
             if (selectedNodes.Count > 0)
-                foreach (ASMNode selectedNode in selectedNodes)
+                foreach (AMSNode selectedNode in selectedNodes)
                 {
                     string[] nodeStatus = new string[] { "", "", "", "", "", "", "" };
 
-                    nodeStatus[0] = selectedNode.NameOnMap;
+                    nodeStatus[0] = selectedNode.Name;
 
                     nodeStatus[1] = selectedNode.Ip;
 
@@ -42,9 +44,25 @@ namespace AMS
                     if (!checkBox3.Checked) { nodeStatus[4] = " - "; }
                     if (!checkBox4.Checked) { nodeStatus[5] = " - "; }
                     ListViewItem item = new ListViewItem(nodeStatus);
-                    lvMonitoringNodes.Items.Add(item);
-                }
 
+                    
+
+                    // Если устройства с текущим ID 
+                    // ещё нет в списке, то добавляем
+
+                    bool idInList = false;
+
+                    foreach (ListViewItem lvi in lvMonitoringNodes.Items)
+                    {
+                        if (lvi.SubItems[6].Text.Length > 0 && lvi.SubItems[6].Text == selectedNode.Id)
+                        {
+                            idInList = true;
+                            break;
+                        }
+                    }
+                    if (!idInList)                    
+                        lvMonitoringNodes.Items.Add(item);
+                }
             Close();
         }
 
@@ -56,7 +74,7 @@ namespace AMS
         private void CreateTest_Load(object sender, EventArgs e)
         {
             if (selectedNodes.Count != 0)
-                foreach (ASMNode selectedNode in selectedNodes)                
+                foreach (AMSNode selectedNode in selectedNodes)                
                     listBox1.Items.Add(selectedNode.Name + " " + selectedNode.Ip);                
         }        
     }

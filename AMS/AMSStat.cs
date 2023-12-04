@@ -6,24 +6,26 @@ using System.Threading.Tasks;
 
 namespace AMS
 {  
-    public class ASMStat
+    public class AMSStat
     {        
         private string name;
+        private string nameOnMap;
         private string ip;
         private string checkType;
         private uint succed;
         private uint failed;
-        private uint offlineTime;
-        private uint onlineTime;
-        private uint totalTime;
-        private uint offlinePercent;
+        private double offlineTime;
+        private double onlineTime;
+        private double totalTime;
+        private double offlinePercent;
         private DateTime time;
         private DateTime finishTime;
         private string id;
 
-        public ASMStat() 
+        public AMSStat() 
         {
             Name = "";
+            NameOnMap = "";
             Ip = "";
             CheckType = "ICMP";
             Succed = 0;
@@ -42,12 +44,13 @@ namespace AMS
         public string CheckType { get => checkType; set => checkType = value; }
         public uint Succed { get => succed; set => succed = value; }
         public uint Failed { get => failed; set => failed = value; }
-        public uint OfflineTime { get => offlineTime; set => offlineTime = value; }
-        public uint OnlineTime { get => onlineTime; set => onlineTime = value; }
-        public uint OfflinePercent { get => offlinePercent; set => offlinePercent = value; }
+        public double OfflineTime { get => offlineTime; set => offlineTime = value; }
+        public double OnlineTime { get => onlineTime; set => onlineTime = value; }
+        public double OfflinePercent { get => offlinePercent; set => offlinePercent = value; }
         public DateTime Time { get => time; set => time = value; }
         public string Id { get => id; set => id = value; }
-        public uint TotalTime { get => totalTime; set => totalTime = value; }
+        public double TotalTime { get => totalTime; set => totalTime = value; }
         public DateTime FinishTime { get => finishTime; set => finishTime = value; }
+        public string NameOnMap { get => nameOnMap; set => nameOnMap = value; }
     }
 }

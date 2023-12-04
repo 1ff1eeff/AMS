@@ -14,48 +14,19 @@ namespace AMS
     public partial class DeviceNode : UserControl
     {
 
-        private ASMNode dNode = new ASMNode(); // Экземпляр DNode
+        private AMSNode dNode = new AMSNode(); // Экземпляр DNode
 
         Point DownPoint; // Точка перемещения
 
         bool IsDragMode; // Нажата ли кнопка мыши
 
-        public ASMNode DNode { get => dNode; set => dNode = value; }
+        public AMSNode DNode { get => dNode; set => dNode = value; }
 
         public DeviceNode()
         {
             InitializeComponent();
         }
 
-        protected override void OnMouseDown(MouseEventArgs mevent)
-        {
-            if (mevent.Button == MouseButtons.Left)
-            {
-                DownPoint = mevent.Location;
-                IsDragMode = true;
-                base.OnMouseDown(mevent);
-            }
-        }
-
-        protected override void OnMouseUp(MouseEventArgs mevent)
-        {
-            IsDragMode = false;
-            base.OnMouseUp(mevent);
-        }
-
-        // Перемещение элемента по форме
-        protected override void OnMouseMove(MouseEventArgs mevent)
-        {
-            // Если кнопка мыши нажата
-            if (IsDragMode)
-            {
-                Point p = mevent.Location;
-                // Вычисляем разницу в координатах между положением курсора и "нулевой" точкой кнопки
-                Point dp = new Point(p.X - DownPoint.X, p.Y - DownPoint.Y);
-                Location = new Point(Location.X + dp.X, Location.Y + dp.Y);
-            }
-            base.OnMouseMove(mevent);
-        }
 
         // Удалить с формы
         private void button1_Click(object sender, EventArgs e)
@@ -141,27 +112,57 @@ namespace AMS
             LbSetNameOnMap(DNode.NameOnMap);
         }
 
-        private void DeviceNode_MouseClick(object sender, MouseEventArgs e)
-        {
-            switch (e.Button)
-            {
-                case MouseButtons.Right:
-
-                    BorderStyle = BorderStyle == BorderStyle.None ? BorderStyle.FixedSingle : BorderStyle.None;
-                    DNode.IsSelected = DNode.IsSelected ? !DNode.IsSelected : !DNode.IsSelected;
-
-                    break;
-            }
-        }
-
         private void DeviceNode_DoubleClick(object sender, EventArgs e)
         {
             MessageBox.Show(DeviceInfoTip(), DNode.NameOnMap);
         }
 
-        private void DeviceNode_Paint(object sender, PaintEventArgs e)
+        bool moved = false;
+
+        protected override void OnMouseDown(MouseEventArgs mevent)
         {
-                
+            if (mevent.Button == MouseButtons.Left)
+            {
+                DownPoint = mevent.Location;
+                IsDragMode = true;
+                base.OnMouseDown(mevent);
+            }
         }
+
+        protected override void OnMouseUp(MouseEventArgs mevent)
+        {
+            if (mevent.Button == MouseButtons.Left && !moved)
+            {
+                BorderStyle = BorderStyle == BorderStyle.None ? BorderStyle.FixedSingle : BorderStyle.None;
+                DNode.IsSelected = DNode.IsSelected ? !DNode.IsSelected : !DNode.IsSelected;
+            }
+
+            if (mevent.Button == MouseButtons.Right && !moved)
+            {
+                MessageBox.Show(DeviceInfoTip(), DNode.NameOnMap);
+            }
+
+            IsDragMode = false;
+            moved = false;
+            base.OnMouseUp(mevent);
+        }
+
+        // Перемещение элемента по форме
+        protected override void OnMouseMove(MouseEventArgs mevent)
+        {
+            // Если кнопка мыши нажата
+            if (IsDragMode)
+            {
+                moved = true;
+                Point p = mevent.Location;
+                // Вычисляем разницу в координатах между положением курсора и "нулевой" точкой кнопки
+                Point dp = new Point(p.X - DownPoint.X, p.Y - DownPoint.Y);
+                Location = new Point(Location.X + dp.X, Location.Y + dp.Y);
+
+                //dNode.Location = Location;
+            }
+            base.OnMouseMove(mevent);
+        }
+
     }
 }

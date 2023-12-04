@@ -8,12 +8,14 @@ using System.Threading.Tasks;
 
 namespace AMS
 {
-    internal class ASMNodes
+    internal class AMSNodes
     {
         public System.Windows.Forms.ProgressBar pb;
 
-        private List<ASMNode> nodes = new List<ASMNode>();
-        public List<ASMNode> Nodes { get => nodes; set => nodes = value; }
+        private List<AMSNode> nodes = new List<AMSNode>();
+        public List<AMSNode> Nodes { get => nodes; set => nodes = value; }
+
+        public AMSNodes() { }
 
 
         /// <summary>
@@ -49,7 +51,7 @@ namespace AMS
 
                 if (response != null && response.Status == IPStatus.Success)
                 {
-                    ASMNode node = new ASMNode();
+                    AMSNode node = new AMSNode();
 
                     // IP-адрес активного узла
 

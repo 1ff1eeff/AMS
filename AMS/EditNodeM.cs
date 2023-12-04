@@ -15,13 +15,13 @@ namespace AMS
     {
         // Для связи с главной формой
 
-        private ASMNode node;
+        private AMSNode node;
         
         public TabControl tc;
 
         private List<string> detectedProcesses = new List<string>();        
 
-        public ASMNode Node { get => node; set => node = value; }
+        public AMSNode Node { get => node; set => node = value; }
 
         public EditNodeM()
         {

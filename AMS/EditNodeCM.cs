@@ -41,7 +41,7 @@ namespace AMS
                 textBox3.Text = lvi.SubItems[1].Text; 
 
             // Формируем список запущенных процессов по DNS-имени узла
-            ASMNode node = new ASMNode();
+            AMSNode node = new AMSNode();
             if (node.IsInMyIPv4Subnet(IPAddress.Parse(lvi.Text)))
             {
                 try

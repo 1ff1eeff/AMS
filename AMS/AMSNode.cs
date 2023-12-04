@@ -2,13 +2,14 @@
 using System.Net.Sockets;
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Drawing;
 
 namespace AMS
 {
     /// <summary>
     /// Класс для хранения и управления информацией об узлах сети.
     /// </summary>
-    public class ASMNode
+    public class AMSNode
     {
         private string name = "";
         private string nameOnMap = "";
@@ -20,6 +21,7 @@ namespace AMS
         private string[] services = Array.Empty<string>();
         private bool isSelected = false;
         private string id;
+        private Point location = new Point();
 
         /// <summary>
         /// Функция SendARP отправляет запрос протокола разрешения адресов (ARP) 
@@ -103,6 +105,7 @@ namespace AMS
         /// Уникальный идентификатор узла.
         /// </summary>
         public string Id { get => id; set => id = value; }
+        public Point Location { get => location; set => location = value; }
 
 
         /// <summary>

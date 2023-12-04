@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Runtime.InteropServices;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace AMS
 {
@@ -26,7 +27,7 @@ namespace AMS
         private static extern int SendARP(int destIp, int srcIP, 
             byte[] macAddr, ref uint physicalAddrLen);
                 
-        List<ASMNode> dNodes = new List<ASMNode>(); // Формируем новые узлы
+        List<AMSNode> nodes = new List<AMSNode>(); // Формируем новые узлы
 
         CancellationTokenSource cts = new CancellationTokenSource();
 
@@ -105,7 +106,7 @@ namespace AMS
                 if (listView2.Items.Count > 0)
                     foreach (ListViewItem activeNodeItem in listView2.Items)
                     {
-                        ASMNode node = new ASMNode();
+                        AMSNode node = new AMSNode();
 
                         // Уникальный идентификатор узла
 
@@ -160,14 +161,14 @@ namespace AMS
                             && activeNodeItem.SubItems[7].Text != " - ")
                             node.NameOnMap = activeNodeItem.SubItems[7].Text;
 
-                        dNodes.Add(node);
+                        nodes.Add(node);
                     }
 
-                // Добавляем узел на карту
+                // Добавляем узлы на карту
 
                 int x = 10, y = 0, spacer = 10;
 
-                foreach (ASMNode node in dNodes)
+                foreach (AMSNode node in nodes)
                 {
                     // Подготавливаем элемент представляющий узел
 
@@ -191,8 +192,9 @@ namespace AMS
                     }
 
                     // Добавляем новый элемент на карту
-                    
-                    tc.TabPages[tc.SelectedIndex].Controls.Add(dn);
+
+                    if (tc.TabPages.Count > 0)
+                        tc.TabPages[tc.SelectedIndex].Controls.Add(dn);
                 }
             }
             Close();
@@ -225,8 +227,17 @@ namespace AMS
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
+
+            // Если ни одной карты нет, то доступно только создание новой
+
             panel1.Enabled = radioButton2.Checked;
-            checkBox1.Enabled = radioButton2.Checked;
+            if (tc.TabPages.Count > 0)
+                checkBox1.Enabled = radioButton2.Checked;
+            else
+            {
+                checkBox1.Enabled = false;
+                checkBox1.Checked = false;
+            }
         }
 
         // Проверить корректность ввода IP-адреса в поле "Начальный IP-адрес"
@@ -280,7 +291,7 @@ namespace AMS
 
                         // Формируем диапазон активных IP-адресов из элементов ListView
 
-                        ASMNodes nodesList = new ASMNodes(); // Для хранения полученного диапазона
+                        AMSNodes nodesList = new AMSNodes(); // Для хранения полученного диапазона
 
                         nodesList.pb = progressBar1;
 
@@ -296,7 +307,7 @@ namespace AMS
 
                         // Анализируем список активных IP-адресов
 
-                        foreach (ASMNode node in nodesList.Nodes)
+                        foreach (AMSNode node in nodesList.Nodes)
                         {
                             ListViewItem nodeLVI = new ListViewItem();
 
@@ -374,6 +385,11 @@ namespace AMS
 
                 editNode.ShowDialog();
             }
+        }
+
+        private void CreateMap_Load(object sender, EventArgs e)
+        {
+            
         }
     }
 }

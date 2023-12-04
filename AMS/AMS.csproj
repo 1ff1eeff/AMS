@@ -24,7 +24,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>7</ApplicationRevision>
+    <ApplicationRevision>18</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -84,7 +84,7 @@
     <Compile Include="Analysis.Designer.cs">
       <DependentUpon>Analysis.cs</DependentUpon>
     </Compile>
-    <Compile Include="ASMStat.cs" />
+    <Compile Include="AMSStat.cs" />
     <Compile Include="CreateMap.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,9 +115,9 @@
     <Compile Include="DeviceNode.Designer.cs">
       <DependentUpon>DeviceNode.cs</DependentUpon>
     </Compile>
-    <Compile Include="ASMLog.cs" />
-    <Compile Include="ASMNode.cs" />
-    <Compile Include="ASMNodes.cs" />
+    <Compile Include="AMSLog.cs" />
+    <Compile Include="AMSNode.cs" />
+    <Compile Include="AMSNodes.cs" />
     <Compile Include="EditNodeCM.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -194,6 +194,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GraphAndStat.resx">
       <DependentUpon>GraphAndStat.cs</DependentUpon>
@@ -230,6 +231,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Resources\PC-Offline.png" />
+    <None Include="Resources\Settings.png" />
+    <None Include="Resources\Statistics.png" />
+    <None Include="Resources\checklist+.png" />
+    <None Include="Resources\MonitorEdit.png" />
+    <None Include="Resources\Monitor+.png" />
+    <None Include="Resources\map.png" />
+    <None Include="Resources\PC-Unknown.png" />
+    <None Include="Resources\PC-Online.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">

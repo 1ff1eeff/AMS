@@ -32,16 +32,10 @@ namespace AMS
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            this.CreateMap = new System.Windows.Forms.Button();
-            this.CreateNode = new System.Windows.Forms.Button();
-            this.CreateTest = new System.Windows.Forms.Button();
-            this.GraphAndStat = new System.Windows.Forms.Button();
-            this.Settings = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.button4 = new System.Windows.Forms.Button();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.listView1 = new System.Windows.Forms.ListView();
@@ -51,6 +45,9 @@ namespace AMS
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.button6 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -62,7 +59,14 @@ namespace AMS
             this.label2 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.openMapDialog = new System.Windows.Forms.OpenFileDialog();
+            this.saveMapDialog = new System.Windows.Forms.SaveFileDialog();
+            this.button4 = new System.Windows.Forms.Button();
+            this.CreateMap = new System.Windows.Forms.Button();
+            this.CreateTest = new System.Windows.Forms.Button();
+            this.CreateNode = new System.Windows.Forms.Button();
+            this.GraphAndStat = new System.Windows.Forms.Button();
+            this.Settings = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -79,76 +83,6 @@ namespace AMS
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // CreateMap
-            // 
-            this.CreateMap.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CreateMap.Image = ((System.Drawing.Image)(resources.GetObject("CreateMap.Image")));
-            this.CreateMap.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.CreateMap.Location = new System.Drawing.Point(4, 3);
-            this.CreateMap.Name = "CreateMap";
-            this.CreateMap.Size = new System.Drawing.Size(94, 109);
-            this.CreateMap.TabIndex = 0;
-            this.CreateMap.Text = "Создать карту";
-            this.CreateMap.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.CreateMap.UseVisualStyleBackColor = true;
-            this.CreateMap.Click += new System.EventHandler(this.CreateMap_Click);
-            // 
-            // CreateNode
-            // 
-            this.CreateNode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CreateNode.Image = ((System.Drawing.Image)(resources.GetObject("CreateNode.Image")));
-            this.CreateNode.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.CreateNode.Location = new System.Drawing.Point(106, 3);
-            this.CreateNode.Name = "CreateNode";
-            this.CreateNode.Size = new System.Drawing.Size(94, 109);
-            this.CreateNode.TabIndex = 1;
-            this.CreateNode.Text = "Добавить устройство";
-            this.CreateNode.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.CreateNode.UseVisualStyleBackColor = true;
-            this.CreateNode.Click += new System.EventHandler(this.CreateNode_Click);
-            // 
-            // CreateTest
-            // 
-            this.CreateTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CreateTest.Image = ((System.Drawing.Image)(resources.GetObject("CreateTest.Image")));
-            this.CreateTest.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.CreateTest.Location = new System.Drawing.Point(306, 4);
-            this.CreateTest.Name = "CreateTest";
-            this.CreateTest.Size = new System.Drawing.Size(94, 109);
-            this.CreateTest.TabIndex = 2;
-            this.CreateTest.Text = "Модуль мониторинга";
-            this.CreateTest.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.CreateTest.UseVisualStyleBackColor = true;
-            this.CreateTest.Click += new System.EventHandler(this.CreateTest_Click);
-            // 
-            // GraphAndStat
-            // 
-            this.GraphAndStat.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.GraphAndStat.Image = ((System.Drawing.Image)(resources.GetObject("GraphAndStat.Image")));
-            this.GraphAndStat.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.GraphAndStat.Location = new System.Drawing.Point(406, 4);
-            this.GraphAndStat.Name = "GraphAndStat";
-            this.GraphAndStat.Size = new System.Drawing.Size(94, 109);
-            this.GraphAndStat.TabIndex = 3;
-            this.GraphAndStat.Text = "Модуль анализа";
-            this.GraphAndStat.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.GraphAndStat.UseVisualStyleBackColor = true;
-            this.GraphAndStat.Click += new System.EventHandler(this.GraphAndStat_Click);
-            // 
-            // Settings
-            // 
-            this.Settings.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Settings.Image = ((System.Drawing.Image)(resources.GetObject("Settings.Image")));
-            this.Settings.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.Settings.Location = new System.Drawing.Point(506, 4);
-            this.Settings.Name = "Settings";
-            this.Settings.Size = new System.Drawing.Size(94, 108);
-            this.Settings.TabIndex = 5;
-            this.Settings.Text = "Настройки";
-            this.Settings.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.Settings.UseVisualStyleBackColor = true;
-            this.Settings.Click += new System.EventHandler(this.Settings_Click);
-            // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
@@ -156,18 +90,18 @@ namespace AMS
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(598, 147);
+            this.tabPage1.Size = new System.Drawing.Size(598, 140);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Новая карта";
             // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(500, 2);
+            this.button1.Location = new System.Drawing.Point(494, 6);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(103, 27);
+            this.button1.Size = new System.Drawing.Size(100, 23);
             this.button1.TabIndex = 8;
-            this.button1.Text = "Удалить карту";
+            this.button1.Text = "Закрыть карту";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -178,7 +112,7 @@ namespace AMS
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(606, 173);
+            this.tabControl1.Size = new System.Drawing.Size(606, 166);
             this.tabControl1.TabIndex = 6;
             // 
             // splitContainer1
@@ -206,20 +140,6 @@ namespace AMS
             this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 7;
             // 
-            // button4
-            // 
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button4.Image = ((System.Drawing.Image)(resources.GetObject("button4.Image")));
-            this.button4.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button4.Location = new System.Drawing.Point(206, 3);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(94, 109);
-            this.button4.TabIndex = 6;
-            this.button4.Text = "Редактировать устройство";
-            this.button4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.EditNode_Click);
-            // 
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -234,12 +154,14 @@ namespace AMS
             // 
             // splitContainer2.Panel2
             // 
+            this.splitContainer2.Panel2.Controls.Add(this.button6);
+            this.splitContainer2.Panel2.Controls.Add(this.button5);
             this.splitContainer2.Panel2.Controls.Add(this.panel1);
             this.splitContainer2.Panel2.Controls.Add(this.button2);
             this.splitContainer2.Panel2.Controls.Add(this.button3);
             this.splitContainer2.Panel2.Controls.Add(this.button1);
             this.splitContainer2.Size = new System.Drawing.Size(606, 339);
-            this.splitContainer2.SplitterDistance = 284;
+            this.splitContainer2.SplitterDistance = 278;
             this.splitContainer2.SplitterWidth = 3;
             this.splitContainer2.TabIndex = 7;
             // 
@@ -257,8 +179,8 @@ namespace AMS
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.listView1);
-            this.splitContainer3.Size = new System.Drawing.Size(606, 284);
-            this.splitContainer3.SplitterDistance = 173;
+            this.splitContainer3.Size = new System.Drawing.Size(606, 278);
+            this.splitContainer3.SplitterDistance = 166;
             this.splitContainer3.SplitterWidth = 3;
             this.splitContainer3.TabIndex = 7;
             // 
@@ -277,7 +199,7 @@ namespace AMS
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(606, 108);
+            this.listView1.Size = new System.Drawing.Size(606, 109);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -311,6 +233,30 @@ namespace AMS
             // 
             this.columnHeader6.Text = "Сервисы";
             this.columnHeader6.Width = 100;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "ID";
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(282, 6);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(100, 23);
+            this.button6.TabIndex = 14;
+            this.button6.Text = "Открыть карту";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(388, 6);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(100, 23);
+            this.button5.TabIndex = 13;
+            this.button5.Text = "Сохранить карту";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // panel1
             // 
@@ -410,9 +356,9 @@ namespace AMS
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.Location = new System.Drawing.Point(363, 2);
+            this.button2.Location = new System.Drawing.Point(138, 6);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(131, 27);
+            this.button2.Size = new System.Drawing.Size(120, 23);
             this.button2.TabIndex = 9;
             this.button2.Text = "Удалить из списка";
             this.button2.UseVisualStyleBackColor = true;
@@ -421,17 +367,97 @@ namespace AMS
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button3.Location = new System.Drawing.Point(4, 3);
+            this.button3.Location = new System.Drawing.Point(12, 6);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(160, 26);
+            this.button3.Size = new System.Drawing.Size(120, 23);
             this.button3.TabIndex = 10;
             this.button3.Text = "Начать мониторинг";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // columnHeader7
+            // button4
             // 
-            this.columnHeader7.Text = "ID";
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button4.Image = global::AMS.Properties.Resources.EditNode;
+            this.button4.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button4.Location = new System.Drawing.Point(206, 3);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(94, 109);
+            this.button4.TabIndex = 6;
+            this.button4.Text = "Редактировать устройство";
+            this.button4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.EditNode_Click);
+            // 
+            // CreateMap
+            // 
+            this.CreateMap.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CreateMap.Image = global::AMS.Properties.Resources.CreateMap;
+            this.CreateMap.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.CreateMap.Location = new System.Drawing.Point(4, 3);
+            this.CreateMap.Name = "CreateMap";
+            this.CreateMap.Size = new System.Drawing.Size(94, 109);
+            this.CreateMap.TabIndex = 0;
+            this.CreateMap.Text = "Создать карту";
+            this.CreateMap.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.CreateMap.UseVisualStyleBackColor = true;
+            this.CreateMap.Click += new System.EventHandler(this.CreateMap_Click);
+            // 
+            // CreateTest
+            // 
+            this.CreateTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CreateTest.Image = global::AMS.Properties.Resources.CreateTest;
+            this.CreateTest.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.CreateTest.Location = new System.Drawing.Point(306, 4);
+            this.CreateTest.Name = "CreateTest";
+            this.CreateTest.Size = new System.Drawing.Size(94, 109);
+            this.CreateTest.TabIndex = 2;
+            this.CreateTest.Text = "Модуль мониторинга";
+            this.CreateTest.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.CreateTest.UseVisualStyleBackColor = true;
+            this.CreateTest.Click += new System.EventHandler(this.CreateTest_Click);
+            // 
+            // CreateNode
+            // 
+            this.CreateNode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CreateNode.Image = global::AMS.Properties.Resources.CreateNode;
+            this.CreateNode.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.CreateNode.Location = new System.Drawing.Point(106, 3);
+            this.CreateNode.Name = "CreateNode";
+            this.CreateNode.Size = new System.Drawing.Size(94, 109);
+            this.CreateNode.TabIndex = 1;
+            this.CreateNode.Text = "Добавить устройство";
+            this.CreateNode.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.CreateNode.UseVisualStyleBackColor = true;
+            this.CreateNode.Click += new System.EventHandler(this.CreateNode_Click);
+            // 
+            // GraphAndStat
+            // 
+            this.GraphAndStat.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.GraphAndStat.Image = global::AMS.Properties.Resources.Analysis;
+            this.GraphAndStat.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.GraphAndStat.Location = new System.Drawing.Point(406, 4);
+            this.GraphAndStat.Name = "GraphAndStat";
+            this.GraphAndStat.Size = new System.Drawing.Size(94, 109);
+            this.GraphAndStat.TabIndex = 3;
+            this.GraphAndStat.Text = "Модуль анализа";
+            this.GraphAndStat.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.GraphAndStat.UseVisualStyleBackColor = true;
+            this.GraphAndStat.Click += new System.EventHandler(this.GraphAndStat_Click);
+            // 
+            // Settings
+            // 
+            this.Settings.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Settings.Image = global::AMS.Properties.Resources.Settings;
+            this.Settings.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.Settings.Location = new System.Drawing.Point(506, 4);
+            this.Settings.Name = "Settings";
+            this.Settings.Size = new System.Drawing.Size(94, 108);
+            this.Settings.TabIndex = 5;
+            this.Settings.Text = "Настройки";
+            this.Settings.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.Settings.UseVisualStyleBackColor = true;
+            this.Settings.Click += new System.EventHandler(this.Settings_Click);
             // 
             // MainWindow
             // 
@@ -493,6 +519,10 @@ namespace AMS
         private Label label1;
         private Button button4;
         private ColumnHeader columnHeader7;
+        private Button button6;
+        private Button button5;
+        private OpenFileDialog openMapDialog;
+        private SaveFileDialog saveMapDialog;
     }
 }
 

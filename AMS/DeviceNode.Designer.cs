@@ -32,7 +32,6 @@ namespace AMS
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeviceNode));
             this.button1 = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.label1 = new System.Windows.Forms.Label();
@@ -74,7 +73,7 @@ namespace AMS
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImage = global::AMS.Properties.Resources.PC_Unknown;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
@@ -83,9 +82,7 @@ namespace AMS
             this.Name = "DeviceNode";
             this.Size = new System.Drawing.Size(96, 96);
             this.Load += new System.EventHandler(this.DeviceNode_Load);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.DeviceNode_Paint);
             this.DoubleClick += new System.EventHandler(this.DeviceNode_DoubleClick);
-            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DeviceNode_MouseClick);
             this.ResumeLayout(false);
 
         }

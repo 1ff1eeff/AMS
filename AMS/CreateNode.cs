@@ -39,12 +39,59 @@ namespace AMS
             CreateService createService = new CreateService();
             createService.lbService = listBox4;
             createService.ShowDialog();
-        }       
+        }
+
+        /// <summary>
+        /// Находит свободное место под новый узел на вкладке TabControl.
+        /// </summary>
+        /// <param name="tc">TabControl для размещения узла.</param>
+        /// <returns></returns>
+
+        Point FindSpace(TabControl tc)
+        {
+            
+            // Позиция нового узла
+                        
+            Point pos = new Point(10, 10);
+            
+            // Разделитель
+            
+            int spacer = 10;
+
+            // Получаем список всех узлов размещённых на вкладке карты
+
+            foreach (DeviceNode node in tc.SelectedTab.Controls.OfType<DeviceNode>())
+            {
+                if (node != null)
+                {
+                    // Если текущий узел ниже - перемещаем новый узел вниз
+
+                    if (node.Location.Y > pos.Y)                     
+                        pos.Y += node.Height + spacer;
+                    
+                    // Если текущий узел правее - сдвигаем новый узел вправо
+
+                    if (node.Location.X >= pos.X)
+                    {
+                        pos.X = node.Location.X + node.Size.Width + spacer;
+
+                        // Если на вкладке не хватает места - перемещаем новый узел вниз
+
+                        if (pos.X >= tc.Width - (node.Size.Width + spacer))
+                        {
+                            pos.X = spacer;
+                            pos.Y += node.Height + spacer;
+                        }
+                    }
+                }
+            }
+            return pos;
+        }
 
         // ОК
         private void button7_Click(object sender, EventArgs e)
         {
-            ASMNode node = new ASMNode()
+            AMSNode node = new AMSNode()
             {
                 Id = Guid.NewGuid().ToString(),
                 Ip = textBox2.Text,
@@ -57,9 +104,11 @@ namespace AMS
                 NameOnMap = textBox4.Text                
             };
 
+
+
             DeviceNode dn = new DeviceNode
             {
-                Location = new Point(10, 10),
+                Location = FindSpace(tc),
                 DNode = node
             };
 
@@ -78,7 +127,7 @@ namespace AMS
         private void button12_Click(object sender, EventArgs e)
         {
 
-            ASMNode node = new ASMNode();                       
+            AMSNode node = new AMSNode();                       
             string nodeName = Dns.GetHostName();
             if (nodeName.Length > 0)
             {

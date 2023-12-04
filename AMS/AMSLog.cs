@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace AMS
 {
     //[Serializable]
-    public class ASMLog
+    public class AMSLog
     {
         private string name;
         private string ip;
@@ -17,7 +17,7 @@ namespace AMS
         private string services;
         private string date;
 
-        public ASMLog() { }
+        public AMSLog() { }
 
         public string Name { get => name; set => name = value; }
         public string Ip { get => ip; set => ip = value; }
