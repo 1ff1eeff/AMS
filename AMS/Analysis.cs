@@ -14,19 +14,25 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace AMS
 {
+    
+
     public partial class Analysis : Form
     {
-        public List<AMSStat> nodesStatus = new List<AMSStat>();
+        public List<AmsStat> nodesStatus = new List<AmsStat>();
+
+        public AmsSettings amsSettings = new AmsSettings();
 
         public Analysis()
         {
             InitializeComponent();            
         }
 
+        // Кнопка "Закрыть"
         private void button1_Click(object sender, EventArgs e)
         {
             Close();
         }
+
         private void Analysis_Load(object sender, EventArgs e)
         {           
 
@@ -36,7 +42,7 @@ namespace AMS
                     + "-" + DateTime.Now.Date.Month.ToString()
                     + "-" + DateTime.Now.Date.Year.ToString();
 
-            string logsDir = Directory.CreateDirectory(Application.StartupPath + "\\Logs\\").FullName;
+            string logsDir = Directory.CreateDirectory(amsSettings.LogsFolder + "\\").FullName;
 
             string todayLogFile = logsDir + today + ".xml";
 
@@ -71,22 +77,20 @@ namespace AMS
 
         private void UpdateNodesStatistics(string filename)
         {
-            XmlSerializer formatter = new XmlSerializer(typeof(List<AMSStat>));
-
-            //lbCaption.Text = "Общая статистика работы узлов: " + filename;
+            XmlSerializer formatter = new XmlSerializer(typeof(List<AmsStat>));
 
             using (FileStream fs = new FileStream(filename, FileMode.Open))
             {
 
                 try
                 {
-                    List<AMSStat> stats = formatter.Deserialize(fs) as List<AMSStat>;
+                    List<AmsStat> stats = formatter.Deserialize(fs) as List<AmsStat>;
                     
                     comboBox1.Text = filename;
 
                     if (stats != null && stats.Count > 0)
                     {
-                        foreach (AMSStat stat in stats)
+                        foreach (AmsStat stat in stats)
                         {
                             ListViewItem item = new ListViewItem();
 
@@ -156,8 +160,8 @@ namespace AMS
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Directory.CreateDirectory(Application.StartupPath + "\\Logs");
-            openFileDialog1.InitialDirectory = Application.StartupPath + "\\Logs";
+            Directory.CreateDirectory(amsSettings.LogsFolder);
+            openFileDialog1.InitialDirectory = amsSettings.LogsFolder;
             openFileDialog1.Filter = "Файлы логирования (*.xml)|*.xml|Все файлы (*.*)|*.*";
 
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)

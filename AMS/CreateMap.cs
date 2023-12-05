@@ -27,7 +27,7 @@ namespace AMS
         private static extern int SendARP(int destIp, int srcIP, 
             byte[] macAddr, ref uint physicalAddrLen);
                 
-        List<AMSNode> nodes = new List<AMSNode>(); // Формируем новые узлы
+        List<AmsNode> nodes = new List<AmsNode>(); // Формируем новые узлы
 
         CancellationTokenSource cts = new CancellationTokenSource();
 
@@ -106,7 +106,7 @@ namespace AMS
                 if (listView2.Items.Count > 0)
                     foreach (ListViewItem activeNodeItem in listView2.Items)
                     {
-                        AMSNode node = new AMSNode();
+                        AmsNode node = new AmsNode();
 
                         // Уникальный идентификатор узла
 
@@ -168,7 +168,7 @@ namespace AMS
 
                 int x = 10, y = 0, spacer = 10;
 
-                foreach (AMSNode node in nodes)
+                foreach (AmsNode node in nodes)
                 {
                     // Подготавливаем элемент представляющий узел
 
@@ -291,7 +291,7 @@ namespace AMS
 
                         // Формируем диапазон активных IP-адресов из элементов ListView
 
-                        AMSNodes nodesList = new AMSNodes(); // Для хранения полученного диапазона
+                        AmsNodes nodesList = new AmsNodes(); // Для хранения полученного диапазона
 
                         nodesList.pb = progressBar1;
 
@@ -307,7 +307,7 @@ namespace AMS
 
                         // Анализируем список активных IP-адресов
 
-                        foreach (AMSNode node in nodesList.Nodes)
+                        foreach (AmsNode node in nodesList.Nodes)
                         {
                             ListViewItem nodeLVI = new ListViewItem();
 

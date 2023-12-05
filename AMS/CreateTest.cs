@@ -9,7 +9,7 @@ namespace AMS
     public partial class CreateTest : Form
     {
         // Информация о выбранных узлах
-        public List<AMSNode> selectedNodes = new List<AMSNode>();
+        public List<AmsNode> selectedNodes = new List<AmsNode>();
         public System.Windows.Forms.ListView lvMonitoringNodes = new System.Windows.Forms.ListView();
 
         public CreateTest()
@@ -21,7 +21,7 @@ namespace AMS
         private void button1_Click(object sender, EventArgs e)
         {
             if (selectedNodes.Count > 0)
-                foreach (AMSNode selectedNode in selectedNodes)
+                foreach (AmsNode selectedNode in selectedNodes)
                 {
                     string[] nodeStatus = new string[] { "", "", "", "", "", "", "" };
 
@@ -44,8 +44,6 @@ namespace AMS
                     if (!checkBox3.Checked) { nodeStatus[4] = " - "; }
                     if (!checkBox4.Checked) { nodeStatus[5] = " - "; }
                     ListViewItem item = new ListViewItem(nodeStatus);
-
-                    
 
                     // Если устройства с текущим ID 
                     // ещё нет в списке, то добавляем
@@ -74,7 +72,7 @@ namespace AMS
         private void CreateTest_Load(object sender, EventArgs e)
         {
             if (selectedNodes.Count != 0)
-                foreach (AMSNode selectedNode in selectedNodes)                
+                foreach (AmsNode selectedNode in selectedNodes)                
                     listBox1.Items.Add(selectedNode.Name + " " + selectedNode.Ip);                
         }        
     }

@@ -9,7 +9,7 @@ namespace AMS
     /// <summary>
     /// Класс для хранения и управления информацией об узлах сети.
     /// </summary>
-    public class AMSNode
+    public class AmsNode
     {
         private string name = "";
         private string nameOnMap = "";

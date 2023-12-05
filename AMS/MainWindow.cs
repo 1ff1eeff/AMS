@@ -11,20 +11,61 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Xml.Serialization;
 using System.IO;
+using System.Net.Mail;
 
 namespace AMS
 {
     public partial class MainWindow : Form
     {
-        List<AMSNode> selectedNodes = new List<AMSNode>();
-        List<AMSStat> nodesStatus = new List<AMSStat>();
+        List<AmsNode> selectedNodes = new List<AmsNode>();
+        List<AmsStat> nodesStatus = new List<AmsStat>();
+        AmsSettings amsSettings = new AmsSettings();
         CancellationTokenSource cts = new CancellationTokenSource();
         int pingTimeout = 1000;
-
+        string defaulConfigFile = Application.StartupPath + "\\config.xml";
+        const string quote = "\"";
         public MainWindow()
         {
             InitializeComponent();
 
+            // Ожидается конфигурационный файл в корневой папке приложения
+
+            if (File.Exists(defaulConfigFile))
+            {
+
+                // Открываем и настраиваем приложение согласно данным файла
+
+                XmlSerializer formatter = new XmlSerializer(typeof(AmsSettings));
+
+                try
+                {
+                    using (FileStream fs = new FileStream(defaulConfigFile, FileMode.Open))
+                    {
+                        amsSettings = formatter.Deserialize(fs) as AmsSettings;
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+            }
+
+            // При отсутствии конфигурационного файла
+
+            else
+            {
+
+                // Создаём новый файл и заполняем значениями по умолчанию
+
+                XmlSerializer formatter = new XmlSerializer(typeof(AmsSettings));
+
+                using (FileStream fs = new FileStream(defaulConfigFile, FileMode.Create))
+                {
+                    formatter.Serialize(fs, amsSettings);
+                }
+            }
+
+                        
         }
 
         /// <summary>
@@ -109,9 +150,12 @@ namespace AMS
         /// <summary>
         /// Кнопка "Модуль анализа"
         /// </summary>
-        private void GraphAndStat_Click(object sender, EventArgs e)
+        private void Analysis_Click(object sender, EventArgs e)
         {
-            Analysis analysis = new Analysis();            
+            Analysis analysis = new Analysis()
+            {
+                amsSettings = amsSettings
+            };            
             analysis.ShowDialog();
         }
 
@@ -123,6 +167,7 @@ namespace AMS
         private void Settings_Click(object sender, EventArgs e)
         {
             Settings settings = new Settings();
+            settings.amsSettings = this.amsSettings;
             settings.ShowDialog();
         }
 
@@ -215,7 +260,7 @@ namespace AMS
         }
 
         /// <summary>
-        /// Запускает мониторинг узлов отмеченных для наблюдения.
+        /// Запускает мониторинг узлов, отмеченных для наблюдения.
         /// </summary>
         /// <param name="cancelToken">Токен для отмены операции.</param>
         void StartMonitoring(CancellationToken cancelToken)
@@ -252,7 +297,7 @@ namespace AMS
                     {
                         // Для хранения статуса текущего узла
 
-                        var nodeStatus = new AMSStat();
+                        var nodeStatus = new AmsStat();
 
                         // Задержка между ping-запросами
 
@@ -301,7 +346,73 @@ namespace AMS
                                     if (resp.Status == IPStatus.Success)
                                     {
                                         
-                                        NodeImg(tabControl1, nodeStatus.Id, Resources.PC_Online);                                            
+                                        NodeImg(tabControl1, nodeStatus.Id, Resources.PC_Online);
+
+                                        // А до этого был Offline
+
+                                        if (item.SubItems[2].Text == "Offline")
+                                        {
+                                            // Отправляем e-mail оповещение
+
+                                            if (amsSettings.EmailNotification)
+                                            {
+                                                string subject = "Cоединение с узлом " + item.SubItems[1].Text + " (" + item.Text + ") восстановлено";
+                                                string body = DateTime.Now.ToString() + ": Узел "
+                                                    + item.SubItems[1].Text + " (" + item.Text + ") " + "появился в сети.";
+
+                                                await SendEmailAsync(subject, body, amsSettings);
+                                            }
+
+                                            if (amsSettings.SmsNotification)
+                                            {
+                                                switch (amsSettings.WayToSendSms)
+                                                {
+                                                    case "email":
+
+                                                        if (!String.IsNullOrWhiteSpace(amsSettings.AdbFile))
+                                                        {
+                                                            string smsText = "Восстановлено соединение с " + item.SubItems[1].Text + " " + item.Text;
+                                                            if (amsSettings.EmailNeedsTranslit)
+                                                            {
+                                                                Translit translit = new Translit(false);
+                                                                smsText = translit.TranslitString(smsText);
+                                                            }
+                                                            if (!String.IsNullOrWhiteSpace(amsSettings.EmailToSMS)) await SendEmailToSmsAsync(smsText, amsSettings);
+                                                            else MessageBox.Show("Не указан e-mail шлюз в настройках приложения.", "Отправка СМС не удалась");
+                                                        }
+
+                                                        break;
+
+                                                    case "adb":
+
+                                                        if (!String.IsNullOrWhiteSpace(amsSettings.AdbFile))
+                                                        {
+                                                            Process process = new Process();
+                                                            process.StartInfo.FileName = amsSettings.AdbFile;
+                                                            FileInfo file = new FileInfo(amsSettings.AdbFile);
+                                                            string workingDirectory = file.DirectoryName;
+                                                            process.StartInfo.WorkingDirectory = workingDirectory;
+                                                            string smsText = "Восстановлено\\ соединение\\ с\\ " + item.SubItems[1].Text + "\\ " + item.Text;
+                                                            if (amsSettings.SmsNeedsTranslit)
+                                                            {
+                                                                Translit translit = new Translit(false);
+                                                                smsText = translit.TranslitString(smsText);
+                                                            }
+                                                            process.StartInfo.Arguments = "shell service call isms 5 i32 1 s16 " + quote + "com.android.mms" + quote + " s16 " + quote + "null" + quote + " s16 " + quote + amsSettings.PhoneToSMS + quote + " s16 " + quote + "null" + quote + " s16 " + quote + smsText + quote + " s16 " + quote + "null" + quote + " s16 " + quote + "null" + quote + " i32 0 i64 0";
+                                                            process.Start();
+                                                        }
+
+                                                        break;
+
+                                                    default:
+                                                        break;
+                                                }
+                                            }
+
+                                            // Звуковое оповещение о восстановлении соединения
+
+                                            new System.Media.SoundPlayer(@"C:\WINDOWS\Media\Windows Unlock.wav").Play();
+                                        }
 
                                         item.SubItems[2].Text = "Online";
 
@@ -321,7 +432,65 @@ namespace AMS
 
                                         if(item.SubItems[2].Text == "Online")
                                         {
-                                            // Звуковое оповещение о потери соединения с узлом
+                                            // Отправляем e-mail оповещение
+
+                                            if(amsSettings.EmailNotification)
+                                            {
+                                                string subject = "Потеряно соединение с узлом " + item.SubItems[1].Text + " (" + item.Text + ")";
+                                                string body = DateTime.Now.ToString() + ": Узел " 
+                                                    + item.SubItems[1].Text + " (" + item.Text + ") " + "перестал отвечать на запросы.";
+
+                                                await SendEmailAsync(subject, body, amsSettings);
+                                            }
+
+                                            // Отправляем SMS оповещение
+
+                                            if (amsSettings.SmsNotification)
+                                            {
+                                                switch (amsSettings.WayToSendSms)
+                                                {
+                                                    case "email":
+                                                        if (!String.IsNullOrWhiteSpace(amsSettings.AdbFile))
+                                                        {
+                                                            string smsText = "Потеряно соединение с " + item.SubItems[1].Text + " " + item.Text;
+                                                            if (amsSettings.EmailNeedsTranslit)
+                                                            {
+                                                                Translit translit = new Translit(false);
+                                                                smsText = translit.TranslitString(smsText);
+                                                            }
+                                                            if (!String.IsNullOrWhiteSpace(amsSettings.EmailToSMS)) await SendEmailToSmsAsync(smsText, amsSettings);
+                                                            else MessageBox.Show("Не указан e-mail шлюз в настройках приложения.", "Отправка СМС не удалась");
+                                                        }
+
+                                                        break;
+
+                                                    case "adb":
+
+                                                        if (!String.IsNullOrWhiteSpace(amsSettings.AdbFile))
+                                                        {
+                                                            Process process = new Process();
+                                                            process.StartInfo.FileName = amsSettings.AdbFile;
+                                                            FileInfo file = new FileInfo(amsSettings.AdbFile);
+                                                            string workingDirectory = file.DirectoryName;
+                                                            process.StartInfo.WorkingDirectory = workingDirectory;
+                                                            string smsText = "Потеряно\\ соединение\\ с\\ " + item.SubItems[1].Text + "\\ " + item.Text;
+                                                            if (amsSettings.SmsNeedsTranslit)
+                                                            {
+                                                                Translit translit = new Translit(false);
+                                                                smsText = translit.TranslitString(smsText);
+                                                            }
+                                                            process.StartInfo.Arguments = "shell service call isms 5 i32 1 s16 " + quote + "com.android.mms" + quote + " s16 " + quote + "null" + quote + " s16 " + quote + amsSettings.PhoneToSMS + quote + " s16 " + quote + "null" + quote + " s16 " + quote + smsText + quote + " s16 " + quote + "null" + quote + " s16 " + quote + "null" + quote + " i32 0 i64 0";
+                                                            process.Start();
+                                                        }
+
+                                                        break;
+
+                                                    default:
+                                                        break;
+                                                }
+                                            }
+
+                                            // Звуковое оповещение о потери соединения
 
                                             new System.Media.SoundPlayer(@"C:\WINDOWS\Media\Windows Notify System Generic.wav").Play();
                                         }
@@ -481,7 +650,7 @@ namespace AMS
 
                     if (nodesStatus.Count > 0)
                     {
-                        XmlSerializer formatter = new XmlSerializer(typeof(List<AMSStat>));
+                        XmlSerializer formatter = new XmlSerializer(typeof(List<AmsStat>));
 
                         // Сегодняшняя дата для формирования названия файла
 
@@ -489,9 +658,9 @@ namespace AMS
                                 + "-" + DateTime.Now.Date.Month.ToString() 
                                 + "-" + DateTime.Now.Date.Year.ToString();
                         
-                        Directory.CreateDirectory(Application.StartupPath + "\\Logs");
+                        Directory.CreateDirectory(amsSettings.LogsFolder);
 
-                        using (FileStream fs = new FileStream("Logs\\" + today + ".xml", FileMode.Create))
+                        using (FileStream fs = new FileStream(amsSettings.LogsFolder + "\\" + today + ".xml", FileMode.Create))
                         {
                             formatter.Serialize(fs, nodesStatus);
                         }
@@ -529,8 +698,8 @@ namespace AMS
         private void OpenMap()
         {
 
-            Directory.CreateDirectory(Application.StartupPath + "\\Maps");
-            openMapDialog.InitialDirectory = Application.StartupPath + "\\Maps";
+            Directory.CreateDirectory(amsSettings.MapsFolder);
+            openMapDialog.InitialDirectory = amsSettings.MapsFolder;
             openMapDialog.Filter = "Карты АСМ (*.xml)|*.xml|Все файлы (*.*)|*.*";
 
             if (openMapDialog.ShowDialog() == DialogResult.Cancel)
@@ -540,19 +709,19 @@ namespace AMS
             tabControl1.TabPages.Add(tp);
             tabControl1.SelectTab(tp);
 
-            XmlSerializer formatter = new XmlSerializer(typeof(List<AMSNode>));
+            XmlSerializer formatter = new XmlSerializer(typeof(List<AmsNode>));
 
             using (FileStream fs = new FileStream(openMapDialog.FileName, FileMode.Open))
             {
                 try
                 {
-                    List<AMSNode> nodes = formatter.Deserialize(fs) as List<AMSNode>;
+                    List<AmsNode> nodes = formatter.Deserialize(fs) as List<AmsNode>;
 
                     if (nodes != null && nodes.Count > 0)
                     {
                         // Добавляем узлы на карту
 
-                        foreach (AMSNode node in nodes)
+                        foreach (AmsNode node in nodes)
                         {
                             // Подготавливаем элемент представляющий узел
 
@@ -582,14 +751,14 @@ namespace AMS
         /// </summary>
         private void SaveMap()
         {
-            Directory.CreateDirectory(Application.StartupPath + "\\Maps");
-            saveMapDialog.InitialDirectory = Application.StartupPath + "\\Maps";
+            Directory.CreateDirectory(amsSettings.MapsFolder);
+            saveMapDialog.InitialDirectory = amsSettings.MapsFolder;
             saveMapDialog.Filter = "Карты АСМ (*.xml)|*.xml|Все файлы (*.*)|*.*";
 
             if (saveMapDialog.ShowDialog() == DialogResult.Cancel)
                 return;
 
-            List<AMSNode> nodes = new List<AMSNode>();
+            List<AmsNode> nodes = new List<AmsNode>();
 
             foreach (DeviceNode dNode in tabControl1.SelectedTab.Controls.OfType<DeviceNode>())
             {
@@ -597,13 +766,97 @@ namespace AMS
                 nodes.Add(dNode.DNode);
             }
 
-            XmlSerializer formatter = new XmlSerializer(typeof(List<AMSNode>));
+            XmlSerializer formatter = new XmlSerializer(typeof(List<AmsNode>));
 
             using (FileStream fs = new FileStream(saveMapDialog.FileName, FileMode.Create))
             {
                 formatter.Serialize(fs, nodes);
                 fs.Close();
             }
+        }
+
+        /// <summary>
+        /// Отправляет e-mail.
+        /// </summary>
+        /// <param name="mailSubject">Тема письма.</param>
+        /// <param name="mailBody">Сообщение.</param>
+        /// <param name="settings">Настройки e-mail в приложении.</param>
+        /// <returns></returns>
+        private async Task SendEmailAsync(string mailSubject, string mailBody, AmsSettings settings)
+        {
+            SmtpClient smtp = new SmtpClient();
+            smtp.UseDefaultCredentials = false;
+            smtp.Port = settings.SmtpPort;
+            smtp.EnableSsl = settings.Ssl;
+            smtp.DeliveryFormat = SmtpDeliveryFormat.International;
+            smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtp.Host = settings.SmtpHost;
+            smtp.Timeout = settings.SmtpTimeout;
+            smtp.Credentials = new NetworkCredential(settings.SmtpSenderEmail, settings.SmtpPassword);
+
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.From = new MailAddress(settings.SmtpSenderEmail, settings.SmtpSenderName);
+            mailMessage.To.Add(settings.MailTo);
+            mailMessage.Subject = mailSubject;
+            mailMessage.Body = mailBody;
+            mailMessage.BodyEncoding = System.Text.Encoding.UTF8;
+            mailMessage.BodyTransferEncoding = System.Net.Mime.TransferEncoding.Base64;
+            mailMessage.IsBodyHtml = true;
+            mailMessage.Priority = MailPriority.Normal;
+            mailMessage.SubjectEncoding = System.Text.Encoding.UTF8;
+
+            try
+            {
+                await smtp.SendMailAsync(mailMessage);                
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                throw;
+            } 
+            
+            smtp.Dispose();
+        }
+
+        /// <summary>
+        /// Отправляет SMS через e-mail шлюз.
+        /// </summary>
+        /// <param name="mailBody">Сообщение.</param>
+        /// <param name="settings">Настройки e-mail в приложении.</param>
+        /// <returns></returns>
+        private async Task SendEmailToSmsAsync(string mailBody, AmsSettings settings)
+        {
+            SmtpClient smtp = new SmtpClient();
+            smtp.UseDefaultCredentials = false;
+            smtp.Port = settings.SmtpPort;
+            smtp.EnableSsl = settings.Ssl;
+            smtp.DeliveryFormat = SmtpDeliveryFormat.International;
+            smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtp.Host = settings.SmtpHost;
+            smtp.Timeout = settings.SmtpTimeout;
+            smtp.Credentials = new NetworkCredential(settings.SmtpSenderEmail, settings.SmtpPassword);
+
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.From = new MailAddress(settings.SmtpSenderEmail, settings.SmtpSenderName);
+            mailMessage.To.Add(settings.EmailToSMS);
+            mailMessage.Body = mailBody;
+            mailMessage.BodyEncoding = System.Text.Encoding.UTF8;
+            mailMessage.BodyTransferEncoding = System.Net.Mime.TransferEncoding.Base64;
+            mailMessage.IsBodyHtml = true;
+            mailMessage.Priority = MailPriority.Normal;
+            mailMessage.SubjectEncoding = System.Text.Encoding.UTF8;
+
+            try
+            {
+                await smtp.SendMailAsync(mailMessage);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                throw;
+            }
+
+            smtp.Dispose();
         }
 
     }

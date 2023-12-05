@@ -78,13 +78,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AmsSettings.cs" />
     <Compile Include="Analysis.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Analysis.Designer.cs">
       <DependentUpon>Analysis.cs</DependentUpon>
     </Compile>
-    <Compile Include="AMSStat.cs" />
+    <Compile Include="AmsStat.cs" />
     <Compile Include="CreateMap.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,9 +116,9 @@
     <Compile Include="DeviceNode.Designer.cs">
       <DependentUpon>DeviceNode.cs</DependentUpon>
     </Compile>
-    <Compile Include="AMSLog.cs" />
-    <Compile Include="AMSNode.cs" />
-    <Compile Include="AMSNodes.cs" />
+    <Compile Include="AmsLog.cs" />
+    <Compile Include="AmsNode.cs" />
+    <Compile Include="AmsNodes.cs" />
     <Compile Include="EditNodeCM.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,6 +163,13 @@
     <Compile Include="Settings.Designer.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
+    <Compile Include="ShowLicense.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowLicense.Designer.cs">
+      <DependentUpon>ShowLicense.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Translit.cs" />
     <EmbeddedResource Include="Analysis.resx">
       <DependentUpon>Analysis.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -180,6 +188,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CreateTest.resx">
       <DependentUpon>CreateTest.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DeviceNode.resx">
       <DependentUpon>DeviceNode.cs</DependentUpon>
@@ -191,6 +200,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EditNodeM.resx">
       <DependentUpon>EditNodeM.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
@@ -198,6 +208,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GraphAndStat.resx">
       <DependentUpon>GraphAndStat.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -214,6 +225,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShowLicense.resx">
+      <DependentUpon>ShowLicense.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="AMS_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">

@@ -68,7 +68,9 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.button2);
             this.splitContainer1.Panel2.Controls.Add(this.button1);
+            this.splitContainer1.Panel2.Controls.Add(this.comboBox1);
             this.splitContainer1.Size = new System.Drawing.Size(961, 450);
             this.splitContainer1.SplitterDistance = 421;
             this.splitContainer1.TabIndex = 0;
@@ -82,22 +84,20 @@
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.button2);
-            this.splitContainer2.Panel1.Controls.Add(this.comboBox1);
             this.splitContainer2.Panel1.Controls.Add(this.lbCaption);
             // 
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.lvStatistics);
             this.splitContainer2.Size = new System.Drawing.Size(961, 421);
-            this.splitContainer2.SplitterDistance = 48;
+            this.splitContainer2.SplitterDistance = 25;
             this.splitContainer2.TabIndex = 0;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(408, 27);
+            this.button2.Location = new System.Drawing.Point(415, 0);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(91, 21);
+            this.button2.Size = new System.Drawing.Size(94, 23);
             this.button2.TabIndex = 6;
             this.button2.Text = "Открыть";
             this.button2.UseVisualStyleBackColor = true;
@@ -106,7 +106,7 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(5, 27);
+            this.comboBox1.Location = new System.Drawing.Point(12, 2);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(397, 21);
             this.comboBox1.TabIndex = 2;
@@ -120,7 +120,7 @@
             this.lbCaption.ForeColor = System.Drawing.SystemColors.Highlight;
             this.lbCaption.Location = new System.Drawing.Point(0, 0);
             this.lbCaption.Name = "lbCaption";
-            this.lbCaption.Size = new System.Drawing.Size(961, 48);
+            this.lbCaption.Size = new System.Drawing.Size(961, 25);
             this.lbCaption.TabIndex = 5;
             this.lbCaption.Text = "Общая статистика работы узлов";
             // 
@@ -141,7 +141,7 @@
             this.lvStatistics.HideSelection = false;
             this.lvStatistics.Location = new System.Drawing.Point(0, 0);
             this.lvStatistics.Name = "lvStatistics";
-            this.lvStatistics.Size = new System.Drawing.Size(961, 369);
+            this.lvStatistics.Size = new System.Drawing.Size(961, 392);
             this.lvStatistics.TabIndex = 29;
             this.lvStatistics.UseCompatibleStateImageBehavior = false;
             this.lvStatistics.View = System.Windows.Forms.View.Details;
@@ -193,9 +193,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(836, -1);
+            this.button1.Location = new System.Drawing.Point(827, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(122, 26);
+            this.button1.Size = new System.Drawing.Size(122, 23);
             this.button1.TabIndex = 1;
             this.button1.Text = "Закрыть";
             this.button1.UseVisualStyleBackColor = true;

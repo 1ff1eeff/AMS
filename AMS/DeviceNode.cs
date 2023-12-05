@@ -14,13 +14,13 @@ namespace AMS
     public partial class DeviceNode : UserControl
     {
 
-        private AMSNode dNode = new AMSNode(); // Экземпляр DNode
+        private AmsNode dNode = new AmsNode(); // Экземпляр DNode
 
         Point DownPoint; // Точка перемещения
 
         bool IsDragMode; // Нажата ли кнопка мыши
 
-        public AMSNode DNode { get => dNode; set => dNode = value; }
+        public AmsNode DNode { get => dNode; set => dNode = value; }
 
         public DeviceNode()
         {
