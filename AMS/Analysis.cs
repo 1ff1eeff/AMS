@@ -18,7 +18,7 @@ namespace AMS
 
     public partial class Analysis : Form
     {
-        public List<AmsStat> nodesStatus = new List<AmsStat>();
+        public List<AmsNodeStat> nodesStatus = new List<AmsNodeStat>();
 
         public AmsSettings amsSettings = new AmsSettings();
 
@@ -77,20 +77,20 @@ namespace AMS
 
         private void UpdateNodesStatistics(string filename)
         {
-            XmlSerializer formatter = new XmlSerializer(typeof(List<AmsStat>));
+            XmlSerializer formatter = new XmlSerializer(typeof(List<AmsNodeStat>));
 
             using (FileStream fs = new FileStream(filename, FileMode.Open))
             {
 
                 try
                 {
-                    List<AmsStat> stats = formatter.Deserialize(fs) as List<AmsStat>;
+                    List<AmsNodeStat> stats = formatter.Deserialize(fs) as List<AmsNodeStat>;
                     
                     comboBox1.Text = filename;
 
                     if (stats != null && stats.Count > 0)
                     {
-                        foreach (AmsStat stat in stats)
+                        foreach (AmsNodeStat stat in stats)
                         {
                             ListViewItem item = new ListViewItem();
 

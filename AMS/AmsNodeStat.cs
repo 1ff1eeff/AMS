@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AMS
 {  
-    public class AmsStat
+    public class AmsNodeStat
     {        
         private string name;
         private string nameOnMap;
@@ -22,7 +22,7 @@ namespace AMS
         private DateTime finishTime;
         private string id;
 
-        public AmsStat() 
+        public AmsNodeStat() 
         {
             Name = "";
             NameOnMap = "";

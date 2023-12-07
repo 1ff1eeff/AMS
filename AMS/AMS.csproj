@@ -85,7 +85,7 @@
     <Compile Include="Analysis.Designer.cs">
       <DependentUpon>Analysis.cs</DependentUpon>
     </Compile>
-    <Compile Include="AmsStat.cs" />
+    <Compile Include="AmsNodeStat.cs" />
     <Compile Include="CreateMap.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,18 +136,6 @@
     </Compile>
     <Compile Include="MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GraphAndStat.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GraphAndStat.Designer.cs">
-      <DependentUpon>GraphAndStat.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Indicators.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Indicators.Designer.cs">
-      <DependentUpon>Indicators.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -204,10 +192,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GraphAndStat.resx">
-      <DependentUpon>GraphAndStat.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
