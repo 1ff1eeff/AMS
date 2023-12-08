@@ -59,7 +59,7 @@ namespace AMS
             {
 
                 // Открываем файл и настраиваем приложение.
-                // Тип данных для десериализации – AmsSettings.
+                // Тип данных для десериализации – <AmsSettings>.
 
                 XmlSerializer formatter = new XmlSerializer(typeof(AmsSettings));
 
@@ -69,9 +69,14 @@ namespace AMS
 
                     using (FileStream fs = new FileStream(_defaulConfigFile, FileMode.Open))
                     {
-                        // Переносим настройки из файла конфигурации в XML формате, в приложение.
+                        // Если файл был успешно десериализован.
 
-                        amsSettings = formatter.Deserialize(fs) as AmsSettings;
+                        if (formatter.Deserialize(fs) is AmsSettings settings)
+                        {
+                            // Переносим настройки из файла конфигурации в приложение.
+
+                            amsSettings = settings;
+                        }
                     }
                 }
                 catch (Exception e)
@@ -88,7 +93,7 @@ namespace AMS
             else
             {
                 // Создаём новый файл и заполняем значениями по умолчанию.
-                // Тип данных для сериализации – AmsSettings.
+                // Тип данных для сериализации – <AmsSettings>.
 
                 XmlSerializer formatter = new XmlSerializer(typeof(AmsSettings));
 
@@ -331,6 +336,7 @@ namespace AMS
 
             openMapDialog.InitialDirectory = amsSettings.MapsFolder;
 
+            // Отображаем диалог выбора файла карты.
             // Если пользователь отменил открытие карты.
 
             if (openMapDialog.ShowDialog() == DialogResult.Cancel)
@@ -364,12 +370,9 @@ namespace AMS
                 try
                 {
                     // Заполняем список узлов данными из файла.
+                    // Если файл был успешно десериализован содержит информацию об узлах.
 
-                    List<AmsNode> nodes = formatter.Deserialize(fs) as List<AmsNode>;
-
-                    // Если файл содержит информацию об узлах.
-
-                    if (nodes != null && nodes.Count > 0)
+                    if (formatter.Deserialize(fs) is List<AmsNode> nodes && nodes.Count > 0)
                     {
                         // Добавляем узлы на карту.
 
@@ -402,6 +405,9 @@ namespace AMS
 
                     fs.Close();
                 }
+
+
+
                 catch (Exception)
                 {
                 }
@@ -422,6 +428,7 @@ namespace AMS
 
             saveMapDialog.InitialDirectory = amsSettings.MapsFolder;
 
+            // Отображаем диалог выбора файла.
             // Если пользователь отменил открытие карты.
 
             if (saveMapDialog.ShowDialog() == DialogResult.Cancel)
@@ -610,8 +617,6 @@ namespace AMS
             }
         }
 
-
-
         /// <summary>
         /// Отправляет e-mail.
         /// </summary>
@@ -710,10 +715,12 @@ namespace AMS
 
                 await smtp.SendMailAsync(mailMessage);                
             }
+
+            // Если в процессе отправления электронного сообщения возникли проблемы.
+
             catch (Exception e)
             {
-                // Если в процессе отправления электронного сообщения возникли
-                // проблемы – уведомляем пользователя посредством диалогового окна.
+                // Уведомляем пользователя посредством диалогового окна.
 
                 MessageBox.Show(e.Message);
                 throw;
@@ -1033,8 +1040,7 @@ namespace AMS
                                 // Если отслеживаем "Доступность".
 
                                 if (item.SubItems[2].Text != " - ")
-                                {                                    
-
+                                {                                   
                                     // Если статус узла - Online.
 
                                     if (resp.Status == IPStatus.Success)
@@ -1095,7 +1101,6 @@ namespace AMS
                                         // Количество успешных ответов на запрос +1.
 
                                         nodeStatus.Succed++;
-
                                     }
 
                                     // Если статус узла - Offline.

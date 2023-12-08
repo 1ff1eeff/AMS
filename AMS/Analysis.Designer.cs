@@ -30,8 +30,6 @@
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.button2 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.lbCaption = new System.Windows.Forms.Label();
             this.lvStatistics = new System.Windows.Forms.ListView();
             this.NodeName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -43,7 +41,9 @@
             this.TimeoutPercent = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.PingStarted = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.PingFinished = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.cbLogFile = new System.Windows.Forms.ComboBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -70,7 +70,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.button2);
             this.splitContainer1.Panel2.Controls.Add(this.button1);
-            this.splitContainer1.Panel2.Controls.Add(this.comboBox1);
+            this.splitContainer1.Panel2.Controls.Add(this.cbLogFile);
             this.splitContainer1.Size = new System.Drawing.Size(961, 450);
             this.splitContainer1.SplitterDistance = 421;
             this.splitContainer1.TabIndex = 0;
@@ -92,26 +92,6 @@
             this.splitContainer2.Size = new System.Drawing.Size(961, 421);
             this.splitContainer2.SplitterDistance = 25;
             this.splitContainer2.TabIndex = 0;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(415, 0);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(94, 23);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "Открыть";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(12, 2);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(397, 21);
-            this.comboBox1.TabIndex = 2;
-            this.comboBox1.Text = "Выберите log-файл для промотра собранной ранее статистики узлов";
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // lbCaption
             // 
@@ -191,6 +171,16 @@
             this.PingFinished.Text = "Финал опроса";
             this.PingFinished.Width = 120;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(415, 0);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(94, 23);
+            this.button2.TabIndex = 6;
+            this.button2.Text = "Открыть";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(827, 2);
@@ -200,6 +190,20 @@
             this.button1.Text = "Закрыть";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // cbLogFile
+            // 
+            this.cbLogFile.FormattingEnabled = true;
+            this.cbLogFile.Location = new System.Drawing.Point(12, 2);
+            this.cbLogFile.Name = "cbLogFile";
+            this.cbLogFile.Size = new System.Drawing.Size(397, 21);
+            this.cbLogFile.TabIndex = 2;
+            this.cbLogFile.Text = "Выберите log-файл для промотра собранной ранее статистики узлов";
+            this.cbLogFile.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.Filter = "Файлы логирования (*.xml)|*.xml|Все файлы (*.*)|*.*";
             // 
             // Analysis
             // 
@@ -238,7 +242,7 @@
         private System.Windows.Forms.ColumnHeader PingFinished;
         private System.Windows.Forms.ColumnHeader IP;
         private System.Windows.Forms.ColumnHeader NodeName;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbLogFile;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
