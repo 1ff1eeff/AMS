@@ -97,7 +97,7 @@ namespace AMS
 
                 byte[] bytes = BitConverter.GetBytes(i);
 
-                // Создаём и инициализируем объект, представляющий IP-адрес, массивом из четырёх байтов.
+                // Объявляем и инициализируем объект, представляющий IP-адрес, массивом из четырёх байтов.
 
                 IPAddress newIp = new IPAddress(new[] { bytes[3], bytes[2], bytes[1], bytes[0] });
 
@@ -165,7 +165,7 @@ namespace AMS
 
                     foreach (ListViewItem activeNodeItem in lvScanResult.Items)
                     {
-                        // Создаём и инициализируем объект, представляющий информацию о новом узле.
+                        // Объявляем и инициализируем объект, представляющий информацию о новом узле.
 
                         AmsNode node = new AmsNode
                         {
@@ -212,7 +212,7 @@ namespace AMS
                     }
                 }
 
-                // Создаём и инициализируем переменные для позиционирования узла на карте.
+                // Объявляем и инициализируем переменные для позиционирования узла на карте.
                 // Положение по X, Y и разделитель.
 
                 int x = 10, y = 0, spacer = 10;
@@ -289,7 +289,7 @@ namespace AMS
 
             if (IsIpValid(tbFirstIp.Text) && IsIpValid(tbLastIp.Text))
             {
-                // Создаём и инициализируем элемент ListViewItem
+                // Объявляем и инициализируем элемент ListViewItem
                 // текстом из поля для ввода "Начальный адрес".
 
                 ListViewItem lvi = new ListViewItem(tbFirstIp.Text);
@@ -452,11 +452,11 @@ namespace AMS
 
                     _cts = new CancellationTokenSource();
 
-                    // Создаём переменную для хранения начального IP-адреса диапазона сканирования.
+                    // Объявляем переменную для хранения начального IP-адреса диапазона сканирования.
 
                     IPAddress firstIpAddress;
 
-                    // Создаём переменную для хранения финального IP-адреса диапазона сканирования.
+                    // Объявляем переменную для хранения финального IP-адреса диапазона сканирования.
 
                     IPAddress lastIpAddress;
 
@@ -472,7 +472,7 @@ namespace AMS
 
                         progressBar1.Visible = true;
 
-                        // Создаём и инициализируем экземпляр класса AmsNodes
+                        // Объявляем и инициализируем экземпляр класса AmsNodes
                         // для хранения информации об активных узлах сети.
 
                         AmsNodes nodesList = new AmsNodes();
@@ -497,7 +497,7 @@ namespace AMS
 
                         foreach (AmsNode node in nodesList.Nodes)
                         {
-                            // Создаём и инициализируем элемент ListViewItem.
+                            // Объявляем и инициализируем элемент ListViewItem.
 
                             ListViewItem nodeLVI = new ListViewItem();
 

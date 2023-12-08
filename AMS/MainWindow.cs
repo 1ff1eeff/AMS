@@ -668,8 +668,8 @@ namespace AMS
             smtp.Credentials = new NetworkCredential(settings.SmtpSenderEmail, settings.SmtpPassword);
 
             // Формируем новое электронное сообщения для передачи SMTP-серверу.
-            
-            // Создаём и инициализируем новый экземпляр объекта, отвечающего за отправление сообщений.
+
+            // Объявляем и инициализируем новый экземпляр объекта, отвечающего за отправление сообщений.
 
             MailMessage mailMessage = new MailMessage();
 
@@ -781,7 +781,7 @@ namespace AMS
             smtp.Credentials = new NetworkCredential(settings.SmtpSenderEmail, settings.SmtpPassword);
 
             // Формируем новое электронное сообщения для передачи SMTP-серверу.
-            // Создаём и инициализируем новый экземпляр объекта, отвечающего за отправление сообщений.
+            // Объявляем и инициализируем новый экземпляр объекта, отвечающего за отправление сообщений.
 
             MailMessage mailMessage = new MailMessage();
 
