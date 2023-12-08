@@ -1,35 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Net.NetworkInformation;
-using System.Net.Sockets;
 using System.Net;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Runtime.InteropServices;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace AMS
 {
     public partial class CreateMap : Form
     {
-        // Для связи с элементом карты главной формы
+        // Для связи с элементом главной формы, содержащим карты.
 
         public TabControl tc;
+
+        // Импорт из "Win32API/iphlpapi.dll" функции "SendARP"
+        // для получения MAC-адреса, соответствующего указанному целевому IPv4-адресу.        
 
         [DllImport("iphlpapi.dll", ExactSpelling = true)]
         private static extern int SendARP(int destIp, int srcIP, 
             byte[] macAddr, ref uint physicalAddrLen);
-                
-        List<AmsNode> nodes = new List<AmsNode>(); // Формируем новые узлы
 
-        CancellationTokenSource cts = new CancellationTokenSource();
+        // Список для хранения информации об узлах сети.
+
+        private readonly List<AmsNode> _nodes = new List<AmsNode>();
+
+        // Объект управления токеном для отмены операции. 
+
+        private CancellationTokenSource _cts = new CancellationTokenSource();
+
+        // Пустая строка.
+
+        private const string _strEmpty = "";
 
         public CreateMap()
         {
@@ -40,9 +43,12 @@ namespace AMS
         /// Проверка корректности ввода IP-адреса.
         /// </summary>
         /// <param name="ip">Проверяемый IP-адрес.</param>
-        /// <returns></returns>
+        /// <returns>Возвращает true, если полученный IP-адрес корректен.</returns>
         public static bool IsIpValid(string ip)
         {
+            // Возвращам true, если строка задана, количество символов разделителей
+            // "точка" равно трём и строка проанализирована как IP-адрес.
+
             return ip != null && ip.Count(c => c == '.') == 3 
                 && IPAddress.TryParse(ip, out IPAddress address);
         }
@@ -55,341 +61,618 @@ namespace AMS
         /// <returns>Список всех IP-адресов диапазона.</returns>
         private static List<IPAddress> IPAddressesRange(IPAddress firstIPAddress, IPAddress lastIPAddress)
         {
-            var firstIPAddressAsBytesArray = firstIPAddress.GetAddressBytes();
-            var lastIPAddressAsBytesArray = lastIPAddress.GetAddressBytes();
+            // Представляем начальный IP-адрес диапазона в виде массива байтов.
+
+            byte[] firstIPAddressAsBytesArray = firstIPAddress.GetAddressBytes();
+
+            // Представляем финальный IP-адрес диапазона в виде массива байтов.
+
+            byte[] lastIPAddressAsBytesArray = lastIPAddress.GetAddressBytes();
+
+            // Инвертируем порядок элементов в массиве байтов, представляющем начальный IP-адрес.
+
             Array.Reverse(firstIPAddressAsBytesArray);
+
+            // Инвертируем порядок элементов в массиве байтов, представляющем финальный IP-адрес.
+
             Array.Reverse(lastIPAddressAsBytesArray);
-            var firstIPAddressAsInt = BitConverter.ToInt32(firstIPAddressAsBytesArray, 0);
-            var lastIPAddressAsInt = BitConverter.ToInt32(lastIPAddressAsBytesArray, 0);
-            var ipAddressesInTheRange = new List<IPAddress>();
-            for (var i = firstIPAddressAsInt; i <= lastIPAddressAsInt; i++)
+
+            // Преобразуем массив байтов в 32-битовое число со знаком, образованное четырьмя байтами.
+
+            int firstIPAddressAsInt = BitConverter.ToInt32(firstIPAddressAsBytesArray, 0);
+
+            // Преобразуем массив байтов в 32-битовое число со знаком, образованное четырьмя байтами.
+
+            int lastIPAddressAsInt = BitConverter.ToInt32(lastIPAddressAsBytesArray, 0);
+
+            // Создаём список для хранения диапазона IP-адресов.
+
+            List<IPAddress> ipAddressesInTheRange = new List<IPAddress>();
+
+            // Проходим по всем IP-адресам от начального до финального.
+
+            for (int i = firstIPAddressAsInt; i <= lastIPAddressAsInt; i++)
             {
-                var bytes = BitConverter.GetBytes(i);
-                var newIp = new IPAddress(new[] { bytes[3], bytes[2], bytes[1], bytes[0] });
+                // Преобразуем IP-адрес представленный в виде 32-битного числа в массив из четырёх байтов.
+
+                byte[] bytes = BitConverter.GetBytes(i);
+
+                // Создаём и инициализируем объект, представляющий IP-адрес, массивом из четырёх байтов.
+
+                IPAddress newIp = new IPAddress(new[] { bytes[3], bytes[2], bytes[1], bytes[0] });
+
+                // Добавляем созданный объект, представляющий IP-адрес, в список для хранения диапазона IP-адресов.
+
                 ipAddressesInTheRange.Add(newIp);
             }
+
+            // Возвращаем список содержащий все IP-адреса указанного диапазона.
+
             return ipAddressesInTheRange;
         }
 
-
-        // ОК
+        /// <summary>
+        /// Кнопка "ОК"
+        /// </summary>
         private void button6_Click(object sender, EventArgs e)
         {
-            // Создаём пустую карту
+            // Если выбран вариант "Создать пустую карту".
 
-            if (radioButton1.Checked)
+            if (rbNewMap.Checked)
             {
-                // Создаём новую вкладку на карте
+                // Создаём и иницализируем новую вкладку.
+                // Текст ярлычка вкладки получаем из поля ввода "tbMapName" – "Имя новой карты"
 
-                TabPage tp = new TabPage(textBox9.Text);
+                TabPage tp = new TabPage(tbMapName.Text);
+
+                // Добавляем новую вкладку на карту.
+
                 tc.TabPages.Add(tp);
+
+                // Делаем вкладку активной.
+
                 tc.SelectTab(tp);
             }
 
-            // Создаём карту на основании сканирования IP диапазонов
+            // Если выбран вариант "Карта на основе сканирования".
+            // Создаём карту на основании сканирования IP диапазонов.
 
-            if (radioButton2.Checked)
+            if (rbMapOnScan.Checked)
             {
-                // Создаём новую карту
+                // Если параметр "Не создать новую карту" не отмечен.
 
-                if (!checkBox1.Checked)
+                if (!cbNewMap.Checked)
                 {
-                    // Создаём новую вкладку на карте
+                    // Создаём и иницализируем новую вкладку.
+                    // Текст ярлычка вкладки получаем из поля ввода "Имя новой карты".
 
-                    TabPage tp = new TabPage(textBox9.Text);
+                    TabPage tp = new TabPage(tbMapName.Text);
+
+                    // Добавляем новую вкладку на карту.
+
                     tc.TabPages.Add(tp);
+
+                    // Делаем вкладку активной.
+
                     tc.SelectTab(tp);
                 }
 
-                // Заполняем данные нового узла
+                // Если в списке "Активные IP-адреса" есть элементы.
 
-                if (listView2.Items.Count > 0)
-                    foreach (ListViewItem activeNodeItem in listView2.Items)
+                if (lvScanResult.Items.Count > 0)
+                {
+                    // На основании элементов компонента формы ListView "Активные IP-адреса".                    
+
+                    foreach (ListViewItem activeNodeItem in lvScanResult.Items)
                     {
-                        AmsNode node = new AmsNode();
+                        // Создаём и инициализируем объект, представляющий информацию о новом узле.
 
-                        // Уникальный идентификатор узла
+                        AmsNode node = new AmsNode
+                        {
+                            // Уникальный идентификатор.
 
-                        node.Id = Guid.NewGuid().ToString();
+                            Id = Guid.NewGuid().ToString(),
 
-                        // IP-адрес
+                            // IP-адрес.
 
-                        if (activeNodeItem.Text.Length > 0)
-                            node.Ip = activeNodeItem.Text;
+                            Ip = activeNodeItem.Text,
 
-                        // МАС-адрес
+                            // МАС-адрес.
 
-                        if (activeNodeItem.SubItems.Count > 1 
-                            && activeNodeItem.SubItems[1].Text != " - ")
-                            node.Mac = activeNodeItem.SubItems[1].Text;
+                            Mac = activeNodeItem.SubItems[1].Text,
 
-                        // Имя узла
+                            // NetBIOS-имя.
 
-                        if (activeNodeItem.SubItems.Count > 2 
-                            && activeNodeItem.SubItems[2].Text != " - ")
-                            node.Name = activeNodeItem.SubItems[2].Text;
+                            Name = activeNodeItem.SubItems[2].Text,
 
-                        // Сервисы
+                            // Службы.
 
-                        if (activeNodeItem.SubItems.Count > 3 
-                            && activeNodeItem.SubItems[3].Text != " - ")
-                        {                            
-                            node.Services = activeNodeItem.SubItems[3].Text.Split(';');
-                        }                            
+                            Services = activeNodeItem.SubItems[3].Text.Split(';'),
 
-                        // Тип устройства
+                            // Тип.
 
-                        if (activeNodeItem.SubItems.Count > 4 
-                            && activeNodeItem.SubItems[4].Text != " - ")
-                            node.Type = activeNodeItem.SubItems[4].Text;
+                            Type = activeNodeItem.SubItems[4].Text,
 
-                        // Стандарт передачи данных
+                            // Стандарт передачи данных.
 
-                        if (activeNodeItem.SubItems.Count > 5 
-                            && activeNodeItem.SubItems[5].Text != " - ")
-                            node.Standard = activeNodeItem.SubItems[5].Text;
+                            Standard = activeNodeItem.SubItems[5].Text,
 
-                        // Протокол передачи данных
+                            // Протокол передачи данных.
 
-                        if (activeNodeItem.SubItems.Count > 6 
-                            && activeNodeItem.SubItems[6].Text != " - ")
-                            node.Protocol = activeNodeItem.SubItems[6].Text;
-                        
-                        // Имя узла на карте
+                            Protocol = activeNodeItem.SubItems[6].Text,
 
-                        if (activeNodeItem.SubItems.Count > 7
-                            && activeNodeItem.SubItems[7].Text != " - ")
-                            node.NameOnMap = activeNodeItem.SubItems[7].Text;
+                            // Имя узла на карте.
 
-                        nodes.Add(node);
+                            NameOnMap = activeNodeItem.SubItems[7].Text
+                        };
+
+                        // Добавляем информацию о текущем узле в список.
+
+                        _nodes.Add(node);
                     }
+                }
 
-                // Добавляем узлы на карту
+                // Создаём и инициализируем переменные для позиционирования узла на карте.
+                // Положение по X, Y и разделитель.
 
                 int x = 10, y = 0, spacer = 10;
 
-                foreach (AmsNode node in nodes)
+                // Добавляем узлы на карту.
+
+                foreach (AmsNode node in _nodes)
                 {
-                    // Подготавливаем элемент представляющий узел
+                    // Подготавливаем пользовательский компонент, представляющий узел.
 
                     DeviceNode dn = new DeviceNode
                     {
-                        Location = new Point(x, y), // Положение
-                        DNode = node, // Узел                        
+                        // Положение по X и Y.
+
+                        Location = new Point(x, y),
+
+                        // Передаём информацию об узле в пользовательский компонент, представляющий узел.
+
+                        DNode = node,                      
                     };
 
-                    // Располагаем каждый последующий элемент
-                    // на расстоянии ширины элемента и разделителя
-                    // Если элемент слишком близко к краю формы,
-                    // то переносим на следующую строку
+                    // Если для создания пользовательского компонента DeviceNode хватает места на карте.                
 
                     if (x < tc.Width - (dn.Size.Width * 2 + spacer))
+                    {
+                        // Располагаем каждый последующий компонент на расстоянии ширины компонента и разделителя.    
+
                         x += dn.Size.Width + spacer;
+                    }
+
+                    // Если элемент слишком близко к краю формы, то переносим на следующую строку.
+
                     else
                     {
-                        x = 10;
+                        // Положение по горизонтали равно значению разделителя.
+                        
+                        x = spacer;
+
+                        // Увеличиваем положение по вертикали на значение высоты компонента плюс разделитель.
+
                         y += dn.Size.Height + spacer;
                     }
 
-                    // Добавляем новый элемент на карту
+                    // Если на компоненте формы, представляющему карту, есть вкладки.
 
                     if (tc.TabPages.Count > 0)
+                    {
+                        // Добавляем новый элемент на карту.
+
                         tc.TabPages[tc.SelectedIndex].Controls.Add(dn);
+                    }
                 }
             }
+
+            // Закрываем форму.
+
             Close();
         }
 
-        // Отмена
+        /// <summary>
+        /// Кнопка "Отмена".
+        /// </summary>
         private void button4_Click(object sender, EventArgs e)
         {
+            // Закрываем форму.
+
             Close();
         }
 
-        // Добавить диапазон в список
+        // Кнопка "Добавить диапазон в список"
         private void button2_Click(object sender, EventArgs e)
         {
-            if (IsIpValid(textBox1.Text) && IsIpValid(textBox1.Text))
+            // Если введённые IP-адреса диапазона корректны.
+
+            if (IsIpValid(tbFirstIp.Text) && IsIpValid(tbLastIp.Text))
             {
-                ListViewItem lvi = new ListViewItem(textBox1.Text);
+                // Создаём и инициализируем элемент ListViewItem
+                // текстом из поля для ввода "Начальный адрес".
+
+                ListViewItem lvi = new ListViewItem(tbFirstIp.Text);
+
+                // Второе поле элемента ListView – разделитель (для упрощения восприятия).
+
                 lvi.SubItems.Add("–");
-                lvi.SubItems.Add(textBox2.Text);
-                listView1.Items.Add(lvi);
+
+                // Третье поле элемента ListView – текст поля для ввода "Финальный адрес".
+
+                lvi.SubItems.Add(tbLastIp.Text);
+
+                // Добавляем созданный элемент ListViewItem в ListView "Диапазоны сканирования".
+
+                lvScanRange.Items.Add(lvi);
             }
         }
 
-        // Удалить IP из списка активных
+        /// <summary>
+        /// Кнопка "Удалить"
+        /// </summary>
         private void button3_Click(object sender, EventArgs e)
         {
-            foreach (ListViewItem eachItem in listView2.SelectedItems)
-                listView2.Items.Remove(eachItem);
-        }
+            // Удаляем выделенные элементы из списка активных IP-адресов.
 
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
-        {
-
-            // Если ни одной карты нет, то доступно только создание новой
-
-            panel1.Enabled = radioButton2.Checked;
-            if (tc.TabPages.Count > 0)
-                checkBox1.Enabled = radioButton2.Checked;
-            else
+            foreach (ListViewItem selectedItem in lvScanResult.SelectedItems)
             {
-                checkBox1.Enabled = false;
-                checkBox1.Checked = false;
+                // Удаляем выделенный элемент из списка активных IP-адресов..
+
+                lvScanResult.Items.Remove(selectedItem);
             }
         }
 
-        // Проверить корректность ввода IP-адреса в поле "Начальный IP-адрес"
-        private void textBox1_Leave(object sender, EventArgs e)
+        /// <summary>
+        /// Кнопка "Карта на основе сканирования".
+        /// Событие "Состояние флаговой кнопки изменилось".
+        /// </summary>
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
-            if (!IsIpValid(textBox1.Text)) MessageBox.Show("Некорректный начальный IP-адрес!");
+            // Активируем панель с компонентами, отвечающими за сканирование диапазона IP-адресов,
+            // соответственно состоянию флаговой кнопки "Карта на основе сканирования".
+
+            panScanRange.Enabled = rbMapOnScan.Checked;
+
+            // Если на главной форме добавлены карты.
+
+            if (tc.TabPages.Count > 0)
+            {
+                // Делаем флаговую кнопку "Не создать новую карту" доступной для взаимодействия.
+
+                cbNewMap.Enabled = true;
+            }
+
+            // Если ни одной карты нет, то доступно только создание новой карты.
+
+            else
+            {
+                // Отключаем взаимодействие с флаговой кнопкой "Не создать новую карту". 
+
+                cbNewMap.Enabled = false;
+
+                // Переводим флаговую кнопку в выключенное состояние.
+
+                cbNewMap.Checked = false;
+            }
         }
 
-        // Скопировать значение начального IP-адреса в поле "Финальный IP-адрес"
+        /// <summary>
+        /// Поле для ввода "Начальный адрес".
+        /// Событие "Элемент перестал быть активным элементом управления".
+        /// </summary>
+        private void tbFirstIp_Leave(object sender, EventArgs e)
+        {
+            // Проверить корректность ввода IP-адреса в поле "Начальный IP-адрес"
+
+            if (!IsIpValid(tbFirstIp.Text))
+            {
+                // Уведомляем пользователя посредством диалогового окна.
+
+                MessageBox.Show("Некорректный начальный IP-адрес!");
+
+                // Очищаем поле ввода "Начальный адрес"
+
+                tbFirstIp.Text = _strEmpty;
+            } 
+        }
+
+        /// <summary>
+        /// Поле для ввода "Начальный адрес".
+        /// Событие "Элемент перестал быть активным элементом управления".
+        /// </summary>        
+        private void tbLastIp_Leave(object sender, EventArgs e)
+        {
+            // Проверяем корректность ввода IP-адреса в поле "Финальный IP-адрес"
+            // Ели адрес некорректен.
+
+            if (!IsIpValid(tbLastIp.Text)) 
+            {
+                // Уведомляем пользователя посредством диалогового окна.
+
+                MessageBox.Show("Некорректный финальный IP-адрес!");
+
+                // Очищаем поле ввода "Финальный адрес"
+
+                tbLastIp.Text = _strEmpty;
+            }   
+        }
+
+        /// <summary>
+        /// Кнопка ">".
+        /// </summary>
         private void button1_Click(object sender, EventArgs e)
         {
-            textBox2.Text = textBox1.Text;
+            // Копируем текст поля для ввода "Начальный IP-адрес" в поле "Финальный IP-адрес".
+
+            tbLastIp.Text = tbFirstIp.Text;
         }
 
-        // Проверить корректность ввода IP-адреса в поле "Финальный IP-адрес"
-        private void textBox2_Leave(object sender, EventArgs e)
+        /// <summary>
+        /// Кнопка "Удалить".
+        /// </summary>
+        private void btnRemove_Click(object sender, EventArgs e)
         {
-            if (!IsIpValid(textBox2.Text)) MessageBox.Show("Некорректный финальный IP-адрес!");
-        }
+            // Удаляем выделенные строки из списка диапазонов сканирования.
 
-        // Удалить выделенную строку из списка диапазонов сканирования
-        private void button5_Click(object sender, EventArgs e)
-        {
-            foreach (ListViewItem eachItem in listView1.SelectedItems)
-                listView1.Items.Remove(eachItem);
-        }
-
-        // Сканировать диапазон IP-адресов на наличие активных
-        private async void button7_Click(object sender, EventArgs e)
-        {
-            if (listView1.Items.Count > 0)
+            foreach (ListViewItem eachItem in lvScanRange.SelectedItems)
             {
-                if (button7.Text == "Сканировать")
-                {                    
-                    button7.Text = "Остановить";
-                    if (cts != null)
-                        cts.Dispose();
-                    cts = new CancellationTokenSource();
+                // Удаляем выделенную строку из списка диапазонов сканирования.
 
-                    // Начальный и финальный IP-адреса диапазона сканирования
+                lvScanRange.Items.Remove(eachItem);
+            }
+        }
+
+        /// <summary>
+        /// Кнопка "Сканировать".
+        /// </summary>
+        private async void btnScan_Click(object sender, EventArgs e)
+        {
+            // Если в ListView "Диапазоны сканирования" добавлены элементы.
+
+            if (lvScanRange.Items.Count > 0)
+            {
+                // Если текст кнопки "Сканировать".
+
+                if (btnScan.Text == "Сканировать")
+                {
+                    // Устанавливаем текст кнопки в значение "Остановить".
+
+                    btnScan.Text = "Остановить";
+
+                    // Если объект управления токеном существует в данном контексте. 
+
+                    if (_cts != null)
+
+                        // Удаляем текущий объект управления токеном.
+
+                        _cts.Dispose();
+
+                    // Инициализируем новый объект управления токеном.
+
+                    _cts = new CancellationTokenSource();
+
+                    // Создаём переменную для хранения начального IP-адреса диапазона сканирования.
 
                     IPAddress firstIpAddress;
+
+                    // Создаём переменную для хранения финального IP-адреса диапазона сканирования.
+
                     IPAddress lastIpAddress;
 
                     // Анализируем список диапазонов IP-адресов
 
-                    foreach (ListViewItem lvi in listView1.Items)
+                    foreach (ListViewItem lvi in lvScanRange.Items)
                     {
-                        progressBar1.Value = 0;                        
+                        // Сбрасываем значение индикатора выполнения операции.
+
+                        progressBar1.Value = 0;
+
+                        // Делаем индикатор выполнения операции видимым.
+
                         progressBar1.Visible = true;
 
-                        // Формируем диапазон активных IP-адресов из элементов ListView
+                        // Создаём и инициализируем экземпляр класса AmsNodes
+                        // для хранения информации об активных узлах сети.
 
-                        AmsNodes nodesList = new AmsNodes(); // Для хранения полученного диапазона
+                        AmsNodes nodesList = new AmsNodes();
+
+                        // Передаём управление индикатором выполнения операции.
 
                         nodesList.pb = progressBar1;
 
-                        // Получаем значение начального адреса из первого столбца
+                        // Получаем значение начального адреса из первого столбца ListView.
 
                         firstIpAddress = IPAddress.Parse(lvi.SubItems[0].Text);
 
-                        // Получаем значение финального адреса из третьего столбца
+                        // Получаем значение финального адреса из третьего столбца ListView.
 
                         lastIpAddress = IPAddress.Parse(lvi.SubItems[2].Text);
 
-                        await nodesList.AliveInRange(IPAddressesRange(firstIpAddress, lastIpAddress), cts.Token);
+                        // Ищем активные устройства в диапазоне и сохраняем их в список внутри объекта AmsNodes.
 
-                        // Анализируем список активных IP-адресов
+                        await nodesList.AliveInRange(IPAddressesRange(firstIpAddress, lastIpAddress), _cts.Token);
+
+                        // Анализируем список активных устройств.
 
                         foreach (AmsNode node in nodesList.Nodes)
                         {
+                            // Создаём и инициализируем элемент ListViewItem.
+
                             ListViewItem nodeLVI = new ListViewItem();
 
-                            if(node.Ip.Length > 0)
-                                nodeLVI.Text = node.Ip;         // IP-адрес узла
-                            else
-                                break;
+                            // Передаём в поле "IP-адрес" элемента ListViewItem
+                            // значение IP-адреса активного устройства.
+
+                            nodeLVI.Text = node.Ip;
+
+                            // Если был обнаружен МАС-адрес устройства.
 
                             if (node.Mac.Length > 0)
-                                nodeLVI.SubItems.Add(node.Mac); // МАС-адрес узла
+                            {
+                                // Передаём в поле "МАС-адрес" элемента ListViewItem
+                                // значение МАС-адреса активного устройства.
+
+                                nodeLVI.SubItems.Add(node.Mac);
+                            }
+
+                            // Если МАС-адрес устройства обнаружен не был.
+
                             else
-                                nodeLVI.SubItems.Add(" - ");
+                            {
+                                // Передаём в поле "МАС-адрес" элемента ListViewItem пустую строку.
+
+                                nodeLVI.SubItems.Add(_strEmpty);
+                            }
+
+                            // Если было обнаружено NetBIOS-имя узла
 
                             if (node.Name.Length > 0)
-                                nodeLVI.SubItems.Add(node.Name);    // DNS-имя узла
+                            {
+                                // Передаём в поле "Имя узла" элемента ListViewItem
+                                // значение "Имя" активного устройства.
+
+                                nodeLVI.SubItems.Add(node.Name);
+                            }
+
+                            // Если NetBIOS-имя узла обнаружено не было.
+
                             else
-                                nodeLVI.SubItems.Add(" - ");
+                            {
+                                // Передаём в поле "Имя узла" элемента ListViewItem пустую строку.
 
-                            nodeLVI.SubItems.Add(" - ");       // Сервисы
+                                nodeLVI.SubItems.Add(_strEmpty);
+                            }
 
-                            nodeLVI.SubItems.Add(" - ");       // Тип узла
+                            // Передаём в поле "Сервисы" элемента ListViewItem пустую строку.
 
-                            nodeLVI.SubItems.Add(" - ");       // Стандарт передачи данных
+                            nodeLVI.SubItems.Add(_strEmpty);
 
-                            nodeLVI.SubItems.Add(" - ");       // Протокол передачи данных
+                            // Передаём в поле "Тип узла" элемента ListViewItem пустую строку.
+
+                            nodeLVI.SubItems.Add(_strEmpty);
+
+                            // Передаём в поле "Стандарт передачи данных" элемента ListViewItem пустую строку.
+
+                            nodeLVI.SubItems.Add(_strEmpty);       
+
+                            // Передаём в поле "Протокол передачи данных" элемента ListViewItem пустую строку.
+
+                            nodeLVI.SubItems.Add(_strEmpty);
+
+                            // Если было обнаружено NetBIOS-имя узла
 
                             if (node.Name.Length > 0)
-                                nodeLVI.SubItems.Add(node.Name);    // Имя узла на карте
-                            else
-                                nodeLVI.SubItems.Add(" - ");
+                            {
+                                // Передаём в поле "Имя узла на карте" элемента ListViewItem
+                                // значение "Имя" активного устройства.
 
-                            // Если устройства с текущим IP-адресом 
-                            // ещё нет в списке, то добавляем
+                                nodeLVI.SubItems.Add(node.Name);
+                            }
+
+                            // Если NetBIOS-имя узла обнаружено не было.
+
+                            else
+                            {
+                                // Передаём в поле "Имя узла на карте" элемента ListViewItem
+                                // значение IP-адреса активного устройства.
+
+                                nodeLVI.SubItems.Add(node.Ip);
+                            }
+
+                            // Если устройства с текущим IP-адресом ещё нет в списке, то добавляем.
+
+                            // Переменная отображающая статус наличия IP-адреса в списке .
 
                             bool ipInList = false;
 
-                            foreach (ListViewItem item  in listView2.Items)
+                            // Анализируем элементы ListViewItem копонента формы ListView.
+
+                            foreach (ListViewItem item in lvScanResult.Items)
                             {
+                                // Если поле "IP-адрес" совпадает с IP-адресом текущего активного устройства.
+
                                 if (item.Text == node.Ip)
-                                { 
+                                {
+
+                                    // IP-адрес уже в списке.
+
                                     ipInList = true;
+
+                                    // Переходим к следующему.
+
                                     break;
                                 }
                             }
+
+                            // IP-адрес не в списке.
+
                             if (!ipInList)
                             {
-                                listView2.Items.Add(nodeLVI);
+                                lvScanResult.Items.Add(nodeLVI);
                             }
-                        }                        
-                        button7.Text = "Сканировать";
+
+                        }
+
+                        // Устанавливаем текст кнопки в значение "Сканировать".
+
+                        btnScan.Text = "Сканировать";
+
+                        // Сбрасываем значение индикатора выполнения операции.
+
                         progressBar1.Value = 0;
+
+                        // Скрываем индикатор выполнения операции.
+
                         progressBar1.Visible = false;
                     }
                 }
+
+                // Если текст кнопки отличается от "Сканировать".
+
                 else
                 {
-                    button7.Text = "Сканировать";
+                    // Устанавливаем текст кнопки в значение "Сканировать".
+
+                    btnScan.Text = "Сканировать";
+
+                    // Скрываем индикатор выполнения операции.
+
                     progressBar1.Visible = false;
-                    cts?.Cancel();
+
+                    // Передаём запрос на отмену операции.
+
+                    _cts.Cancel();
                 }
             }
         }
  
-        // Редактировать узел
+        /// <summary>
+        /// Кнопка "Редактировать узел"
+        /// </summary>
         private void button8_Click(object sender, EventArgs e)
         {
-            ListViewItem selectedItem = new ListViewItem();
-            if (listView2.SelectedItems.Count != 0)
+            // Если в списке "Активные IP-адреса" есть выделенные узлы.
+
+            if (lvScanResult.SelectedItems.Count != 0)
             {
+                // Создаём экземпляр формы "Редактирование узла".
+
                 EditNodeCM editNode = new EditNodeCM()
                 {
-                    lv = listView2,
-                    lvi = listView2.SelectedItems[0]                    
+                    // Передаём управление компонентом ListView "Активные IP-адреса". 
+
+                    lv = lvScanResult,
+
+                    // Передаём управление выбранным элементом на этом компоненте формы.
+
+                    lvi = lvScanResult.SelectedItems[0]                    
                 };
+
+                // Открываем форму в формате диалогового окна.
 
                 editNode.ShowDialog();
             }
-        }
-
-        private void CreateMap_Load(object sender, EventArgs e)
-        {
-            
         }
     }
 }

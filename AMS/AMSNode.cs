@@ -11,15 +11,44 @@ namespace AMS
     /// </summary>
     public class AmsNode
     {
+        // Имя узла.
+
         private string name = "";
+
+        // Имя узла на карте.
+
         private string nameOnMap = "";
+
+        // Тип узла.
+
         private string type = "";
+
+        // Стандарт передачи данных.
+
         private string standard = "";
+
+        // Протокол передачи данных.
+
         private string protocol = "";
+
+        // IP-адрес узла.
+
         private string ip = "";
+
+        // MAC-адрес узла.
+
         private string mac = "";
+
+        // Отслеживаемые сервисы узла.
+
         private string[] services = Array.Empty<string>();
+
+        // Узел выделен на карте.
+
         private bool isSelected = false;
+
+        // Уникальный идентификатор узла.
+
         private string id;
         private Point location = new Point();
 
@@ -71,27 +100,6 @@ namespace AMS
         public string Mac { get => mac; set => mac = value; }
 
         /// <summary>
-        /// MAC-адрес узла.
-        /// </summary>
-        /// <param name="ip">IP-адрес узла.</param>
-        /// <exception cref="InvalidOperationException"></exception>
-        public void SetMac(IPAddress ip) 
-        {            
-            if (IsInMyIPv4Subnet(ip))
-            {
-                byte[] macAddress = new byte[6];
-                uint macAddressLength = (uint)macAddress.Length;
-                if (SendARP(BitConverter.ToInt32(ip.GetAddressBytes(), 0), 0, macAddress, ref macAddressLength) != 0)
-                    throw new InvalidOperationException("SendARP failed.");
-                string[] str = new string[(int)macAddressLength];
-                for (int i = 0; i < macAddressLength; i++)
-                    str[i] = macAddress[i].ToString("x2");
-                if (str.Length > 0)
-                    Mac = string.Join(":", str);
-            }
-        }
-
-        /// <summary>
         /// Отслеживаемые сервисы узла.
         /// </summary>
         public string[] Services { get => services; set => services = value; }
@@ -106,7 +114,6 @@ namespace AMS
         /// </summary>
         public string Id { get => id; set => id = value; }
         public Point Location { get => location; set => location = value; }
-
 
         /// <summary>
         /// Узел в одной подсети с АСМ.
@@ -145,5 +152,49 @@ namespace AMS
 
             return (ip & significantBits) == (mask & significantBits);
         }
+
+        /// <summary>
+        /// Устанавливает MAC-адрес узла.
+        /// </summary>
+        /// <param name="ip">IP-адрес узла.</param>
+        /// <exception cref="InvalidOperationException"></exception>
+        public void SetMac(IPAddress ip)
+        {
+            // Если узел в одной подсети с АСМ.
+
+            if (IsInMyIPv4Subnet(ip))
+            {
+                // Создаём и инициализируем массив бит
+
+                byte[] macAddress = new byte[6];
+
+                // Задаём длину MAC-адреса.
+
+                uint macAddressLength = (uint)macAddress.Length;
+
+                // Получаем физический адрес узла.
+
+                SendARP(BitConverter.ToInt32(ip.GetAddressBytes(), 0), 0, macAddress, ref macAddressLength);
+
+                //
+
+                string[] str = new string[(int)macAddressLength];
+
+                //
+
+                for (int i = 0; i < macAddressLength; i++)
+                {
+                    str[i] = macAddress[i].ToString("x2");
+                }
+
+                //
+
+                if (str.Length > 0)
+                {
+                    Mac = string.Join(":", str);
+                }
+            }
+        }
+
     }
 }

@@ -29,7 +29,7 @@ namespace AMS
 
         internal List<AmsNodeStat> nodesStatus = new List<AmsNodeStat>();
 
-        // Токен для отмены операций.
+        // Объект управления токеном для отмены операции.
 
         private CancellationTokenSource _cts = new CancellationTokenSource();
 
@@ -514,7 +514,7 @@ namespace AMS
 
                     label2.Text = listView1.Items.Count.ToString();
 
-                    // Если в данный момент задан объект управления токеном.
+                    // Если объект управления токеном существует в данном контексте. 
 
                     if (_cts != null)
 

@@ -37,12 +37,12 @@ namespace AMS
             this.button2 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbFirstIp = new System.Windows.Forms.TextBox();
             this.button6 = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panScanRange = new System.Windows.Forms.Panel();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.button8 = new System.Windows.Forms.Button();
-            this.listView2 = new System.Windows.Forms.ListView();
+            this.lvScanResult = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -51,23 +51,23 @@ namespace AMS
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.button7 = new System.Windows.Forms.Button();
+            this.btnScan = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.lvScanRange = new System.Windows.Forms.ListView();
             this.FirstIP = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Separator = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LastIP = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.button5 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.btnRemove = new System.Windows.Forms.Button();
+            this.tbLastIp = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.panel1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.tbMapName = new System.Windows.Forms.TextBox();
+            this.rbNewMap = new System.Windows.Forms.RadioButton();
+            this.rbMapOnScan = new System.Windows.Forms.RadioButton();
+            this.gbCms = new System.Windows.Forms.GroupBox();
+            this.cbNewMap = new System.Windows.Forms.CheckBox();
+            this.panScanRange.SuspendLayout();
+            this.gbCms.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
@@ -127,14 +127,15 @@ namespace AMS
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // textBox1
+            // tbFirstIp
             // 
-            this.textBox1.Location = new System.Drawing.Point(6, 15);
-            this.textBox1.MaxLength = 15;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(90, 20);
-            this.textBox1.TabIndex = 27;
-            this.textBox1.Leave += new System.EventHandler(this.textBox1_Leave);
+            this.tbFirstIp.Location = new System.Drawing.Point(6, 15);
+            this.tbFirstIp.MaxLength = 15;
+            this.tbFirstIp.Name = "tbFirstIp";
+            this.tbFirstIp.Size = new System.Drawing.Size(90, 20);
+            this.tbFirstIp.TabIndex = 27;
+            this.tbFirstIp.Text = "192.168.0.102";
+            this.tbFirstIp.Leave += new System.EventHandler(this.tbFirstIp_Leave);
             // 
             // button6
             // 
@@ -146,28 +147,28 @@ namespace AMS
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
-            // panel1
+            // panScanRange
             // 
-            this.panel1.Controls.Add(this.progressBar1);
-            this.panel1.Controls.Add(this.button8);
-            this.panel1.Controls.Add(this.listView2);
-            this.panel1.Controls.Add(this.button7);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.button3);
-            this.panel1.Controls.Add(this.listView1);
-            this.panel1.Controls.Add(this.button5);
-            this.panel1.Controls.Add(this.textBox2);
-            this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Enabled = false;
-            this.panel1.Location = new System.Drawing.Point(10, 49);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(723, 390);
-            this.panel1.TabIndex = 37;
+            this.panScanRange.Controls.Add(this.progressBar1);
+            this.panScanRange.Controls.Add(this.button8);
+            this.panScanRange.Controls.Add(this.lvScanResult);
+            this.panScanRange.Controls.Add(this.btnScan);
+            this.panScanRange.Controls.Add(this.label2);
+            this.panScanRange.Controls.Add(this.button3);
+            this.panScanRange.Controls.Add(this.lvScanRange);
+            this.panScanRange.Controls.Add(this.btnRemove);
+            this.panScanRange.Controls.Add(this.tbLastIp);
+            this.panScanRange.Controls.Add(this.tbFirstIp);
+            this.panScanRange.Controls.Add(this.label5);
+            this.panScanRange.Controls.Add(this.button2);
+            this.panScanRange.Controls.Add(this.button1);
+            this.panScanRange.Controls.Add(this.label4);
+            this.panScanRange.Controls.Add(this.label3);
+            this.panScanRange.Enabled = false;
+            this.panScanRange.Location = new System.Drawing.Point(10, 49);
+            this.panScanRange.Name = "panScanRange";
+            this.panScanRange.Size = new System.Drawing.Size(723, 390);
+            this.panScanRange.TabIndex = 37;
             // 
             // progressBar1
             // 
@@ -188,9 +189,9 @@ namespace AMS
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
-            // listView2
+            // lvScanResult
             // 
-            this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lvScanResult.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
@@ -199,13 +200,13 @@ namespace AMS
             this.columnHeader6,
             this.columnHeader7,
             this.columnHeader8});
-            this.listView2.HideSelection = false;
-            this.listView2.Location = new System.Drawing.Point(300, 58);
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(420, 273);
-            this.listView2.TabIndex = 35;
-            this.listView2.UseCompatibleStateImageBehavior = false;
-            this.listView2.View = System.Windows.Forms.View.Details;
+            this.lvScanResult.HideSelection = false;
+            this.lvScanResult.Location = new System.Drawing.Point(300, 58);
+            this.lvScanResult.Name = "lvScanResult";
+            this.lvScanResult.Size = new System.Drawing.Size(420, 273);
+            this.lvScanResult.TabIndex = 35;
+            this.lvScanResult.UseCompatibleStateImageBehavior = false;
+            this.lvScanResult.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader1
             // 
@@ -246,15 +247,15 @@ namespace AMS
             // 
             this.columnHeader8.Text = "Имя узла на карте";
             // 
-            // button7
+            // btnScan
             // 
-            this.button7.Location = new System.Drawing.Point(211, 337);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(83, 23);
-            this.button7.TabIndex = 34;
-            this.button7.Text = "Сканировать";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.btnScan.Location = new System.Drawing.Point(211, 337);
+            this.btnScan.Name = "btnScan";
+            this.btnScan.Size = new System.Drawing.Size(83, 23);
+            this.btnScan.TabIndex = 34;
+            this.btnScan.Text = "Сканировать";
+            this.btnScan.UseVisualStyleBackColor = true;
+            this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
             // 
             // label2
             // 
@@ -275,19 +276,19 @@ namespace AMS
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // listView1
+            // lvScanRange
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lvScanRange.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.FirstIP,
             this.Separator,
             this.LastIP});
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(3, 58);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(291, 273);
-            this.listView1.TabIndex = 30;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.lvScanRange.HideSelection = false;
+            this.lvScanRange.Location = new System.Drawing.Point(3, 58);
+            this.lvScanRange.Name = "lvScanRange";
+            this.lvScanRange.Size = new System.Drawing.Size(291, 273);
+            this.lvScanRange.TabIndex = 30;
+            this.lvScanRange.UseCompatibleStateImageBehavior = false;
+            this.lvScanRange.View = System.Windows.Forms.View.Details;
             // 
             // FirstIP
             // 
@@ -304,24 +305,24 @@ namespace AMS
             this.LastIP.Text = "Финальный IP";
             this.LastIP.Width = 130;
             // 
-            // button5
+            // btnRemove
             // 
-            this.button5.Location = new System.Drawing.Point(3, 337);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(83, 23);
-            this.button5.TabIndex = 29;
-            this.button5.Text = "Удалить";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.btnRemove.Location = new System.Drawing.Point(3, 337);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(83, 23);
+            this.btnRemove.TabIndex = 29;
+            this.btnRemove.Text = "Удалить";
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
-            // textBox2
+            // tbLastIp
             // 
-            this.textBox2.Location = new System.Drawing.Point(133, 15);
-            this.textBox2.MaxLength = 15;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(90, 20);
-            this.textBox2.TabIndex = 28;
-            this.textBox2.Leave += new System.EventHandler(this.textBox2_Leave);
+            this.tbLastIp.Location = new System.Drawing.Point(133, 15);
+            this.tbLastIp.MaxLength = 15;
+            this.tbLastIp.Name = "tbLastIp";
+            this.tbLastIp.Size = new System.Drawing.Size(90, 20);
+            this.tbLastIp.TabIndex = 28;
+            this.tbLastIp.Leave += new System.EventHandler(this.tbLastIp_Leave);
             // 
             // label1
             // 
@@ -332,80 +333,79 @@ namespace AMS
             this.label1.TabIndex = 39;
             this.label1.Text = "Имя новой карты";
             // 
-            // textBox9
+            // tbMapName
             // 
-            this.textBox9.Location = new System.Drawing.Point(10, 23);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(211, 20);
-            this.textBox9.TabIndex = 40;
-            this.textBox9.Text = "Новая карта";
+            this.tbMapName.Location = new System.Drawing.Point(10, 23);
+            this.tbMapName.Name = "tbMapName";
+            this.tbMapName.Size = new System.Drawing.Size(211, 20);
+            this.tbMapName.TabIndex = 40;
+            this.tbMapName.Text = "Новая карта";
             // 
-            // radioButton1
+            // rbNewMap
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(5, 14);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(136, 17);
-            this.radioButton1.TabIndex = 42;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Создать пустую карту";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.rbNewMap.AutoSize = true;
+            this.rbNewMap.Checked = true;
+            this.rbNewMap.Location = new System.Drawing.Point(5, 14);
+            this.rbNewMap.Name = "rbNewMap";
+            this.rbNewMap.Size = new System.Drawing.Size(136, 17);
+            this.rbNewMap.TabIndex = 42;
+            this.rbNewMap.TabStop = true;
+            this.rbNewMap.Text = "Создать пустую карту";
+            this.rbNewMap.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // rbMapOnScan
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(147, 14);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(184, 17);
-            this.radioButton2.TabIndex = 43;
-            this.radioButton2.Text = "Карта на основе сканирования";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            this.rbMapOnScan.AutoSize = true;
+            this.rbMapOnScan.Location = new System.Drawing.Point(147, 14);
+            this.rbMapOnScan.Name = "rbMapOnScan";
+            this.rbMapOnScan.Size = new System.Drawing.Size(184, 17);
+            this.rbMapOnScan.TabIndex = 43;
+            this.rbMapOnScan.Text = "Карта на основе сканирования";
+            this.rbMapOnScan.UseVisualStyleBackColor = true;
+            this.rbMapOnScan.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
-            // groupBox1
+            // gbCms
             // 
-            this.groupBox1.Controls.Add(this.checkBox1);
-            this.groupBox1.Controls.Add(this.radioButton2);
-            this.groupBox1.Controls.Add(this.radioButton1);
-            this.groupBox1.Location = new System.Drawing.Point(226, 9);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(507, 41);
-            this.groupBox1.TabIndex = 44;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Опции создания карты";
+            this.gbCms.Controls.Add(this.cbNewMap);
+            this.gbCms.Controls.Add(this.rbMapOnScan);
+            this.gbCms.Controls.Add(this.rbNewMap);
+            this.gbCms.Location = new System.Drawing.Point(226, 9);
+            this.gbCms.Name = "gbCms";
+            this.gbCms.Size = new System.Drawing.Size(507, 41);
+            this.gbCms.TabIndex = 44;
+            this.gbCms.TabStop = false;
+            this.gbCms.Text = "Опции создания карты";
             // 
-            // checkBox1
+            // cbNewMap
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Enabled = false;
-            this.checkBox1.Location = new System.Drawing.Point(336, 14);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(149, 17);
-            this.checkBox1.TabIndex = 44;
-            this.checkBox1.Text = "Не создать новую карту";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.cbNewMap.AutoSize = true;
+            this.cbNewMap.Checked = true;
+            this.cbNewMap.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbNewMap.Enabled = false;
+            this.cbNewMap.Location = new System.Drawing.Point(336, 14);
+            this.cbNewMap.Name = "cbNewMap";
+            this.cbNewMap.Size = new System.Drawing.Size(149, 17);
+            this.cbNewMap.TabIndex = 44;
+            this.cbNewMap.Text = "Не создать новую карту";
+            this.cbNewMap.UseVisualStyleBackColor = true;
             // 
             // CreateMap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(740, 477);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.gbCms);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button4);
-            this.Controls.Add(this.textBox9);
+            this.Controls.Add(this.tbMapName);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panScanRange);
             this.Name = "CreateMap";
             this.Text = "Создание новой карты";
-            this.Load += new System.EventHandler(this.CreateMap_Load);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.panScanRange.ResumeLayout(false);
+            this.panScanRange.PerformLayout();
+            this.gbCms.ResumeLayout(false);
+            this.gbCms.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -418,28 +418,28 @@ namespace AMS
         private Button button2;
         private Label label5;
         private Button button4;
-        private TextBox textBox1;
+        private TextBox tbFirstIp;
         private Button button6;
-        private Panel panel1;
+        private Panel panScanRange;
         private Label label1;
-        private TextBox textBox9;
-        private TextBox textBox2;
-        private Button button5;
-        private ListView listView1;
+        private TextBox tbMapName;
+        private TextBox tbLastIp;
+        private Button btnRemove;
+        private ListView lvScanRange;
         private ColumnHeader FirstIP;
         private ColumnHeader LastIP;
         private ColumnHeader Separator;
         private Button button3;
-        private Button button7;
+        private Button btnScan;
         private Label label2;
-        private ListView listView2;
+        private ListView lvScanResult;
         private ColumnHeader columnHeader1;
         private ColumnHeader columnHeader2;
         private ColumnHeader columnHeader3;
-        private RadioButton radioButton1;
-        private RadioButton radioButton2;
-        private GroupBox groupBox1;
-        private CheckBox checkBox1;
+        private RadioButton rbNewMap;
+        private RadioButton rbMapOnScan;
+        private GroupBox gbCms;
+        private CheckBox cbNewMap;
         private ProgressBar progressBar1;
         private ColumnHeader columnHeader4;
         private Button button8;

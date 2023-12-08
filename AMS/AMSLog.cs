@@ -19,11 +19,32 @@ namespace AMS
 
         public AmsLog() { }
 
+        /// <summary>
+        /// Имя узла.
+        /// </summary>
         public string Name { get => name; set => name = value; }
+
+        /// <summary>
+        /// IP-адрес узла.
+        /// </summary>
         public string Ip { get => ip; set => ip = value; }
+
+        /// <summary>
+        /// Статус доступности узла.
+        /// </summary>
         public string Status { get => status; set => status = value; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string Rtt { get => rtt; set => rtt = value; }
+
+
+
         public string Pl { get => pl; set => pl = value; }
+        
+
+
         public string Services { get => services; set => services = value; }
         public string Date { get => date; set => date = value; }
     }
