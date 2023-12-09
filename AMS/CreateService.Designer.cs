@@ -43,7 +43,6 @@ namespace AMS
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(160, 20);
             this.textBox1.TabIndex = 14;
-            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
             // label2
             // 
@@ -63,7 +62,7 @@ namespace AMS
             this.button7.TabIndex = 11;
             this.button7.Text = "ОК";
             this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.button7.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // button8
             // 
@@ -73,7 +72,7 @@ namespace AMS
             this.button8.TabIndex = 12;
             this.button8.Text = "Отмена";
             this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
+            this.button8.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // CreateService
             // 

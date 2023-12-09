@@ -1,44 +1,47 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMS
 {
     public partial class CreateService : Form
     {
+        // Для связи с элементом ListBox.
+
         public ListBox lbService;
 
+        /// <summary>
+        /// Стандартный конструктор.
+        /// </summary>
         public CreateService()
         {
+            // Инициализация компонентов.
+
             InitializeComponent();
         }
 
-        // ОК
-        private void button7_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Кнопка "ОК".
+        /// </summary>
+        private void btnOk_Click(object sender, EventArgs e)
         {
+            // Добавляем в ListBox текстовое значение поля для ввода, содержащее имя службы.
+
             lbService.Items.Add(textBox1.Text);
+
+            // Закрываем форму.
+
             Close();
         }
 
-        // Отмена
-        private void button8_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Кнопка "Отмена"
+        /// </summary>
+        private void btnCancel_Click(object sender, EventArgs e)
         {
+            // Закрываем форму.
+
             Close();
         }
 
-        private void textBox1_KeyDown(object sender, KeyEventArgs e)
-        {
-            // Нажат Enter
-            if (e.KeyCode == Keys.Enter) button7_Click(sender, e);
-
-            // Нажат ESC
-            else if (e.KeyCode == Keys.Escape) button8_Click(sender, e);
-        }
     }
 }

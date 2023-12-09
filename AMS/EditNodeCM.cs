@@ -11,7 +11,7 @@ namespace AMS
         public System.Windows.Forms.ListView lv;
         public ListViewItem lvi;
         
-        private List<string> detectedProcesses = new List<string>();
+        private List<string> _detectedProcesses = new List<string>();
 
         public EditNodeCM()
         {
@@ -55,7 +55,7 @@ namespace AMS
                             // Если процесс найден добавляем в список
 
                             if (runningProcess.ProcessName.Length > 0)
-                                detectedProcesses.Add(runningProcess.ProcessName);
+                                _detectedProcesses.Add(runningProcess.ProcessName);
                 }
                 catch (Exception) { }
             }
@@ -85,7 +85,7 @@ namespace AMS
 
             SelectProcess selectProcess = new SelectProcess
             {
-                detectedProcesses = detectedProcesses,
+                detectedProcesses = _detectedProcesses,
                 lb = listBox4
             };
             selectProcess.ShowDialog();                
