@@ -1,56 +1,204 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AMS
 {  
     public class AmsNodeStat
-    {        
-        private string name;
-        private string nameOnMap;
-        private string ip;
-        private string checkType;
-        private uint succed;
-        private uint failed;
-        private double offlineTime;
-        private double onlineTime;
-        private double totalTime;
-        private double offlinePercent;
-        private DateTime time;
-        private DateTime finishTime;
-        private string id;
+    {
+        //=========================================
+        // Определяем свойства класса AmsNodeStat. 
+        //=========================================
+
+        /// <summary>
+        /// Имя узла.
+        /// </summary>
+
+        private string _name;
+
+        /// <summary>
+        /// Имя узла на карте.
+        /// </summary>
+
+        private string _nameOnMap;
+
+        /// <summary>
+        /// IP-адрес узла.
+        /// </summary>
+
+        private string _ip;
+
+        /// <summary>
+        ///  Количество успешных ответов на запрос.
+        /// </summary>
+
+        private uint _succed;
+
+        /// <summary>
+        /// Количество запросов без ответа.
+        /// </summary>
+
+        private uint _failed;
+
+        /// <summary>
+        /// Общее время простоя.
+        /// </summary>
+
+        private double _offlineTime;
+
+        /// <summary>
+        /// Общее время в сети.
+        /// </summary>
+
+        private double _onlineTime;
+
+        /// <summary>
+        /// Общее время работы.
+        /// </summary>
+
+        private double _totalTime;
+
+        /// <summary>
+        /// Процент простоя.
+        /// </summary>
+
+        private double _offlinePercent;
+
+        /// <summary>
+        /// Время работы узла.
+        /// </summary>
+
+        private DateTime _time;
+
+        /// <summary>
+        /// Время финального опроса.
+        /// </summary>
+
+        private DateTime _finishTime;
+
+        /// <summary>
+        /// ID узла.
+        /// </summary>
+
+        private string _id;
+
+        // Конструктор класса.
+        // Инициализация свойств.
 
         public AmsNodeStat() 
         {
+
+            // Устанавливаем значение свойства "Имя узла".
+
             Name = "";
+
+            // Устанавливаем значение свойства "Имя узла на карте".
+
             NameOnMap = "";
+
+            // Устанавливаем значение свойства "IP-адрес узла".
+
             Ip = "";
-            CheckType = "ICMP";
+
+            // Устанавливаем значение свойства "Количество успешных ответов на запрос".
+
             Succed = 0;
+
+            // Устанавливаем значение свойства "Количество запросов без ответа".
+
             Failed = 0;
+
+            // Устанавливаем значение свойства "Общее время простоя".
+
             OfflineTime = 0;
+
+            // Устанавливаем значение свойства "Общее время в сети".
+
             OnlineTime = 0;
+
+            // Устанавливаем значение свойства "Обновляем общее время работы".
+
             TotalTime = 0;
+
+            // Устанавливаем значение свойства "Процент простоя".
+
             OfflinePercent = 0;
-            Time = DateTime.Now;            
+
+            // Устанавливаем значение свойства "Время работы узла".
+
+            Time = DateTime.Now;
+
+            // Устанавливаем значение свойства "Время финального опроса".
+
             FinishTime = DateTime.Now;
+
+            // Устанавливаем значение свойства "ID узла".
+
             Id = "";
         }
 
-        public string Name { get => name; set => name = value; }
-        public string Ip { get => ip; set => ip = value; }
-        public string CheckType { get => checkType; set => checkType = value; }
-        public uint Succed { get => succed; set => succed = value; }
-        public uint Failed { get => failed; set => failed = value; }
-        public double OfflineTime { get => offlineTime; set => offlineTime = value; }
-        public double OnlineTime { get => onlineTime; set => onlineTime = value; }
-        public double OfflinePercent { get => offlinePercent; set => offlinePercent = value; }
-        public DateTime Time { get => time; set => time = value; }
-        public string Id { get => id; set => id = value; }
-        public double TotalTime { get => totalTime; set => totalTime = value; }
-        public DateTime FinishTime { get => finishTime; set => finishTime = value; }
-        public string NameOnMap { get => nameOnMap; set => nameOnMap = value; }
+        //============================================================
+        // Определяем аксессоры – методы доступа к свойствам класса. 
+        //============================================================ 
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Имя узла на карте".
+        /// </summary>
+        public string Name { get => _name; set => _name = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Имя узла на карте".
+        /// </summary>
+        public string NameOnMap { get => _nameOnMap; set => _nameOnMap = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "IP-адрес узла".
+        /// </summary>
+        public string Ip { get => _ip; set => _ip = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Количество успешных ответов на запрос".
+        /// </summary>
+        public uint Succed { get => _succed; set => _succed = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Количество запросов без ответа".
+        /// </summary>
+        public uint Failed { get => _failed; set => _failed = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Общее время простоя".
+        /// </summary>
+        public double OfflineTime { get => _offlineTime; set => _offlineTime = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Общее время в сети".
+        /// </summary>
+        public double OnlineTime { get => _onlineTime; set => _onlineTime = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Процент простоя".
+        /// </summary>
+        public double OfflinePercent { get => _offlinePercent; set => _offlinePercent = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Время работы узла".
+        /// </summary>
+        public DateTime Time { get => _time; set => _time = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "ID узла".
+        /// </summary>
+        public string Id { get => _id; set => _id = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Общее время работы".
+        /// </summary>
+        public double TotalTime { get => _totalTime; set => _totalTime = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Время финального опроса".
+        /// </summary>
+        public DateTime FinishTime { get => _finishTime; set => _finishTime = value; }
+
+
     }
 }

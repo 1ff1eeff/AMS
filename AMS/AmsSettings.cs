@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AMS
 {
@@ -11,104 +7,221 @@ namespace AMS
     /// </summary>
     public class AmsSettings
     {
+        //=========================================
+        // Определяем свойства класса AmsSettings. 
+        //=========================================
 
-        // Файл конфигурации приложения
+        /// <summary>
+        /// Имя файла конфигурации приложения.
+        /// </summary>
 
-        private string configFile = "config.xml";
+        private string _configFile = "config.xml";
 
-        // Директория хранения карт
+        /// <summary>
+        /// Директория хранения карт.
+        /// </summary>
 
-        private string mapsFolder = Environment.CurrentDirectory + "\\Maps";
+        private string _mapsFolder = Environment.CurrentDirectory + "\\Maps";
 
-        // Директория хранения журналов мониторинга
+        /// <summary>
+        /// Директория хранения журналов мониторинга.
+        /// </summary>
 
-        private string logsFolder = Environment.CurrentDirectory + "\\Logs";
+        private string _logsFolder = Environment.CurrentDirectory + "\\Logs";
 
-        // Уведомления посредством e-mail
+        /// <summary>
+        /// Уведомления посредством e-mail.
+        /// </summary>
 
-        private bool emailNotification = false;
+        private bool _emailNotification = false;
 
-        // Уведомления посредством SMS 
+        /// <summary>
+        /// Уведомления посредством SMS.
+        /// </summary>
 
-        private bool smsNotification = false;
+        private bool _smsNotification = false;
 
-        // Способ отправки SMS - через "adb" или "email"
+        /// <summary>
+        /// Способ отправки SMS - через "adb" или "email".
+        /// </summary>
 
-        private string wayToSendSms = "email";
+        private string _wayToSendSms = "email";
 
-        // Путь до файла adb.exe
+        /// <summary>
+        /// Путь до файла "adb.exe".
+        /// </summary>
 
-        private string adbFile = "";
+        private string _adbFile = "";
 
-        // Номер получателя SMS
+        /// <summary>
+        /// Номер получателя SMS.
+        /// </summary>
 
-        private string phoneToSMS = "";
+        private string _phoneToSMS = "";
 
-        // Транслитерация SMS
+        /// <summary>
+        /// Транслитерация SMS.
+        /// </summary>
 
-        private bool smsNeedsTranslit = false;
+        private bool _smsNeedsTranslit = false;
 
-        // E-mail шлюз для SMS
+        /// <summary>
+        /// E-mail шлюз для SMS.
+        /// </summary>
 
-        private string emailToSMS = "";
+        private string _emailToSMS = "";
 
-        // Транслитерация SMS
+        /// <summary>
+        /// Транслитерация SMS.
+        /// </summary>
 
-        private bool emailNeedsTranslit = false;
+        private bool _emailNeedsTranslit = false;
 
-        // Почта отправителя
+        /// <summary>
+        /// Почта отправителя.
+        /// </summary>
 
-        private string smtpSenderEmail = "automaticmonitoringsystem@internet.ru";
+        private string _smtpSenderEmail = "automaticmonitoringsystem@internet.ru";
 
-        // Имя отправителя
+        /// <summary>
+        /// Имя отправителя.
+        /// </summary>
 
-        private string smtpSenderName = "ACM";
+        private string _smtpSenderName = "ACM";
 
-        // Пароль почты/приложения
+        /// <summary>
+        /// Пароль почты/приложения.
+        /// </summary>
 
-        private string smtpPassword = "iihtsdh97tgwHFnfnC7g";
+        private string _smtpPassword = "iihtsdh97tgwHFnfnC7g";
 
-        // Почтовый сервер 
+        /// <summary>
+        /// Почтовый сервер. 
+        /// </summary>
 
-        private string smtpHost = "smtp.mail.ru";
+        private string _smtpHost = "smtp.mail.ru";
 
-        // Порт сервера
+        /// <summary>
+        /// Порт сервера.
+        /// </summary>
 
-        private int smtpPort = 25;
+        private int _smtpPort = 25;
 
-        // Время за которое должно отправиться письмо (мс)
+        /// <summary>
+        /// Время за которое должно отправиться письмо (мс).
+        /// </summary>
 
-        private int smtpTimeout = 300000;
+        private int _smtpTimeout = 300000;
 
-        // Протокол SSL для шифрования соединения
+        /// <summary>
+        /// Протокол SSL для шифрования соединения.
+        /// </summary>
 
-        private bool ssl = true;
+        private bool _ssl = true;
 
-        // Почта пользователя, закреплённого за АСМ
+        /// <summary>
+        /// Почта пользователя, закреплённого за АСМ.
+        /// </summary>
 
-        private string mailTo = "amswatcher@internet.ru";
+        private string _mailTo = "amswatcher@internet.ru";
 
+        //============================================================
+        // Определяем аксессоры – методы доступа к свойствам класса. 
+        //============================================================
 
-        public AmsSettings() { }
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Имя файла конфигурации приложения".
+        /// </summary>
+        public string ConfigFile { get => _configFile; set => _configFile = value; }
 
-        public string SmtpSenderEmail { get => smtpSenderEmail; set => smtpSenderEmail = value; }
-        public string SmtpPassword { get => smtpPassword; set => smtpPassword = value; }
-        public string SmtpHost { get => smtpHost; set => smtpHost = value; }
-        public int SmtpPort { get => smtpPort; set => smtpPort = value; }
-        public bool Ssl { get => ssl; set => ssl = value; }
-        public int SmtpTimeout { get => smtpTimeout; set => smtpTimeout = value; }
-        public string MailTo { get => mailTo; set => mailTo = value; }
-        public string SmtpSenderName { get => smtpSenderName; set => smtpSenderName = value; }
-        public string ConfigFile { get => configFile; set => configFile = value; }
-        public string MapsFolder { get => mapsFolder; set => mapsFolder = value; }
-        public string LogsFolder { get => logsFolder; set => logsFolder = value; }
-        public bool EmailNotification { get => emailNotification; set => emailNotification = value; }
-        public bool SmsNotification { get => smsNotification; set => smsNotification = value; }
-        public string EmailToSMS { get => emailToSMS; set => emailToSMS = value; }
-        public string PhoneToSMS { get => phoneToSMS; set => phoneToSMS = value; }
-        public bool SmsNeedsTranslit { get => smsNeedsTranslit; set => smsNeedsTranslit = value; }
-        public bool EmailNeedsTranslit { get => emailNeedsTranslit; set => emailNeedsTranslit = value; }
-        public string WayToSendSms { get => wayToSendSms; set => wayToSendSms = value; }
-        public string AdbFile { get => adbFile; set => adbFile = value; }
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Директория хранения карт".
+        /// </summary>
+        public string MapsFolder { get => _mapsFolder; set => _mapsFolder = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Директория хранения журналов мониторинга".
+        /// </summary>
+        public string LogsFolder { get => _logsFolder; set => _logsFolder = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Уведомления посредством e-mail".
+        /// </summary>
+        public bool EmailNotification { get => _emailNotification; set => _emailNotification = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Уведомления посредством SMS".
+        /// </summary>
+        public bool SmsNotification { get => _smsNotification; set => _smsNotification = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Способ отправки SMS - через "adb" или "email"".
+        /// </summary>
+        public string WayToSendSms { get => _wayToSendSms; set => _wayToSendSms = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Путь до файла "adb.exe"".
+        /// </summary>
+        public string AdbFile { get => _adbFile; set => _adbFile = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Номер получателя SMS".
+        /// </summary>
+        public string PhoneToSMS { get => _phoneToSMS; set => _phoneToSMS = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Транслитерация SMS".
+        /// </summary>
+        public bool SmsNeedsTranslit { get => _smsNeedsTranslit; set => _smsNeedsTranslit = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "E-mail шлюз для SMS".
+        /// </summary>
+        public string EmailToSMS { get => _emailToSMS; set => _emailToSMS = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Транслитерация SMS".
+        /// </summary>
+        public bool EmailNeedsTranslit { get => _emailNeedsTranslit; set => _emailNeedsTranslit = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Почта отправителя".
+        /// </summary>
+        public string SmtpSenderEmail { get => _smtpSenderEmail; set => _smtpSenderEmail = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Имя отправителя".
+        /// </summary>
+        public string SmtpSenderName { get => _smtpSenderName; set => _smtpSenderName = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Пароль почты/приложения".
+        /// </summary>
+        public string SmtpPassword { get => _smtpPassword; set => _smtpPassword = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Почтовый сервер".
+        /// </summary>
+        public string SmtpHost { get => _smtpHost; set => _smtpHost = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Порт сервера".
+        /// </summary>
+        public int SmtpPort { get => _smtpPort; set => _smtpPort = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Время за которое должно отправиться письмо (мс)".
+        /// </summary>
+        public int SmtpTimeout { get => _smtpTimeout; set => _smtpTimeout = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Протокол SSL для шифрования соединения".
+        /// </summary>
+        public bool Ssl { get => _ssl; set => _ssl = value; }
+
+        /// <summary>
+        /// Определяет методы доступа к значению свойства "Почта пользователя, закреплённого за АСМ".
+        /// </summary>
+        public string MailTo { get => _mailTo; set => _mailTo = value; }
     }
 }

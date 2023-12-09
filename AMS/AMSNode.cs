@@ -11,23 +11,37 @@ namespace AMS
     /// </summary>
     public class AmsNode
     {
-        // Имя узла.
+        //=========================================
+        // Определяем свойства класса AmsNode. 
+        //=========================================
+
+        /// <summary>
+        /// Имя узла.
+        /// </summary>
 
         private string name = "";
 
-        // Имя узла на карте.
+        /// <summary>
+        /// Имя узла на карте.
+        /// </summary>
 
         private string nameOnMap = "";
 
-        // Тип узла.
+        /// <summary>
+        /// Тип узла.
+        /// </summary>
 
         private string type = "";
 
-        // Стандарт передачи данных.
+        /// <summary>
+        /// Стандарт передачи данных.
+        /// </summary>
 
         private string standard = "";
 
-        // Протокол передачи данных.
+        /// <summary>
+        /// Протокол передачи данных.
+        /// </summary>
 
         private string protocol = "";
 
@@ -35,25 +49,38 @@ namespace AMS
 
         private string ip = "";
 
-        // MAC-адрес узла.
+        /// <summary>
+        /// MAC-адрес узла.
+        /// </summary>
 
         private string mac = "";
 
-        // Отслеживаемые сервисы узла.
+        /// <summary>
+        /// Отслеживаемые сервисы узла.
+        /// </summary>
 
         private string[] services = Array.Empty<string>();
 
-        // Узел выделен на карте.
+        /// <summary>
+        /// Узел выделен на карте.
+        /// </summary>
 
         private bool isSelected = false;
 
-        // Уникальный идентификатор узла.
+        /// <summary>
+        /// ID узла.
+        /// </summary>
 
         private string id;
+
+        /// <summary>
+        /// Положение узла на карте.
+        /// </summary>
+
         private Point location = new Point();
 
         /// <summary>
-        /// Функция SendARP отправляет запрос протокола разрешения адресов (ARP) 
+        /// Отправляет запрос протокола разрешения адресов (ARP) 
         /// для получения физического адреса, соответствующего указанному целевому IPv4-адресу.
         /// </summary>
         /// <param name="destIp">Целевой IPv4-адрес в виде структуры IPAddr.</param>
@@ -65,58 +92,68 @@ namespace AMS
         [DllImport("iphlpapi.dll", ExactSpelling = true)]
         private static extern int SendARP(int destIp, int srcIP, byte[] macAddr, ref uint physicalAddrLen);
 
+        //============================================================
+        // Определяем аксессоры – методы доступа к свойствам класса. 
+        //============================================================
+
         /// <summary>
         /// Имя узла.
         /// </summary>
         public string Name { get => name; set => name = value; }
-        
+
         /// <summary>
-        /// Имя узла на карте.
+        /// Определяет методы доступа к значению свойства "Имя узла на карте".
         /// </summary>
         public string NameOnMap { get => nameOnMap; set => nameOnMap = value; }
         /// <summary>
-        /// Тип узла.
+        /// Определяет методы доступа к значению свойства "Тип узла".
         /// </summary>
         public string Type { get => type; set => type = value; }
 
         /// <summary>
-        /// Стандарт передачи данных.
+        /// Определяет методы доступа к значению свойства "Стандарт передачи данных".
         /// </summary>
         public string Standard { get => standard; set => standard = value; }
 
         /// <summary>
-        /// Протокол передачи данных.
+        /// Определяет методы доступа к значению свойства "Протокол передачи данных".
         /// </summary>
         public string Protocol { get => protocol; set => protocol = value; }
 
         /// <summary>
-        /// IP-адрес узла.
+        /// Определяет методы доступа к значению свойства "IP-адрес узла".
         /// </summary>
         public string Ip { get => ip; set => ip = value; }
 
         /// <summary>
-        /// MAC-адрес узла.
+        /// Определяет методы доступа к значению свойства "MAC-адрес узла".
         /// </summary>
         public string Mac { get => mac; set => mac = value; }
 
         /// <summary>
-        /// Отслеживаемые сервисы узла.
+        /// Определяет методы доступа к значению свойства "Отслеживаемые сервисы узла".
         /// </summary>
         public string[] Services { get => services; set => services = value; }
 
         /// <summary>
-        /// Узел выделен на карте.
+        /// Определяет методы доступа к значению свойства "Узел выделен на карте".
         /// </summary>
         public bool IsSelected { get => isSelected; set => isSelected = value; }
 
         /// <summary>
-        /// Уникальный идентификатор узла.
+        /// Определяет методы доступа к значению свойства "ID узла".
         /// </summary>
         public string Id { get => id; set => id = value; }
-        public Point Location { get => location; set => location = value; }
 
         /// <summary>
-        /// Узел в одной подсети с АСМ.
+        /// Определяет методы доступа к значению свойства "Положение узла на карте".
+        /// </summary>
+        public Point Location { get => location; set => location = value; }
+
+        //============================================================================
+
+        /// <summary>
+        /// Определить расположение узла относительно АСМ.
         /// </summary>
         /// <param name="ip">Проверяемый IP-адрес.</param>
         /// <returns>True, если узел в одной подсети с АСМ.</returns>
@@ -134,11 +171,16 @@ namespace AMS
 
                 if (address.AddressFamily == AddressFamily.InterNetwork && IsMaskMatch(ip, address, 16))
                 {
+                    // Покидаем функцию. Передаём True.
+
                     return true;
                 }
             }
-            return false;
-            
+
+            // Если адрес узла IPv4 и узлы расположены в разных подсетях.
+            // Покидаем функцию. Передаём False.
+
+            return false;            
         }
 
         /// <summary>
@@ -189,13 +231,12 @@ namespace AMS
 
             // Если результат логического умножения IP-адреса и старших бит равен 
             // результату логического умножения маски и старших бит, то IP-адрес находится в одной подсети с АСМ.
-            // Иначе проверяемы IP-адрес и АСМ находятся в разных подсетях.
+            // Иначе проверяемый IP-адрес и АСМ находятся в разных подсетях.
             //(134744072 & 4294901760 == 3232235622 & 4294901760 -> 134742016 == 3232235520 -> false
 
             bool isMaskMatch = (ip & significantBits) == (mask & significantBits);
 
             // Выходим и возвращаем результат проверки.
-            // (false)
 
             return isMaskMatch;
         }
@@ -245,7 +286,7 @@ namespace AMS
 
                 if (str.Length == macAddressLength)
                 {
-                    // Формируем MAC-адрес. Объединяем строки из массива. Разделитель – двоеточие.
+                    // Формируем MAC-адрес: объединяем строки массива, разделитель – двоеточие.
                     // (00:15:5d:6e:e6:32)
 
                     Mac = string.Join(":", str);
