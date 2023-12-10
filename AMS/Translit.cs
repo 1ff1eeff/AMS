@@ -238,14 +238,12 @@ namespace AMS
 
         public static bool ContainsRus(string TestString)
         {
-            return
-                Regex.IsMatch(TestString, @"[а-я]", RegexOptions.IgnoreCase);
+            return Regex.IsMatch(TestString, @"[а-я]", RegexOptions.IgnoreCase);
         }
 
         public static bool ContainsRusOrSpace(string TestString)
         {
-            return
-                Regex.IsMatch(TestString, @"[а-я]|\s", RegexOptions.IgnoreCase);
+            return Regex.IsMatch(TestString, @"[а-я]|\s", RegexOptions.IgnoreCase);
         }
     }
 }

@@ -33,8 +33,7 @@ namespace AMS
         /// <param name="ips">Список IP-адресов диапазона.</param>
         /// <param name="cancelToken">Токен прерывания задачи.</param>
         /// <param name="pingDelay">Таймаут ping-запроса.</param>
-        /// <returns></returns>
-        /// 
+
         public async Task AliveInRange(List<IPAddress> ips,
             CancellationToken cancelToken,
             int pingDelay = 500)
@@ -53,60 +52,62 @@ namespace AMS
 
                 // Если получен запрос на отмену операции.
 
-                if (cancelToken.IsCancellationRequested)
+                if (!cancelToken.IsCancellationRequested)
+                {
+                    // Объявляем и инициализируем объект класса Ping для осуществления ping-запросов.
+
+                    Ping ping = new Ping();
+
+                    // Посылаем асинхронный ping-запрос с указанным таймаутом.
+
+                    PingReply response = await ping.SendPingAsync(ip, pingDelay);
+
+                    // Если получен результат запроса и его статус "Успешно".
+
+                    if (response != null && response.Status == IPStatus.Success)
+                    {
+                        // Объявляем и инициализируем объект для хранения информации об узле сети.
+
+                        AmsNode node = new AmsNode();
+
+                        // Задаём IP-адрес активного узла.
+
+                        node.Ip = response.Address.ToString();
+
+                        // Имя активного узла.
+
+                        try
+                        {
+                            // Объявляем и инициализируем объект для хранения сведений об адресе узла.
+
+                            IPHostEntry entry = Dns.GetHostEntry(ip);
+
+                            // Если объект существует.
+
+                            if (entry != null)
+                            {
+                                // Задаём имя активного узла.
+
+                                node.Name = entry.HostName;
+                            }
+                        }
+                        catch (SocketException) { }
+
+                        // Задаём MAC-адрес узла.
+
+                        node.SetMac(response.Address);
+
+                        // Добавляем текущий узел к списку активных узлов.
+
+                        Nodes.Add(node);
+
+                    }
+                }
+                else
                 {
                     // Покидаем функцию.
 
                     return;
-                }
-
-                // Объявляем и инициализируем объект класса Ping для осуществления ping-запросов.
-
-                Ping ping = new Ping();
-
-                // Посылаем асинхронный ping-запрос с указанным таймаутом.
-
-                PingReply response = await ping.SendPingAsync(ip, pingDelay);
-
-                // Если получен результат запроса и его статус "Успешно".
-
-                if (response != null && response.Status == IPStatus.Success)
-                {
-                    // Объявляем и инициализируем объект для хранения информации об узле сети.
-
-                    AmsNode node = new AmsNode();
-
-                    // Задаём IP-адрес активного узла.
-
-                    node.Ip = response.Address.ToString();
-
-                    // Имя активного узла.
-
-                    try
-                    {
-                        // Объявляем и инициализируем объект для хранения сведений об адресе узла.
-
-                        IPHostEntry entry = Dns.GetHostEntry(ip);
-
-                        // Если объект существует.
-
-                        if (entry != null)
-                        {
-                            // Задаём имя активного узла.
-
-                            node.Name = entry.HostName;
-                        }
-                    }
-                    catch (SocketException) { }
-
-                    // Задаём MAC-адрес узла.
-
-                    node.SetMac(response.Address);
-
-                    // Добавляем текущий узел к списку активных узлов.
-
-                    Nodes.Add(node);
-
                 }
             }
         }

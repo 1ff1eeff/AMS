@@ -45,7 +45,6 @@ namespace AMS
         /// Находит свободное место под новый узел на вкладке TabControl.
         /// </summary>
         /// <param name="tc">TabControl для размещения узла.</param>
-        /// <returns></returns>
 
         Point FindSpace(TabControl tc)
         {

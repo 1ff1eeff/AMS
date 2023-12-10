@@ -161,11 +161,23 @@ namespace AMS
             {
                 case "email":
                     radioButton4.Checked = true;
+
+                    // Покидаем switch.
+
                     break;
+
                 case "adb":
+
                     radioButton3.Checked = true;
+
+                    // Покидаем switch.
+
                     break;
+
                 default:
+
+                    // Покидаем switch.
+
                     break;
             }
 

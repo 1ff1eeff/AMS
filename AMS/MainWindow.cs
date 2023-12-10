@@ -278,13 +278,16 @@ namespace AMS
 
             DialogResult dialogResult = MessageBox.Show("Сохранить карту перед закрытием?", "Закрываем карту.", MessageBoxButtons.YesNoCancel);
 
-            // Проверяем ответ на диалог.
+            // Анализируем ответ на диалог.
 
             switch (dialogResult)
             {
                 // Если ответ: "Отмена".
 
                 case DialogResult.Cancel:
+
+                    // Покидаем switch.
+
                     break;
 
                 // Если ответ: "Да".
@@ -302,6 +305,9 @@ namespace AMS
                         // Удаляем выбранную вкладку.
 
                         tabControl1.TabPages.Remove(tabControl1.SelectedTab);
+
+                    // Покидаем switch.
+
                     break;
 
                 // Если ответ: "Нет".
@@ -315,9 +321,15 @@ namespace AMS
                         // Удаляем выбранную вкладку.
 
                         tabControl1.TabPages.Remove(tabControl1.SelectedTab);
+
+                    // Покидаем switch.
+
                     break;
 
                 default:
+
+                    // Покидаем switch.
+
                     break;
             }
         }
@@ -339,77 +351,71 @@ namespace AMS
             // Отображаем диалог выбора файла карты.
             // Если пользователь отменил открытие карты.
 
-            if (openMapDialog.ShowDialog() == DialogResult.Cancel)
+            if (openMapDialog.ShowDialog() != DialogResult.Cancel)
             {
-                // Покидаем функцию.
+                // Создаём новую вкладку карты. Имя – название файла.
 
-                return;
-            }
+                TabPage tp = new TabPage(Path.GetFileNameWithoutExtension(openMapDialog.FileName));
 
-            // Создаём новую вкладку карты. Имя – название файла.
+                // Добавляем вкладку на элемент TabPages
 
-            TabPage tp = new TabPage(Path.GetFileNameWithoutExtension(openMapDialog.FileName));
+                tabControl1.TabPages.Add(tp);
 
-            // Добавляем вкладку на элемент TabPages
+                // Переходим на вновь созданную вкладку.
 
-            tabControl1.TabPages.Add(tp);
+                tabControl1.SelectTab(tp);
 
-            // Переходим на вновь созданную вкладку.
+                // Получаем информацию об узлах из XML файла.
+                // Тип данных для сериализации – List<AmsNode>.
 
-            tabControl1.SelectTab(tp);
+                XmlSerializer formatter = new XmlSerializer(typeof(List<AmsNode>));
 
-            // Получаем информацию об узлах из XML файла.
-            // Тип данных для сериализации – List<AmsNode>.
+                // Открываем сохранённую ранее карту узлов по имени, полученному из окна OpenFileDialog.
 
-            XmlSerializer formatter = new XmlSerializer(typeof(List<AmsNode>));
-
-            // Открываем сохранённую ранее карту узлов по имени, полученному из окна OpenFileDialog.
-
-            using (FileStream fs = new FileStream(openMapDialog.FileName, FileMode.Open))
-            {
-                try
+                using (FileStream fs = new FileStream(openMapDialog.FileName, FileMode.Open))
                 {
-                    // Заполняем список узлов данными из файла.
-                    // Если файл был успешно десериализован содержит информацию об узлах.
-
-                    if (formatter.Deserialize(fs) is List<AmsNode> nodes && nodes.Count > 0)
+                    try
                     {
-                        // Добавляем узлы на карту.
+                        // Заполняем список узлов данными из файла.
+                        // Если файл был успешно десериализован содержит информацию об узлах.
 
-                        foreach (AmsNode node in nodes)
+                        if (formatter.Deserialize(fs) is List<AmsNode> nodes && nodes.Count > 0)
                         {
-                            // Подготавливаем элемент представляющий узел.
+                            // Добавляем узлы на карту.
 
-                            DeviceNode dn = new DeviceNode
+                            foreach (AmsNode node in nodes)
                             {
-                                // Координаты элемента, представляющего узел на карте.
+                                // Подготавливаем элемент представляющий узел.
 
-                                Location = node.Location,
+                                DeviceNode dn = new DeviceNode
+                                {
+                                    // Координаты элемента, представляющего узел на карте.
 
-                                // Экземпляр пользовательского элемента, представляющего узел на карте.
+                                    Location = node.Location,
 
-                                DNode = node
-                            };
+                                    // Экземпляр пользовательского элемента, представляющего узел на карте.
 
-                            // Снимаем выделение с узла.
+                                    DNode = node
+                                };
 
-                            dn.DNode.IsSelected = false;
+                                // Снимаем выделение с узла.
 
-                            // Добавляем новый элемент на карту.
+                                dn.DNode.IsSelected = false;
 
-                            tabControl1.TabPages[tabControl1.SelectedIndex].Controls.Add(dn);
+                                // Добавляем новый элемент на карту.
+
+                                tabControl1.TabPages[tabControl1.SelectedIndex].Controls.Add(dn);
+                            }
                         }
+
+                        // Закрываем файл.
+
+                        fs.Close();
                     }
 
-                    // Закрываем файл.
-
-                    fs.Close();
-                }
-
-
-
-                catch (Exception)
-                {
+                    catch (Exception)
+                    {
+                    }
                 }
             }
         }
@@ -431,46 +437,42 @@ namespace AMS
             // Отображаем диалог выбора файла.
             // Если пользователь отменил открытие карты.
 
-            if (saveMapDialog.ShowDialog() == DialogResult.Cancel)
+            if (saveMapDialog.ShowDialog() != DialogResult.Cancel)
             {
-                // Покидаем функцию.
+                // Создаём новый список узлов.
 
-                return;
-            }
+                List<AmsNode> nodes = new List<AmsNode>();
 
-            // Создаём новый список узлов.
+                // Добавляем в список все узлы расположенные на текущей вкладке карты.
 
-            List<AmsNode> nodes = new List<AmsNode>();
+                foreach (DeviceNode dNode in tabControl1.SelectedTab.Controls.OfType<DeviceNode>())
+                {
 
-            // Добавляем в список все узлы расположенные на текущей вкладке карты.
+                    // Сохраняем текущую позицию узла.
 
-            foreach (DeviceNode dNode in tabControl1.SelectedTab.Controls.OfType<DeviceNode>())
-            {
+                    dNode.DNode.Location = dNode.Location;
 
-                // Сохраняем текущую позицию узла.
+                    // Добавляем узел в список.
 
-                dNode.DNode.Location = dNode.Location;
+                    nodes.Add(dNode.DNode);
+                }
 
-                // Добавляем узел в список.
+                // Тип данных для сериализации – List<AmsNode>.
 
-                nodes.Add(dNode.DNode);
-            }
-                        
-            // Тип данных для сериализации – List<AmsNode>.
+                XmlSerializer formatter = new XmlSerializer(typeof(List<AmsNode>));
 
-            XmlSerializer formatter = new XmlSerializer(typeof(List<AmsNode>));
+                // Сохраняем список узлов в файл.
 
-            // Сохраняем список узлов в файл.
+                using (FileStream fs = new FileStream(saveMapDialog.FileName, FileMode.Create))
+                {
+                    // Информация об узлах сохраняется в XML формате.
 
-            using (FileStream fs = new FileStream(saveMapDialog.FileName, FileMode.Create))
-            {
-                // Информация об узлах сохраняется в XML формате.
-                
-                formatter.Serialize(fs, nodes);
+                    formatter.Serialize(fs, nodes);
 
-                // Закрываем файл.
+                    // Закрываем файл.
 
-                fs.Close();
+                    fs.Close();
+                }
             }
         }
 
@@ -842,7 +844,6 @@ namespace AMS
         /// </summary>
         /// <param name="text">Текст SMS сообщения.</param>
         /// <param name="settings">Настройки приложения.</param>
-        /// <returns></returns>
 
         async Task SendSmsAsync(string text, AmsSettings settings)
         {
@@ -880,6 +881,8 @@ namespace AMS
                         // Уведомляем посредством диалогового окна.
 
                         MessageBox.Show("Не указан e-mail шлюз в настройках приложения.", "Отправка СМС не удалась");
+
+                    // Покидаем switch.
 
                     break;
 
@@ -936,8 +939,15 @@ namespace AMS
 
                         process.Start();
                     }
+
+                    // Покидаем switch.
+
                     break;
+
                 default:
+
+                    // Покидаем switch.
+
                     break;
             }
         }
