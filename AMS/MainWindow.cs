@@ -15,6 +15,9 @@ using System.Net.Mail;
 
 namespace AMS
 {
+    /// <summary>
+    /// Главная форма приложения "АСМ".
+    /// </summary>
     public partial class MainWindow : Form
     {
         // Настройки приложения.
@@ -46,7 +49,7 @@ namespace AMS
         public const string quote = "\"";
 
         /// <summary>
-        /// Конструктор главного окна приложения. 
+        /// Конструктор главной формы приложения.
         /// Инициализация компонентов.
         /// </summary>
         public MainWindow()
@@ -62,6 +65,8 @@ namespace AMS
                 // Тип данных для десериализации – <AmsSettings>.
 
                 XmlSerializer formatter = new XmlSerializer(typeof(AmsSettings));
+
+                // Блок кода, в котором может произойти исключение.
 
                 try
                 {
@@ -79,6 +84,9 @@ namespace AMS
                         }
                     }
                 }
+
+                // Обрабатываем исключения.
+
                 catch (Exception e)
                 {
                     // Если при открытии файла возникли проблемы –
@@ -176,10 +184,12 @@ namespace AMS
 
                 EditNodeM editNodeM = new EditNodeM()
                 {
-                    // Передаём управление элементом TabControl главной формы, представляющим карту сети
-                    // и выделенным экземпляром пользовательского элемента, представляющего узел на карте.
-
+                    // Передаём управление элементом TabControl главной формы, представляющим карту сети.
+                    
                     tc = tabControl1,
+
+                    // Передаём информацию о выделенном узле сети.
+
                     Node = dNode
                 };
 
@@ -374,6 +384,8 @@ namespace AMS
 
                 using (FileStream fs = new FileStream(openMapDialog.FileName, FileMode.Open))
                 {
+                    // Блок кода, в котором может произойти исключение.
+
                     try
                     {
                         // Заполняем список узлов данными из файла.
@@ -412,6 +424,8 @@ namespace AMS
 
                         fs.Close();
                     }
+
+                    // Обрабатываем исключения.
 
                     catch (Exception)
                     {
@@ -463,9 +477,12 @@ namespace AMS
 
                 // Сохраняем список узлов в файл.
 
+                // Открываем файл хранящий информацию об узлах сети.
+                // Имя файла получено из диалогового окна открытия карты.
+
                 using (FileStream fs = new FileStream(saveMapDialog.FileName, FileMode.Create))
                 {
-                    // Информация об узлах сохраняется в XML формате.
+                    // Сохраняем информацию об узлах сети в XML формате.
 
                     formatter.Serialize(fs, nodes);
 
@@ -710,6 +727,8 @@ namespace AMS
             // Приоритет данного сообщения электронной почты: "Normal" – "Обычный".
 
             mailMessage.Priority = MailPriority.Normal;
+            
+            // Блок кода, в котором может произойти исключение.
 
             try
             {
@@ -818,13 +837,18 @@ namespace AMS
             // Приоритет данного сообщения электронной почты: "Normal" – "Обычный".
 
             mailMessage.Priority = MailPriority.Normal;
-            
+
+            // Блок кода, в котором может произойти исключение.
+
             try
             {
                 // Отправляем сформированное электронное сообщение SMTP-серверу.
 
                 await smtp.SendMailAsync(mailMessage);
             }
+
+            // Обрабатываем исключения.
+
             catch (Exception e)
             {
                 // Если в процессе отправления электронного сообщения возникли
@@ -1038,8 +1062,9 @@ namespace AMS
                             // Статус доступности узла.
 
                             bool isOnline = false;
-                                                        
+
                             // Ping-запрос.                            
+                            // Блок кода, в котором может произойти исключение.
 
                             try
                             {
@@ -1227,6 +1252,9 @@ namespace AMS
                                         // Если указана хотя бы одна служба для мониторинга.
 
                                         if (item.SubItems[0].Text.Length > 0)
+
+                                            // Блок кода, в котором может произойти исключение.
+
                                             try
                                             {
                                                 // Узнаём статус службы на удалённом ПК (имя службы, доменное имя удаленного компьютера).
@@ -1288,7 +1316,12 @@ namespace AMS
                                                     label5.Text = servicesOffline.Count.ToString();
                                                 }
                                             }
-                                            catch (Exception) { }
+
+                                            // Обрабатываем исключения.
+
+                                            catch (Exception) 
+                                            { 
+                                            }
                                     }
 
                                     // Заполняем поле "службы" в списке мониторинга узлов.
@@ -1308,9 +1341,13 @@ namespace AMS
 
                                             item.SubItems[5].Text += service + ";";
                                 }
-                            } 
+                            }
 
-                            catch (Exception) { }
+                            // Обрабатываем исключения.
+
+                            catch (Exception) 
+                            { 
+                            }
 
                             // Если в списке статусов есть узел с таким же ID.
 

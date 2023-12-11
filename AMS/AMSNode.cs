@@ -7,7 +7,7 @@ using System.Drawing;
 namespace AMS
 {
     /// <summary>
-    /// Класс для хранения и управления информацией об узлах сети.
+    /// Класс для хранения и управления информацией об узле сети.
     /// </summary>
     public class AmsNode
     {
@@ -102,51 +102,51 @@ namespace AMS
         public string Name { get => name; set => name = value; }
 
         /// <summary>
-        /// Определяет методы доступа к значению свойства "Имя узла на карте".
+        /// Имя узла на карте.
         /// </summary>
         public string NameOnMap { get => nameOnMap; set => nameOnMap = value; }
         /// <summary>
-        /// Определяет методы доступа к значению свойства "Тип узла".
+        /// Тип узла.
         /// </summary>
         public string Type { get => type; set => type = value; }
 
         /// <summary>
-        /// Определяет методы доступа к значению свойства "Стандарт передачи данных".
+        /// Стандарт передачи данных.
         /// </summary>
         public string Standard { get => standard; set => standard = value; }
 
         /// <summary>
-        /// Определяет методы доступа к значению свойства "Протокол передачи данных".
+        /// Протокол передачи данных.
         /// </summary>
         public string Protocol { get => protocol; set => protocol = value; }
 
         /// <summary>
-        /// Определяет методы доступа к значению свойства "IP-адрес узла".
+        /// IP-адрес узла.
         /// </summary>
         public string Ip { get => ip; set => ip = value; }
 
         /// <summary>
-        /// Определяет методы доступа к значению свойства "MAC-адрес узла".
+        /// MAC-адрес узла.
         /// </summary>
         public string Mac { get => mac; set => mac = value; }
 
         /// <summary>
-        /// Определяет методы доступа к значению свойства "Отслеживаемые сервисы узла".
+        /// Отслеживаемые сервисы узла.
         /// </summary>
         public string[] Services { get => services; set => services = value; }
 
         /// <summary>
-        /// Определяет методы доступа к значению свойства "Узел выделен на карте".
+        /// Узел выделен на карте.
         /// </summary>
         public bool IsSelected { get => isSelected; set => isSelected = value; }
 
         /// <summary>
-        /// Определяет методы доступа к значению свойства "ID узла".
+        /// ID узла.
         /// </summary>
         public string Id { get => id; set => id = value; }
 
         /// <summary>
-        /// Определяет методы доступа к значению свойства "Положение узла на карте".
+        /// Положение узла на карте.
         /// </summary>
         public Point Location { get => location; set => location = value; }
 

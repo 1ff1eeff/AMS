@@ -151,7 +151,7 @@ namespace AMS
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Name = "CreateTest";
-            this.Text = "Мониторинг";
+            this.Text = "Модуль мониторинга узлов";
             this.Load += new System.EventHandler(this.CreateTest_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
