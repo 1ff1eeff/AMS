@@ -3,6 +3,9 @@ using System.Windows.Forms;
 
 namespace AMS
 {
+    /// <summary>
+    /// Форма "Добавить службу".
+    /// </summary>
     public partial class CreateService : Form
     {
         // Для связи с элементом ListBox.

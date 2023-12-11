@@ -4,245 +4,328 @@ using System.Text.RegularExpressions;
 
 namespace AMS
 {
+    /// <summary>
+    /// Класс представляющий функционал транслитирации текста.
+    /// </summary>
     public class Translit
     {
-        private Dictionary<char, string> TranslitDict = new Dictionary<char, string>();
-        private bool compatibility = false;
-
-        public bool Compatibility
-        {
-            get
-            {
-                return compatibility;
-            }
-            set
-            {
-                if (value)
-                {
-                    FormDictCompat();
-                    compatibility = true;
-                }
-                else
-                {
-                    FormDictStandart();
-                    compatibility = false;
-                }
-            }
-        }
-
+        /// <summary>
+        /// Конструктор класса Translit.
+        /// </summary>
+        /// <param name="Compat">Режим совместимости.</param>
         public Translit(bool Compat)
         {
+            // Устанавливаем режим совместимости.
+
             Compatibility = Compat;
         }
 
+        // Объявляем и инициализируем словарь содержащий пару ключ-значение: символ-строка,
+        // т.к. не все русские буквы можно представить одним латинским символом.
+
+        private readonly Dictionary<char, string> _translitDict = new Dictionary<char, string>();
+
+        // Объявляем и инициализируем логическую переменную хранящую значение режима совместимости.
+
+        private bool _compatibility = false;
+
+        // Метод доступа к полю "режим совместимости". 
+        public bool Compatibility
+        {
+            // Геттер.
+
+            get
+            {
+                // Покидаем функцию и возвращаем значение режима совместимости.
+
+                return _compatibility;
+            }
+
+            // Сеттер.
+
+            set
+            {
+                // Если в функцию передано значение "истина".
+
+                if (value)
+                {
+                    // Устанавливаем словарь в режиме совместимости.
+
+                    FormDictCompat();
+
+                    // Режим совместимости включен.
+
+                    _compatibility = true;
+                }
+
+                // Если в функцию передано значение "ложь".
+
+                else
+                {
+                    // Устанавливаем стандартный словарь.
+
+                    FormDictStandart();
+
+                    // Режим совместимости отключен.
+
+                    _compatibility = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Устанавливает стандартный словарь.
+        /// </summary>
         private void FormDictStandart()
         {
-            TranslitDict.Clear();
+            // Очищаем словарь.
 
-            //Big letter standart
-            TranslitDict.Add('А', "A");
-            TranslitDict.Add('Б', "B");
-            TranslitDict.Add('В', "V");
-            TranslitDict.Add('Г', "G");
-            TranslitDict.Add('Д', "D");
-            TranslitDict.Add('Е', "E");
-            TranslitDict.Add('Ё', "Yo");
-            TranslitDict.Add('Ж', "Zh");
-            TranslitDict.Add('З', "Z");
-            TranslitDict.Add('И', "I");
-            TranslitDict.Add('Й', "J");
-            TranslitDict.Add('К', "K");
-            TranslitDict.Add('Л', "L");
-            TranslitDict.Add('М', "M");
-            TranslitDict.Add('Н', "N");
-            TranslitDict.Add('О', "O");
-            TranslitDict.Add('П', "P");
-            TranslitDict.Add('Р', "R");
-            TranslitDict.Add('С', "S");
-            TranslitDict.Add('Т', "T");
-            TranslitDict.Add('У', "U");
-            TranslitDict.Add('Ф', "F");
-            TranslitDict.Add('Х', "Kh");
-            TranslitDict.Add('Ц', "Ts");
-            TranslitDict.Add('Ч', "Ch");
-            TranslitDict.Add('Ш', "Sh");
-            TranslitDict.Add('Щ', "Shch");
-            TranslitDict.Add('Ъ', "''");
-            TranslitDict.Add('Ы', "Y");
-            TranslitDict.Add('Ь', "'");
-            TranslitDict.Add('Э', "E");
-            TranslitDict.Add('Ю', "Ju");
-            TranslitDict.Add('Я', "Ja");
-            //end
+            _translitDict.Clear();
 
-            //Small letter standart
-            TranslitDict.Add('а', "a");
-            TranslitDict.Add('б', "b");
-            TranslitDict.Add('в', "v");
-            TranslitDict.Add('г', "g");
-            TranslitDict.Add('д', "d");
-            TranslitDict.Add('е', "e");
-            TranslitDict.Add('ё', "yo");
-            TranslitDict.Add('ж', "zh");
-            TranslitDict.Add('з', "z");
-            TranslitDict.Add('и', "i");
-            TranslitDict.Add('й', "j");
-            TranslitDict.Add('к', "k");
-            TranslitDict.Add('л', "l");
-            TranslitDict.Add('м', "m");
-            TranslitDict.Add('н', "n");
-            TranslitDict.Add('о', "o");
-            TranslitDict.Add('п', "p");
-            TranslitDict.Add('р', "r");
-            TranslitDict.Add('с', "s");
-            TranslitDict.Add('т', "t");
-            TranslitDict.Add('у', "u");
-            TranslitDict.Add('ф', "f");
-            TranslitDict.Add('х', "kh");
-            TranslitDict.Add('ц', "ts");
-            TranslitDict.Add('ч', "ch");
-            TranslitDict.Add('ш', "sh");
-            TranslitDict.Add('щ', "shch");
-            TranslitDict.Add('ъ', "''");
-            TranslitDict.Add('ы', "y");
-            TranslitDict.Add('ь', "'");
-            TranslitDict.Add('э', "e");
-            TranslitDict.Add('ю', "ju");
-            TranslitDict.Add('я', "ja");
-            //end
+            // Заглавные буквы – стандартная транслитерация.
+            _translitDict.Add('А', "A");
+            _translitDict.Add('Б', "B");
+            _translitDict.Add('В', "V");
+            _translitDict.Add('Г', "G");
+            _translitDict.Add('Д', "D");
+            _translitDict.Add('Е', "E");
+            _translitDict.Add('Ё', "Yo");
+            _translitDict.Add('Ж', "Zh");
+            _translitDict.Add('З', "Z");
+            _translitDict.Add('И', "I");
+            _translitDict.Add('Й', "J");
+            _translitDict.Add('К', "K");
+            _translitDict.Add('Л', "L");
+            _translitDict.Add('М', "M");
+            _translitDict.Add('Н', "N");
+            _translitDict.Add('О', "O");
+            _translitDict.Add('П', "P");
+            _translitDict.Add('Р', "R");
+            _translitDict.Add('С', "S");
+            _translitDict.Add('Т', "T");
+            _translitDict.Add('У', "U");
+            _translitDict.Add('Ф', "F");
+            _translitDict.Add('Х', "Kh");
+            _translitDict.Add('Ц', "Ts");
+            _translitDict.Add('Ч', "Ch");
+            _translitDict.Add('Ш', "Sh");
+            _translitDict.Add('Щ', "Shch");
+            _translitDict.Add('Ъ', "''");
+            _translitDict.Add('Ы', "Y");
+            _translitDict.Add('Ь', "'");
+            _translitDict.Add('Э', "E");
+            _translitDict.Add('Ю', "Ju");
+            _translitDict.Add('Я', "Ja");
+
+            // Строчные буквы – стандартная транслитерация.
+            _translitDict.Add('а', "a");
+            _translitDict.Add('б', "b");
+            _translitDict.Add('в', "v");
+            _translitDict.Add('г', "g");
+            _translitDict.Add('д', "d");
+            _translitDict.Add('е', "e");
+            _translitDict.Add('ё', "yo");
+            _translitDict.Add('ж', "zh");
+            _translitDict.Add('з', "z");
+            _translitDict.Add('и', "i");
+            _translitDict.Add('й', "j");
+            _translitDict.Add('к', "k");
+            _translitDict.Add('л', "l");
+            _translitDict.Add('м', "m");
+            _translitDict.Add('н', "n");
+            _translitDict.Add('о', "o");
+            _translitDict.Add('п', "p");
+            _translitDict.Add('р', "r");
+            _translitDict.Add('с', "s");
+            _translitDict.Add('т', "t");
+            _translitDict.Add('у', "u");
+            _translitDict.Add('ф', "f");
+            _translitDict.Add('х', "kh");
+            _translitDict.Add('ц', "ts");
+            _translitDict.Add('ч', "ch");
+            _translitDict.Add('ш', "sh");
+            _translitDict.Add('щ', "shch");
+            _translitDict.Add('ъ', "''");
+            _translitDict.Add('ы', "y");
+            _translitDict.Add('ь', "'");
+            _translitDict.Add('э', "e");
+            _translitDict.Add('ю', "ju");
+            _translitDict.Add('я', "ja");
         }
 
+        /// <summary>
+        /// Устанавливает словарь в режиме совместимости.
+        /// </summary>
         private void FormDictCompat()
         {
-            TranslitDict.Clear();
+            // Очищаем словарь.
 
-            //Big letter compatibility
-            TranslitDict.Add('А', "A");
-            TranslitDict.Add('Б', "B");
-            TranslitDict.Add('В', "V");
-            TranslitDict.Add('Г', "G");
-            TranslitDict.Add('Д', "D");
-            TranslitDict.Add('Е', "E");
-            TranslitDict.Add('Ё', "Yo");
-            TranslitDict.Add('Ж', "Zh");
-            TranslitDict.Add('З', "Z");
-            TranslitDict.Add('И', "I");
-            TranslitDict.Add('Й', "J");
-            TranslitDict.Add('К', "K");
-            TranslitDict.Add('Л', "L");
-            TranslitDict.Add('М', "M");
-            TranslitDict.Add('Н', "N");
-            TranslitDict.Add('О', "O");
-            TranslitDict.Add('П', "P");
-            TranslitDict.Add('Р', "R");
-            TranslitDict.Add('С', "S");
-            TranslitDict.Add('Т', "T");
-            TranslitDict.Add('У', "U");
-            TranslitDict.Add('Ф', "F");
-            TranslitDict.Add('Х', "Kh");
-            TranslitDict.Add('Ц', "Ts");
-            TranslitDict.Add('Ч', "Ch");
-            TranslitDict.Add('Ш', "Sh");
-            TranslitDict.Add('Щ', "Shch");
-            TranslitDict.Add('Ъ', "_");
-            TranslitDict.Add('Ы', "Y");
-            TranslitDict.Add('Ь', "_");
-            TranslitDict.Add('Э', "E");
-            TranslitDict.Add('Ю', "Ju");
-            TranslitDict.Add('Я', "Ja");
-            //end
+            _translitDict.Clear();
 
-            //Small letter compatibility
-            TranslitDict.Add('а', "a");
-            TranslitDict.Add('б', "b");
-            TranslitDict.Add('в', "v");
-            TranslitDict.Add('г', "g");
-            TranslitDict.Add('д', "d");
-            TranslitDict.Add('е', "e");
-            TranslitDict.Add('ё', "yo");
-            TranslitDict.Add('ж', "zh");
-            TranslitDict.Add('з', "z");
-            TranslitDict.Add('и', "i");
-            TranslitDict.Add('й', "j");
-            TranslitDict.Add('к', "k");
-            TranslitDict.Add('л', "l");
-            TranslitDict.Add('м', "m");
-            TranslitDict.Add('н', "n");
-            TranslitDict.Add('о', "o");
-            TranslitDict.Add('п', "p");
-            TranslitDict.Add('р', "r");
-            TranslitDict.Add('с', "s");
-            TranslitDict.Add('т', "t");
-            TranslitDict.Add('у', "u");
-            TranslitDict.Add('ф', "f");
-            TranslitDict.Add('х', "kh");
-            TranslitDict.Add('ц', "ts");
-            TranslitDict.Add('ч', "ch");
-            TranslitDict.Add('ш', "sh");
-            TranslitDict.Add('щ', "shch");
-            TranslitDict.Add('ъ', "_");
-            TranslitDict.Add('ы', "y");
-            TranslitDict.Add('ь', "_");
-            TranslitDict.Add('э', "e");
-            TranslitDict.Add('ю', "ju");
-            TranslitDict.Add('я', "ja");
-            //end
+            // Заглавные буквы – режим совместимости.
+            _translitDict.Add('А', "A");
+            _translitDict.Add('Б', "B");
+            _translitDict.Add('В', "V");
+            _translitDict.Add('Г', "G");
+            _translitDict.Add('Д', "D");
+            _translitDict.Add('Е', "E");
+            _translitDict.Add('Ё', "Yo");
+            _translitDict.Add('Ж', "Zh");
+            _translitDict.Add('З', "Z");
+            _translitDict.Add('И', "I");
+            _translitDict.Add('Й', "J");
+            _translitDict.Add('К', "K");
+            _translitDict.Add('Л', "L");
+            _translitDict.Add('М', "M");
+            _translitDict.Add('Н', "N");
+            _translitDict.Add('О', "O");
+            _translitDict.Add('П', "P");
+            _translitDict.Add('Р', "R");
+            _translitDict.Add('С', "S");
+            _translitDict.Add('Т', "T");
+            _translitDict.Add('У', "U");
+            _translitDict.Add('Ф', "F");
+            _translitDict.Add('Х', "Kh");
+            _translitDict.Add('Ц', "Ts");
+            _translitDict.Add('Ч', "Ch");
+            _translitDict.Add('Ш', "Sh");
+            _translitDict.Add('Щ', "Shch");
+            _translitDict.Add('Ъ', "_");
+            _translitDict.Add('Ы', "Y");
+            _translitDict.Add('Ь', "_");
+            _translitDict.Add('Э', "E");
+            _translitDict.Add('Ю', "Ju");
+            _translitDict.Add('Я', "Ja");
 
-            //space
-            TranslitDict.Add(' ', "_");
-
+            // Строчные буквы – режим совместимости.
+            _translitDict.Add('а', "a");
+            _translitDict.Add('б', "b");
+            _translitDict.Add('в', "v");
+            _translitDict.Add('г', "g");
+            _translitDict.Add('д', "d");
+            _translitDict.Add('е', "e");
+            _translitDict.Add('ё', "yo");
+            _translitDict.Add('ж', "zh");
+            _translitDict.Add('з', "z");
+            _translitDict.Add('и', "i");
+            _translitDict.Add('й', "j");
+            _translitDict.Add('к', "k");
+            _translitDict.Add('л', "l");
+            _translitDict.Add('м', "m");
+            _translitDict.Add('н', "n");
+            _translitDict.Add('о', "o");
+            _translitDict.Add('п', "p");
+            _translitDict.Add('р', "r");
+            _translitDict.Add('с', "s");
+            _translitDict.Add('т', "t");
+            _translitDict.Add('у', "u");
+            _translitDict.Add('ф', "f");
+            _translitDict.Add('х', "kh");
+            _translitDict.Add('ц', "ts");
+            _translitDict.Add('ч', "ch");
+            _translitDict.Add('ш', "sh");
+            _translitDict.Add('щ', "shch");
+            _translitDict.Add('ъ', "_");
+            _translitDict.Add('ы', "y");
+            _translitDict.Add('ь', "_");
+            _translitDict.Add('э', "e");
+            _translitDict.Add('ю', "ju");
+            _translitDict.Add('я', "ja");
+            _translitDict.Add(' ', "_");
         }
 
-        public string TranslitChar(char Rus)
-        {
-            if (TranslitDict.ContainsKey(Rus))
-            {
-                return TranslitDict[Rus];
-            }
-            else
-            {
-                return Rus.ToString();
-            }
-        }
-
+        /// <summary>
+        /// Транслитерирует строку.
+        /// </summary>
+        /// <param name="Rus">Транслитерируемая строка.</param>
+        /// <returns>Транслитерированная строка.</returns>
         public string TranslitString(string Rus)
         {
-            string sBuf = "";
+            // Объявляем и инициализируем изменяемую строку символов, для хранения транслитерированной строки.
+
             StringBuilder sb = new StringBuilder();
 
-            if (compatibility)
+            // Если включен режим совместимости.
+
+            if (_compatibility)
             {
-                if (!ContainsRusOrSpace(Rus)) return Rus;
+                // Если строка не содержит русских букв или пробелов.
+
+                if (!ContainsRusOrSpace(Rus))
+                {
+                    return Rus;
+                }
             }
+
+            // Если режим совместимости отключен.
+
             else
             {
-                if (!ContainsRus(Rus)) return Rus;
+                // Если строка не содержит русских букв.
+
+                if (!ContainsRus(Rus))
+                {
+                    return Rus;
+                }
             }
+
+            // Анализируем строку.
 
             for (int i = 0; i < Rus.Length; i++)
             {
-                if (TranslitDict.ContainsKey(Rus[i]))
+                // Объявляем строковую переменную для хранения буфера транслитерирования.
+
+                string sBuf;
+
+                // Если буква содержится в словаре.
+
+                if (_translitDict.ContainsKey(Rus[i]))
                 {
-                    sBuf = TranslitDict[Rus[i]];
+                    // Помещаем транслитерированную букву в буферную переменную.
+
+                    sBuf = _translitDict[Rus[i]];
                 }
+
+                // Если буквы нет в словаре.
+
                 else
                 {
+                    // Помещаем букву в буферную переменную.
+
                     sBuf = Rus[i].ToString();
                 }
+
+                // Добавляем транслитерированную букву в изменяемую строку символов.
 
                 sb.Append(sBuf);
             }
 
+            // Покидаем функцию и возвращаем транслитерированную строку.
+
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Строка содержит русские буквы.
+        /// </summary>
+        /// <param name="TestString"></param>
+        /// <returns>True, если строка содержит русские буквы.</returns>
         public static bool ContainsRus(string TestString)
         {
+            // Если строка содержит русские буквы возвращаем True.
+
             return Regex.IsMatch(TestString, @"[а-я]", RegexOptions.IgnoreCase);
         }
 
+        /// <summary>
+        /// Строка содержит русские буквы или пробелы.
+        /// </summary>
+        /// <param name="TestString"></param>
+        /// <returns>True, если строка содержит русские буквы или пробелы.</returns>
         public static bool ContainsRusOrSpace(string TestString)
         {
+            // Если строка содержит русские буквы или пробелы.
+
             return Regex.IsMatch(TestString, @"[а-я]|\s", RegexOptions.IgnoreCase);
         }
     }

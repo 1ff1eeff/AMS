@@ -4,10 +4,12 @@ using System.Windows.Forms;
 
 namespace AMS
 {
-    
+    /// <summary>
+    /// Форма выбора службы.
+    /// </summary>
     public partial class SelectProcess : Form
     {
-        // Для связи со списком, предназначенным для хранения процессов.
+        // Для связи со списком, предназначенным для хранения информации о запущенных службах.
 
         public List<string> detectedProcesses;
 
