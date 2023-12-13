@@ -20,47 +20,49 @@ namespace AMS
     /// </summary>
     public partial class MainWindow : Form
     {
-        // Настройки приложения.
+        // Объявляем и инициализируем объект класса AmsSettings, предназначенный для хранения настроек приложения.
 
         internal AmsSettings amsSettings = new AmsSettings();
 
-        // Узлы, выбранные на карте.
+        // Объявляем и инициализируем список содержащий информацию об узлах, выбранных на карте.
 
         internal List<AmsNode> selectedNodes = new List<AmsNode>();
 
-        // Состояния узлов.
+        // Объявляем и инициализируем список, содержащий информацию о состоянии узлов.
 
         internal List<AmsNodeStat> nodesStatus = new List<AmsNodeStat>();
 
-        // Объект управления токеном для отмены операции.
+        // Объявляем и инициализируем объект управления токеном для отмены операции.
 
         private CancellationTokenSource _cts = new CancellationTokenSource();
 
-        // Задержка между ping-запросами.
+        // Объявляем и инициализируем целочисленную переменную, определяющую задержку между ping-запросами.
 
         private readonly int _pingTimeout = 1000;
 
-        // Расположение файла конфигурации, загружаемый при запуске приложения.
+        // Объявляем и инициализируем строку, содержащую расположение файла конфигурации,
+        // загружаемого при запуске приложения.
 
         private readonly string _defaulConfigFile = Application.StartupPath + "\\config.xml";
 
-        // Символ "кавычки" (для формирования строки аргументов запуска внешнего приложения).
+        // Объявляем и инициализируем текстовую константу, содержащую символ "кавычки"
+        // (для формирования строки аргументов запуска внешнего приложения).
 
         public const string quote = "\"";
 
         /// <summary>
         /// Конструктор главной формы приложения.
-        /// Инициализация компонентов.
         /// </summary>
         public MainWindow()
         {
+            // Инициализация компонентов.
+
             InitializeComponent();
 
-            // Ожидается конфигурационный файл в корневой папке приложения.
+            // Если найден конфигурационный файл в корневой папке приложения.
 
             if (File.Exists(_defaulConfigFile))
             {
-
                 // Открываем файл и настраиваем приложение.
                 // Тип данных для десериализации – <AmsSettings>.
 
@@ -113,7 +115,7 @@ namespace AMS
 
                     formatter.Serialize(fs, amsSettings);
                 }
-            }                        
+            }
         }
 
         /// <summary>
@@ -185,7 +187,7 @@ namespace AMS
                 EditNodeM editNodeM = new EditNodeM()
                 {
                     // Передаём управление элементом TabControl главной формы, представляющим карту сети.
-                    
+
                     tc = tabControl1,
 
                     // Передаём информацию о выделенном узле сети.
@@ -539,7 +541,7 @@ namespace AMS
 
                         // Удаляем текущий объект управления токеном.
 
-                        _cts.Dispose();                   
+                        _cts.Dispose();
 
                     // Инициализируем новый объект управления токеном.
 
@@ -627,10 +629,10 @@ namespace AMS
                 // Если индекс найден
 
                 if (idx != -1)
-                { 
+                {
                     // Заменяем фоновое изображение элемента, представляющего узел на карте
                     // на изображение, указанное во входных параметрах функции.
-                    
+
                     nodesOnMap[idx].BackgroundImage = res;
                 }
             }
@@ -719,22 +721,22 @@ namespace AMS
             // Кодировка передачи текста сообщения – "Base64".
 
             mailMessage.BodyTransferEncoding = System.Net.Mime.TransferEncoding.Base64;
-            
+
             // Текст почтового сообщения имеет формат HTML.
-            
+
             mailMessage.IsBodyHtml = true;
 
             // Приоритет данного сообщения электронной почты: "Normal" – "Обычный".
 
             mailMessage.Priority = MailPriority.Normal;
-            
+
             // Блок кода, в котором может произойти исключение.
 
             try
             {
                 // Отправляем сформированное электронное сообщение SMTP-серверу.
 
-                await smtp.SendMailAsync(mailMessage);                
+                await smtp.SendMailAsync(mailMessage);
             }
 
             // Если в процессе отправления электронного сообщения возникли проблемы.
@@ -745,8 +747,8 @@ namespace AMS
 
                 MessageBox.Show(e.Message);
                 throw;
-            } 
-            
+            }
+
             // Завершаем отправление электронного сообщения. Освобождаем ресурсы.
 
             smtp.Dispose();
@@ -1075,7 +1077,7 @@ namespace AMS
                                 // Если отслеживаем "Доступность".
 
                                 if (item.SubItems[2].Text != " - ")
-                                {                                   
+                                {
                                     // Если статус узла - Online.
 
                                     if (resp.Status == IPStatus.Success)
@@ -1205,7 +1207,7 @@ namespace AMS
 
                                 if (item.SubItems[3].Text.ToString() != " - " && resp.Status == IPStatus.Success)
                                 {
-                                    item.SubItems[3].Text = resp.RoundtripTime.ToString() + " мс";     /*------------------------------------------------------------БББББББББББББББББББББББ---------*/
+                                    item.SubItems[3].Text = resp.RoundtripTime.ToString() + " мс";
                                 }
 
                                 // Если отслеживаем "Потери пакетов".
@@ -1289,7 +1291,7 @@ namespace AMS
 
                                                         // Текст письма.
 
-                                                        string body = DateTime.Now.ToString() + ": Служба  " + mService + " на устройстве " 
+                                                        string body = DateTime.Now.ToString() + ": Служба  " + mService + " на устройстве "
                                                             + item.SubItems[1].Text + " (" + item.Text + ") " + "перестала отвечать на запросы.";
 
                                                         // Отправление письма по указанным в настройках параметрам.
@@ -1303,7 +1305,7 @@ namespace AMS
                                                     {
                                                         // Текст сообщения.
 
-                                                        string smsText = "Служба\\ " + mService + "не\\ отвечает\\ "+ item.Text;
+                                                        string smsText = "Служба\\ " + mService + "не\\ отвечает\\ " + item.Text;
 
                                                         // Оповещаем посредством SMS, способом указанным в настройках приложения.
 
@@ -1319,8 +1321,8 @@ namespace AMS
 
                                             // Обрабатываем исключения.
 
-                                            catch (Exception) 
-                                            { 
+                                            catch (Exception)
+                                            {
                                             }
                                     }
 
@@ -1345,8 +1347,8 @@ namespace AMS
 
                             // Обрабатываем исключения.
 
-                            catch (Exception) 
-                            { 
+                            catch (Exception)
+                            {
                             }
 
                             // Если в списке статусов есть узел с таким же ID.
@@ -1388,7 +1390,7 @@ namespace AMS
 
                                         totalOnline++;
                                     }
-                                                                        
+
                                     // Если узел не отвечает.
 
                                     else
