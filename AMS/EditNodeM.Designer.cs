@@ -28,79 +28,79 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnDetect = new System.Windows.Forms.Button();
-            this.btnOk = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.tbMac = new System.Windows.Forms.TextBox();
-            this.tbIp = new System.Windows.Forms.TextBox();
-            this.tbName = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.btnRemove = new System.Windows.Forms.Button();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.lbServices = new System.Windows.Forms.ListBox();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.listBox4 = new System.Windows.Forms.ListBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.cbProtocol = new System.Windows.Forms.ComboBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.cbStandard = new System.Windows.Forms.ComboBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.cbDeviceType = new System.Windows.Forms.ComboBox();
-            this.tbNameOnMap = new System.Windows.Forms.TextBox();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // btnDetect
+            // button1
             // 
-            this.btnDetect.Location = new System.Drawing.Point(204, 171);
-            this.btnDetect.Name = "btnDetect";
-            this.btnDetect.Size = new System.Drawing.Size(77, 23);
-            this.btnDetect.TabIndex = 70;
-            this.btnDetect.Text = "Обнаружить";
-            this.btnDetect.UseVisualStyleBackColor = true;
-            this.btnDetect.Click += new System.EventHandler(this.btnDetect_Click);
+            this.button1.Location = new System.Drawing.Point(204, 171);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(77, 23);
+            this.button1.TabIndex = 70;
+            this.button1.Text = "Обнаружить";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // btnOk
+            // button7
             // 
-            this.btnOk.Location = new System.Drawing.Point(123, 322);
-            this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(77, 23);
-            this.btnOk.TabIndex = 68;
-            this.btnOk.Text = "ОК";
-            this.btnOk.UseVisualStyleBackColor = true;
-            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+            this.button7.Location = new System.Drawing.Point(123, 322);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(77, 23);
+            this.button7.TabIndex = 68;
+            this.button7.Text = "ОК";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
-            // btnCancel
+            // button8
             // 
-            this.btnCancel.Location = new System.Drawing.Point(205, 322);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(77, 23);
-            this.btnCancel.TabIndex = 69;
-            this.btnCancel.Text = "Отмена";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.button8.Location = new System.Drawing.Point(205, 322);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(77, 23);
+            this.button8.TabIndex = 69;
+            this.button8.Text = "Отмена";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
-            // tbMac
+            // textBox3
             // 
-            this.tbMac.Location = new System.Drawing.Point(153, 66);
-            this.tbMac.Name = "tbMac";
-            this.tbMac.Size = new System.Drawing.Size(129, 20);
-            this.tbMac.TabIndex = 67;
+            this.textBox3.Location = new System.Drawing.Point(153, 66);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(129, 20);
+            this.textBox3.TabIndex = 67;
             // 
-            // tbIp
+            // textBox2
             // 
-            this.tbIp.Location = new System.Drawing.Point(12, 66);
-            this.tbIp.Name = "tbIp";
-            this.tbIp.Size = new System.Drawing.Size(129, 20);
-            this.tbIp.TabIndex = 66;
+            this.textBox2.Location = new System.Drawing.Point(12, 66);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(129, 20);
+            this.textBox2.TabIndex = 66;
             // 
-            // tbName
+            // textBox1
             // 
-            this.tbName.Location = new System.Drawing.Point(153, 26);
-            this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(129, 20);
-            this.tbName.TabIndex = 65;
+            this.textBox1.Location = new System.Drawing.Point(153, 26);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(129, 20);
+            this.textBox1.TabIndex = 65;
             // 
             // label2
             // 
@@ -122,33 +122,33 @@
             this.label3.TabIndex = 53;
             this.label3.Text = "Тип устройства";
             // 
-            // btnRemove
+            // button10
             // 
-            this.btnRemove.Location = new System.Drawing.Point(205, 141);
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(77, 23);
-            this.btnRemove.TabIndex = 64;
-            this.btnRemove.Text = "Удалить";
-            this.btnRemove.UseVisualStyleBackColor = true;
-            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            this.button10.Location = new System.Drawing.Point(205, 141);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(77, 23);
+            this.button10.TabIndex = 64;
+            this.button10.Text = "Удалить";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
-            // btnAdd
+            // button11
             // 
-            this.btnAdd.Location = new System.Drawing.Point(204, 112);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(77, 23);
-            this.btnAdd.TabIndex = 63;
-            this.btnAdd.Text = "Добавить";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.button11.Location = new System.Drawing.Point(204, 112);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(77, 23);
+            this.button11.TabIndex = 63;
+            this.button11.Text = "Добавить";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
-            // lbServices
+            // listBox4
             // 
-            this.lbServices.FormattingEnabled = true;
-            this.lbServices.Location = new System.Drawing.Point(12, 112);
-            this.lbServices.Name = "lbServices";
-            this.lbServices.Size = new System.Drawing.Size(187, 82);
-            this.lbServices.TabIndex = 62;
+            this.listBox4.FormattingEnabled = true;
+            this.listBox4.Location = new System.Drawing.Point(12, 112);
+            this.listBox4.Name = "listBox4";
+            this.listBox4.Size = new System.Drawing.Size(187, 82);
+            this.listBox4.TabIndex = 62;
             // 
             // label5
             // 
@@ -170,10 +170,10 @@
             this.label12.TabIndex = 61;
             this.label12.Text = "Сервисы";
             // 
-            // cbProtocol
+            // comboBox2
             // 
-            this.cbProtocol.FormattingEnabled = true;
-            this.cbProtocol.Items.AddRange(new object[] {
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
             "TCP/IP",
             "TCP/IPv6",
             "UDP",
@@ -260,10 +260,10 @@
             "WAP",
             "X.25",
             "XNS"});
-            this.cbProtocol.Location = new System.Drawing.Point(12, 293);
-            this.cbProtocol.Name = "cbProtocol";
-            this.cbProtocol.Size = new System.Drawing.Size(270, 21);
-            this.cbProtocol.TabIndex = 60;
+            this.comboBox2.Location = new System.Drawing.Point(12, 293);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(270, 21);
+            this.comboBox2.TabIndex = 60;
             // 
             // label9
             // 
@@ -275,10 +275,10 @@
             this.label9.TabIndex = 59;
             this.label9.Text = "Протокол передачи пакетов";
             // 
-            // cbStandard
+            // comboBox1
             // 
-            this.cbStandard.FormattingEnabled = true;
-            this.cbStandard.Items.AddRange(new object[] {
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
             "10Base-2 Thin Ethernet 10 Mb/s",
             "10Base-5 Thick Ethernet 10 Mb/s",
             "10Base-F, 10Base-FL Ethernet 10 Mb/s",
@@ -291,10 +291,10 @@
             "1000Base-LX Gigabit Ethernet 1000 Mb/s",
             "1000Base-SX Gigabit Ethernet 1000 Mb/s",
             "1000Base-T Gigabit Ethernet 1000 Mb/s"});
-            this.cbStandard.Location = new System.Drawing.Point(12, 255);
-            this.cbStandard.Name = "cbStandard";
-            this.cbStandard.Size = new System.Drawing.Size(270, 21);
-            this.cbStandard.TabIndex = 58;
+            this.comboBox1.Location = new System.Drawing.Point(12, 255);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(270, 21);
+            this.comboBox1.TabIndex = 58;
             // 
             // label8
             // 
@@ -316,10 +316,10 @@
             this.label6.TabIndex = 56;
             this.label6.Text = "MAC-адрес";
             // 
-            // cbDeviceType
+            // comboBox3
             // 
-            this.cbDeviceType.FormattingEnabled = true;
-            this.cbDeviceType.Items.AddRange(new object[] {
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
             "Сеть",
             "Компьютер",
             "Принтер сетевой",
@@ -370,17 +370,17 @@
             "Ленточная библиотека",
             "ИБП",
             "Плоттер"});
-            this.cbDeviceType.Location = new System.Drawing.Point(11, 215);
-            this.cbDeviceType.Name = "cbDeviceType";
-            this.cbDeviceType.Size = new System.Drawing.Size(270, 21);
-            this.cbDeviceType.TabIndex = 71;
+            this.comboBox3.Location = new System.Drawing.Point(11, 215);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(270, 21);
+            this.comboBox3.TabIndex = 71;
             // 
-            // tbNameOnMap
+            // textBox4
             // 
-            this.tbNameOnMap.Location = new System.Drawing.Point(12, 26);
-            this.tbNameOnMap.Name = "tbNameOnMap";
-            this.tbNameOnMap.Size = new System.Drawing.Size(129, 20);
-            this.tbNameOnMap.TabIndex = 73;
+            this.textBox4.Location = new System.Drawing.Point(12, 26);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(129, 20);
+            this.textBox4.TabIndex = 73;
             // 
             // label1
             // 
@@ -397,25 +397,25 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(296, 357);
-            this.Controls.Add(this.tbNameOnMap);
+            this.Controls.Add(this.textBox4);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.cbDeviceType);
-            this.Controls.Add(this.btnDetect);
-            this.Controls.Add(this.btnOk);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.tbMac);
-            this.Controls.Add(this.tbIp);
-            this.Controls.Add(this.tbName);
+            this.Controls.Add(this.comboBox3);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.button8);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.btnRemove);
-            this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.lbServices);
+            this.Controls.Add(this.button10);
+            this.Controls.Add(this.button11);
+            this.Controls.Add(this.listBox4);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label12);
-            this.Controls.Add(this.cbProtocol);
+            this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.cbStandard);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label6);
             this.Name = "EditNodeM";
@@ -428,26 +428,26 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnDetect;
-        private System.Windows.Forms.Button btnOk;
-        private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.TextBox tbMac;
-        private System.Windows.Forms.TextBox tbIp;
-        private System.Windows.Forms.TextBox tbName;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button btnRemove;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.ListBox lbServices;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.ListBox listBox4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ComboBox cbProtocol;
+        private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.ComboBox cbStandard;
+        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox cbDeviceType;
-        private System.Windows.Forms.TextBox tbNameOnMap;
+        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label1;
     }
 }

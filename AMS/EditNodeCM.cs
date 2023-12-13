@@ -6,364 +6,175 @@ using System.Windows.Forms;
 
 namespace AMS
 {
-    /// <summary>
-    /// Форма "Редактирование узла" в режиме создания карты.
-    /// </summary>
     public partial class EditNodeCM : Form
     {
-        // Для связи с компонентом ListView.
-
-        public ListView lv;
-
-        // Для связи с элементом ListView.
-
+        public System.Windows.Forms.ListView lv;
         public ListViewItem lvi;
         
-        // Список для хранения информации о запущенных службах.
+        private List<string> _detectedProcesses = new List<string>();
 
-        private readonly List<string> _detectedProcesses = new List<string>();
-
-        /// <summary>
-        /// Стандартный конструктор.
-        /// </summary>
         public EditNodeCM()
         {
-            // Инициализация компонентов.
-
             InitializeComponent();
         }
 
-        // Событие – "Форма загружена".
-        // Получаем информацию об узле.
+        // Получаем информацию об узле
         private void EditNode_Load(object sender, EventArgs e)
         {
-            // Если полученный ListView содержит хотя бы один элемент.
-
-            if (lvi.Text.Length > 0)
-            {
-                // Получаем IP-адрес узла.
-
-                tbIp.Text = lvi.Text;
-            }
-
-            // Если полученный ListView содержит два элемента.
-
-            if (lvi.SubItems.Count > 1)
-            {
-                // Получаем MAC-адрес узла.
-
-                tbMac.Text = lvi.SubItems[1].Text;
-            }
-
-            // Если полученный ListView содержит три элемента.
+            // Получаем имя узла
 
             if (lvi.SubItems.Count > 2)
-            {
-                // Получаем имя узла.
+                textBox1.Text = lvi.SubItems[2].Text;
 
-                tbName.Text = lvi.SubItems[2].Text;
-            }
+            // Получаем имя узла на карте
+            if (lvi.SubItems.Count > 2)
+                textBox4.Text = lvi.SubItems[7].Text;
 
-            // Если полученный ListView содержит восемь элементов.
+            // Получаем IP-адрес узла
 
-            if (lvi.SubItems.Count > 7)
-            {
-                // Получаем имя узла на карте.
+            if (lvi.Text.Length > 0)
+                textBox2.Text = lvi.Text;    
+                                             
+            // Получаем MAC-адрес узла
+            
+            if (lvi.SubItems.Count > 1)
+                textBox3.Text = lvi.SubItems[1].Text; 
 
-                tbNameOnMap.Text = lvi.SubItems[7].Text;
-            }
-
-            // Объявляем и инициализируем объект класса AmsNode.
-
+            // Формируем список запущенных процессов по DNS-имени узла
             AmsNode node = new AmsNode();
-
-            // Если узел расположен в одной сети с АСМ.
-
             if (node.IsInMyIPv4Subnet(IPAddress.Parse(lvi.Text)))
             {
-                // Блок кода, в котором может произойти исключение.
-
                 try
                 {
-                    // Помещаем найденные службы в массив объектов класса Process.
-
                     Process[] runningProcesses = Process.GetProcesses(lvi.SubItems[2].Text);
 
-                    // Если найдена хотя бы одна служба.
-
                     if (runningProcesses.Length > 0)
-                    {
-                        // Анализируем найденные службы.
 
                         foreach (Process runningProcess in runningProcesses)
-                        {
-                            // Если обнаружено имя службы.
+
+                            // Если процесс найден добавляем в список
 
                             if (runningProcess.ProcessName.Length > 0)
-                            {
-                                // Добавляем в список предназначенный для хранения запущенных служб.
-
                                 _detectedProcesses.Add(runningProcess.ProcessName);
-                            }
-                        }
-                    }
                 }
-
-                // Обрабатываем исключения.
-
-                catch (Exception) 
-                { 
-                }
+                catch (Exception) { }
             }
         }
 
-        /// <summary>
-        /// Кнопка "Добавить".
-        /// </summary>
-        private void btnAdd_Click(object sender, EventArgs e)
+        // Добавить сервис
+        private void button11_Click(object sender, EventArgs e)
         {
-            // Создаём экземпляр формы "CreateService".
-
             CreateService createService = new CreateService
             {
-                // Передаём управление компонентом, отображающим запущенные службы.
-
-                lbService = lbRunServices
+                lbService = listBox4
             };
-
-            // Открываем форму добавления новой службы.
-
             createService.ShowDialog();
         }
 
-        /// <summary>
-        /// Кнопка "Удалить".
-        /// </summary>
-        private void btnRemove_Click(object sender, EventArgs e)
+        // Удалить сервис
+        private void button10_Click(object sender, EventArgs e)
         {
-            // Если в компоненте, отображающем запущенные службы
-            // добавлен и выделен хотя бы один элемент.
-
-            if (lbRunServices.Items.Count > 0 && lbRunServices.SelectedIndex >= 0)
-            {
-                // Удаляем выделенный элемент.
-
-                lbRunServices.Items.RemoveAt(lbRunServices.SelectedIndex);
-            }
+            if (listBox4.Items.Count > 0 && listBox4.SelectedIndex >= 0)
+                listBox4.Items.RemoveAt(listBox4.SelectedIndex);
         }
 
-        /// <summary>
-        /// Кнопка "Обнаружить".
-        /// </summary>
-        private void btnDetect_Click(object sender, EventArgs e)
-        {
-            // Создаём экземпляр формы "Выбор процесса".
+        // Обнаружить сервисы
+        private void button1_Click(object sender, EventArgs e)
+        {                            
+            // Выбираем процессы для мониторинга
 
             SelectProcess selectProcess = new SelectProcess
             {
-                // Передаём управление списком содержащем информацию о запущенных службах.
-
                 detectedProcesses = _detectedProcesses,
-
-                // Передаём управление компонентом, отображающим запущенные службы.
-
-                lb = lbRunServices
+                lb = listBox4
             };
-
-            // Открываем форму "Выбор процесса" в формате диалогового окна.
-
             selectProcess.ShowDialog();                
         }
 
-        /// <summary>
-        /// Кнопка "ОК".
-        /// </summary>
-        private void btnOk_Click(object sender, EventArgs e)
+        // ОК
+        private void button7_Click(object sender, EventArgs e)
         {
-            // Объявляем и инициализируем список, содержащий элементы компонента ListView.
+            // Собираем полученные данные
 
             ListViewItem activeNode = new ListViewItem();
 
-            // Если поле для ввода IP-адреса содержит текст.
+            // IP-адрес
 
-            if (!string.IsNullOrEmpty(tbIp.Text))
-            {
-                // Первое поле элемента – IP-адрес узла.
-
-                activeNode.Text = tbIp.Text;
-            }
-
-            // Если поле для ввода IP-адреса не содержит текст.
-
+            if (textBox2.Text.Length > 0)
+                activeNode.Text = textBox2.Text;
             else
-            {
-                // В первое поле элемента устанавливаем значение " - ". 
-
                 activeNode.Text = " - ";
-            }
 
-            // Если поле для ввода MAC-адреса содержит текст.
+            // MAC-адрес
 
-            if (!string.IsNullOrEmpty(tbMac.Text))
-            {
-                // Второе поле элемента – MAC-адрес узла.
-
-                activeNode.SubItems.Add(tbMac.Text);
-            }
-
-            // Если поле для ввода MAC-адреса не содержит текст.
-
+            if (textBox3.Text.Length > 0)
+                activeNode.SubItems.Add(textBox3.Text);
             else
-            {
-                // Во второе поле элемента устанавливаем значение " - ".
-
                 activeNode.SubItems.Add(" - ");
-            }
 
-            // Если поле для ввода имени узла содержит текст.
+            // Имя узла
 
-            if (!string.IsNullOrEmpty(tbNameOnMap.Text))
-            {
-                // Третье поле элемента – имя узла.
-
-                activeNode.SubItems.Add(tbNameOnMap.Text);
-            }
-
-            // Если поле для ввода имени узла не содержит текст.
-
+            if (textBox1.Text.Length > 0)
+                activeNode.SubItems.Add(textBox1.Text);
             else
-            {
-                // В третье поле элемента устанавливаем значение " - ".
-
                 activeNode.SubItems.Add(" - ");
-            }
 
-            // Объявляем и инициализируем текстовую переменную для хранения имени служб.
+            // Сервисы
 
             string services = "";
-
-            // Если компонент ListBox содержит информацию о службах – анализируем.
-
-            foreach (string item in lbRunServices.Items)
-            {
-                // Добавляем значение текущего элемента в текстовую переменную, определённую для хранения имени служб.
-                // Разделитель между службами – точка с запятой.
-
+            foreach (string item in listBox4.Items)
                 services += item + ";";
-            }
 
-            // Если переменная, определённая для хранения имени служб, содержит текст.
-
-            if (!string.IsNullOrEmpty(services))
-            {
-                // Четвёртое поле элемента – запущеные службы.
-
+            if (services.Length > 0)
                 activeNode.SubItems.Add(services);
-            }
             else
-            {
-                // В четвёртое поле элемента устанавливаем значение " - ". 
-
                 activeNode.SubItems.Add(" - ");
-            }
 
-            // Компонент ListBox, представляющий информацию о типе узла, содержит элементы.
+            // Очищаем выбранный элемент в конструкторе карты
 
-            if (lbDeviceType.SelectedItem != null)
-            {
-                // Пятое поле элемента – тип узла.
+            foreach (ListViewItem eachItem in lv.SelectedItems)
+                lv.Items.Remove(eachItem);
 
-                activeNode.SubItems.Add(lbDeviceType.SelectedItem.ToString());
-            }
+            // Тип узла
 
-            // Компонент ListBox, представляющий информацию о типе узла, не содержит элементы.
-
+            if (listBox1.SelectedItem != null)
+                activeNode.SubItems.Add(listBox1.SelectedItem.ToString());
             else
-            {
-                // В пятое поле элемента устанавливаем значение " - ". 
-
                 activeNode.SubItems.Add(" - ");
-            }
 
-            // Компонент СomboBox, представляющий информацию о стандарте передачи данных узла, содержит тескст.
+            // Стандарт передачи данных
 
-            if (!string.IsNullOrEmpty(cbStandard.Text))
-            {
-                // Шестое поле элемента – стандарт передачи данных узла.
-
-                activeNode.SubItems.Add(cbStandard.Text);
-            }
-
-            // Компонент СomboBox, представляющий информацию о стандарт передачи данных узла, не содержит тескст.
-
+            if (comboBox1.Text.Length > 0)
+                activeNode.SubItems.Add(comboBox1.Text);
             else
-            {
-                // В шестое поле элемента устанавливаем значение " - ".
-
                 activeNode.SubItems.Add(" - ");
-            }
 
-            // Компонент СomboBox, представляющий информацию о протоколе передачи данных данных узла, содержит тескст.
+            // Протокол передачи данных
 
-            if (!string.IsNullOrEmpty(cbProtocol.Text))
-            {
-                // Седьмое поле элемента – протокол передачи данных данных узла.
-
-                activeNode.SubItems.Add(cbProtocol.Text);
-            }
-
-            // Компонент СomboBox, представляющий информацию о протоколе передачи данных данных узла, содержит тескст.
-
+            if (comboBox2.Text.Length > 0)
+                activeNode.SubItems.Add(comboBox2.Text);
             else
-            {
-                // В седьмое поле элемента устанавливаем значение " - ".
-
                 activeNode.SubItems.Add(" - ");
-            }
 
-            // Если поле для ввода имени узла на карте содержит текст.
+            // Имя узла на карте
 
-            if (!string.IsNullOrEmpty(tbName.Text))
-            {
-                // Восьмое поле элемента имя узла на карте.
-
-                activeNode.SubItems.Add(tbName.Text);
-            }
-
-            // Если поле для ввода имени узла на карте не содержит текст.
-
+            if (textBox4.Text.Length > 0)
+                activeNode.SubItems.Add(textBox4.Text);
             else
-            {
-                // В восьмое поле элемента устанавливаем значение " - ". 
-
                 activeNode.SubItems.Add(" - ");
-            }
-                  
-            // Анализируем выбранные элементы компонента ListView.
 
-            foreach (ListViewItem item in lv.SelectedItems)
-            {
-                // Удаляем текущий элемент.
-
-                lv.Items.Remove(item);
-            }
-
-            // Передаём полученные данные узла в конструктор карты.
+            // Передаём новые данные узла в конструктор карты
+            foreach (ListViewItem eachItem in lv.SelectedItems)
+                lv.Items.Remove(eachItem);
 
             lv.Items.Add(activeNode);
-            
-            // Закрываем форму.
 
             Close();
         }
 
-        /// <summary>
-        /// Кнопка "Отмена".
-        /// </summary>
-        private void btnCancel_Click(object sender, EventArgs e)
+        // Отмена
+        private void button8_Click(object sender, EventArgs e)
         {
-            // Закрываем форму.
-
             Close();
         }
     }

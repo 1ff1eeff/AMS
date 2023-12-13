@@ -1,331 +1,203 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMS
 {
-    /// <summary>
-    /// Форма "Редактирование узла" на карте.
-    /// </summary>
     public partial class EditNodeM : Form
     {
-        // Для связи с компонентом TabControl.
+        // Для связи с главной формой
 
+        private AmsNode node;
+        
         public TabControl tc;
 
-        // Объявляем объект класса AmsNode для хранения информации об узле.
+        private List<string> detectedProcesses = new List<string>();        
 
-        private AmsNode _node;
+        public AmsNode Node { get => node; set => node = value; }
 
-        // Список для хранения информации о запущенных службах.
-
-        private readonly List<string> _detectedProcesses = new List<string>();
-
-        // Определяем аксессоры – методы доступа к свойству "_node". 
-        public AmsNode Node { get => _node; set => _node = value; }
-        
-        /// <summary>
-        /// Стандартный конструктор.
-        /// </summary>
         public EditNodeM()
         {
-            // Инициализация компонентов.
-
             InitializeComponent();
         }
 
-        // Событие – "Форма загружена".
-        // Анализируем объект "_node". Получаем информацию об узле.
-        private void EditNodeM_Load(object sender, EventArgs e)
+        // ОК
+        private void button7_Click(object sender, EventArgs e)
         {
-            // Добавляем IP-адрес к тексту заголовка формы.
-
-            Text += _node.Ip;
-
-            // Если поле "Имя узла" содержит текст.
-
-            if (_node.Name.Length > 0)
-            {
-                // Получаем имя узла.
-
-                tbName.Text = _node.Name;
-            }
-
-            // Если поле "Имя узла на карте" содержит текст.
-
-            if (_node.NameOnMap.Length > 0)
-            {
-                // Получаем имя узла на карте.
-
-                tbNameOnMap.Text = _node.NameOnMap;
-            }
-
-            // Если поле "IP-адрес" содержит текст.
-
-            if (_node.Ip.Length > 0)
-            {
-                // Получаем IP-адрес узла.
-
-                tbIp.Text = _node.Ip;
-            }
-
-            // Если поле "MAC-адрес" содержит текст.
-
-            if (_node.Mac.Length > 0)
-            {
-                // Получаем MAC-адрес узла.
-
-                tbMac.Text = _node.Mac;
-            }
-
-            // Если поле "Службы" содержит элементы – анализируем список служб.
-
-            foreach (string service in _node.Services)
-            {
-                // Если имя службы содержит текст.
-
-                if (service.Length > 0)
-                {
-                    // Заполняем список запущенных служб. Компонент формы – ListBox.
-                    // Добавляем имя текущей службы в качестве нового элемента.
-
-                    lbServices.Items.Add(service);
-                }
-            }
-
-            // Если поле "Тип узла" содержит текст.
-
-            if (_node.Type.Length > 0)
-            {
-                // Получаем тип узла.
-
-                cbDeviceType.Text = _node.Type;
-            }
-
-            // Если поле "Стандарт передачи данных" содержит текст.
-
-            if (_node.Standard.Length > 0)
-            {
-                // Получаем стандарт передачи данных.
-
-                cbStandard.Text = _node.Standard;
-            }
-
-            // Если поле "Протокол передачи данных" содержит текст.
-
-            if (_node.Type.Length > 0)
-            {
-                // Получаем протокол передачи данных.
-
-                cbProtocol.Text = _node.Protocol;
-            }
-        }
-
-        // Кнопка "ОК".
-        private void btnOk_Click(object sender, EventArgs e)
-        {
-            // Анализируем информацию о выделенных узлах на компоненте TabControl.
-
             foreach (DeviceNode nodeOnMap in tc.SelectedTab.Controls.OfType<DeviceNode>())
             {
-                // Если узел выделен и его универсальный идентификатор совпадает с идентификатором объекта. 
-
-                if (nodeOnMap.DNode.IsSelected && nodeOnMap.DNode.Id == _node.Id)
+                if (nodeOnMap.DNode.IsSelected 
+                    && nodeOnMap.DNode.Id == node.Id)
                 {
-                    // Если поле для ввода имени узла содержит текст.
+                    // Задаём имя узла
 
-                    if (tbName.Text.Length > 0)
+                    if (textBox1.Text.Length > 0)
+                        nodeOnMap.DNode.Name = textBox1.Text;
+
+                    // Задаём имя узла на карте
+
+                    if (textBox4.Text.Length > 0)
                     {
-
-                        // Задаём имя узла.
-
-                        nodeOnMap.DNode.Name = tbName.Text;
+                        nodeOnMap.DNode.NameOnMap = textBox4.Text;
+                        nodeOnMap.LbSetNameOnMap(textBox4.Text);
                     }
 
-                    // Если поле для ввода имени узла узла на карте содержит текст.
+                    // Задаём IP-адрес
 
-                    if (tbNameOnMap.Text.Length > 0)
+                    if (textBox2.Text.Length > 0)
                     {
-                        // Задаём имя узла на карте.
-
-                        nodeOnMap.DNode.NameOnMap = tbNameOnMap.Text;
-
-                        // Задаём подпись узла на карте.
-
-                        nodeOnMap.LbSetNameOnMap(tbNameOnMap.Text);
+                        nodeOnMap.DNode.Ip = textBox2.Text;
                     }
 
-                    // Если поле для ввода IP-адреса содержит текст.
+                    // Задаём MAC-адрес узла
 
-                    if (tbIp.Text.Length > 0)
+                    if (textBox3.Text.Length > 0)
                     {
-                        // Задаём IP-адрес.
-
-                        nodeOnMap.DNode.Ip = tbIp.Text;
+                        nodeOnMap.DNode.Mac = textBox3.Text;
                     }
 
-                    // Если поле для ввода MAC-адреса содержит текст.
+                    // Задаём список процессов
 
-                    if (tbMac.Text.Length > 0)
+                    if (listBox4.Items.Count > 0)
+                    {                        
+                        nodeOnMap.DNode.Services = new string[listBox4.Items.Count];
+                        for (int i = 0; i < listBox4.Items.Count; i++)                        
+                            nodeOnMap.DNode.Services[i] = listBox4.Items[i].ToString();
+                    }
+                    
+                    // Задаём тип узла
+
+                    if (comboBox3.Items.Count > 0)
                     {
-                        // Задаём MAC-адрес узла.
-
-                        nodeOnMap.DNode.Mac = tbMac.Text;
+                        nodeOnMap.DNode.Type = comboBox3.Text;
                     }
 
-                    // Если компонент ListBox содержит информацию о службах.
+                    // Задаём стандарт передачи данных
 
-                    if (lbServices.Items.Count > 0)
+                    if (comboBox1.Items.Count > 0)
                     {
-                        // Объявляем массив строк, для хранения имён процессов.
-
-                        nodeOnMap.DNode.Services = new string[lbServices.Items.Count];
-
-                        // Анализируем компонент ListBox, содержащий информацию о службах. 
-
-                        for (int i = 0; i < lbServices.Items.Count; i++)
-                        {
-                            // Заполняем поле "Отслеживаемые службы" компонента, представляющего узел на карте.
-
-                            nodeOnMap.DNode.Services[i] = lbServices.Items[i].ToString();
-                        }
+                        nodeOnMap.DNode.Standard = comboBox1.Text;
                     }
+                    // Задаём протокол передачи данных
 
-                    // Если компонент СomboBox, представляющий информацию о типе узла, содержит тескст.
-
-                    if (cbDeviceType.Items.Count > 0)
+                    if (comboBox2.Items.Count > 0)
                     {
-                        // Задаём тип узла.
-
-                        nodeOnMap.DNode.Type = cbDeviceType.Text;
-                    }
-
-                    // Если компонент СomboBox,
-                    // представляющий информацию о стандарте передачи данных узла, содержит тескст.
-
-                    if (cbStandard.Items.Count > 0)
-                    {
-                        // Задаём стандарт передачи данных.
-
-                        nodeOnMap.DNode.Standard = cbStandard.Text;
-                    }
-
-                    // Если компонент СomboBox,
-                    // представляющий информацию о протоколе передачи данных данных узла, содержит тескст.
-
-                    if (cbProtocol.Items.Count > 0)
-                    {
-                        // Задаём протокол передачи данных.
-
-                        nodeOnMap.DNode.Protocol = cbProtocol.Text;
+                        nodeOnMap.DNode.Protocol = comboBox2.Text;
                     }
 
                 }
             }
-            // Закрываем форму.
 
             Close();
         }
 
-        // Кнопка "Отмена".
-        private void btnCancel_Click(object sender, EventArgs e)
+        // Отмена
+        private void button8_Click(object sender, EventArgs e)
         {
-            // Закрываем форму.
-
             Close();
         }
 
         // Добавить сервис
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void button11_Click(object sender, EventArgs e)
         {
-            // Создаём экземпляр формы "CreateService".
-
             CreateService createService = new CreateService
             {
-                // Передаём управление компонентом ListBox, предназначенным для хранения списка служб.
-
-                lbService = lbServices
+                lbService = listBox4
             };
-
-            // Открываем форму добавления новой службы.
-
             createService.ShowDialog();
         }
 
-        /// <summary>
-        /// Кнопка "Удалить".
-        /// </summary>
-        private void btnRemove_Click(object sender, EventArgs e)
+        // Удалить сервис
+        private void button10_Click(object sender, EventArgs e)
         {
-            // Если компонент ListBox содержит элементы и один из них выбран.
-
-            if (lbServices.Items.Count > 0 && lbServices.SelectedIndex >= 0)
-            {
-                // Удаляем элемент с выбранным индексом.
-
-                lbServices.Items.RemoveAt(lbServices.SelectedIndex);
-            }
+            if (listBox4.Items.Count > 0 && listBox4.SelectedIndex >= 0)
+                listBox4.Items.RemoveAt(listBox4.SelectedIndex);
         }
 
-        /// <summary>
-        /// Кнопка "Обнаружить".
-        /// </summary>
-        private void btnDetect_Click(object sender, EventArgs e)
+        // Обнаружить сервисы
+        private void button1_Click(object sender, EventArgs e)
         {
-            // Блок кода, в котором может произойти исключение.
-
             try
             {
-                // Формируем массив для хранения запущенных процессов.
+                // Формируем список запущенных процессов по DNS-имени узла
 
-                Process[] runningProcesses = Process.GetProcesses(_node.Name);
-
-                // Если в массиве есть записи.
+                Process[] runningProcesses = Process.GetProcesses(node.Name);
 
                 if (runningProcesses.Length > 0)
-                {
-                    // Анализируем элементы массива.
 
                     foreach (Process runningProcess in runningProcesses)
-                    {
-                        // Если поле элемента "Имя процесса" содержит текст.
+
+                        // Если процесс найден добавляем в список
 
                         if (runningProcess.ProcessName.Length > 0)
-                        {
-                            // Добавляем имя процесса в список для хранения информации о запущенных службах.
-
-                            _detectedProcesses.Add(runningProcess.ProcessName);
-                        }
-                    }
-                }
+                            detectedProcesses.Add(runningProcess.ProcessName);
             }
+            catch (Exception) { }
 
-            // Обрабатываем исключения.
-
-            catch (Exception) 
-            { 
-            }
-
-            // Создаём экземпляр формы "Выбор процесса".
+            // Выбираем процессы для мониторинга
 
             SelectProcess selectProcess = new SelectProcess
             {
-                // Передаём управление списком содержащем информацию о запущенных службах.
-
-                detectedProcesses = _detectedProcesses,
-
-                // Передаём управление компонентом, отображающим запущенные службы.
-
-                lb = lbServices
+                detectedProcesses = detectedProcesses,
+                lb = listBox4
             };
-
-            // Открываем форму "Выбор процесса" в формате диалогового окна.
-
             selectProcess.ShowDialog();
         }
 
-        
+        // Получаем информацию об узле
+        private void EditNodeM_Load(object sender, EventArgs e)
+        {
+            this.Text += " (" + node.Id + ")";
+
+            // Получаем имя узла
+
+            if (node.Name.Length > 0 ) 
+                textBox1.Text = node.Name;
+
+            // Получаем имя узла на карте
+
+            if (node.NameOnMap.Length > 0)
+                textBox4.Text = node.NameOnMap;
+            
+            // Получаем IP-адрес узла
+
+            if (node.Ip.Length > 0)
+                textBox2.Text = node.Ip;
+
+            // Получаем MAC-адрес узла
+
+            if (node.Mac.Length > 0)
+                textBox3.Text = node.Mac;
+
+            // Получаем список процессов
+
+            foreach (string service in node.Services)
+            {
+                if (service.Length > 0)
+                    listBox4.Items.Add(service);
+            }
+
+            // Получаем тип узла
+
+            if (node.Type.Length > 0)
+                comboBox3.Text = node.Type;
+
+            // Получаем стандарт передачи данных
+
+            if (node.Type.Length > 0)
+                comboBox1.Text = node.Standard;
+
+            // Получаем протокол передачи данных
+
+            if (node.Type.Length > 0)
+                comboBox2.Text = node.Protocol;
+        }
     }
 }

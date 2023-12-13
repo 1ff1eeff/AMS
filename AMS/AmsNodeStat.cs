@@ -1,10 +1,7 @@
 ﻿using System;
 
 namespace AMS
-{
-    /// <summary>
-    /// Класс для хранения и управления информацией о работе узла сети.
-    /// </summary>
+{  
     public class AmsNodeStat
     {
         //=========================================

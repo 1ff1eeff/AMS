@@ -2,14 +2,12 @@
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Net;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace AMS
 {
-    /// <summary>
-    /// Класс для хранения и управления информацией об узлах сети.
-    /// </summary>
     internal class AmsNodes
     {
         // Для связи с индикатором выполнения операции.
@@ -26,9 +24,8 @@ namespace AMS
 
         // Стандартный конструктор.
 
-        public AmsNodes() 
-        { 
-        }
+        public AmsNodes() { }
+
 
         /// <summary>
         /// Поиск активных устройств в диапазоне.
@@ -53,7 +50,7 @@ namespace AMS
 
                 pb.PerformStep();
 
-                // Если не получен запрос на отмену операции.
+                // Если получен запрос на отмену операции.
 
                 if (!cancelToken.IsCancellationRequested)
                 {
@@ -77,7 +74,7 @@ namespace AMS
 
                         node.Ip = response.Address.ToString();
 
-                        // Блок кода, в котором может произойти исключение.
+                        // Имя активного узла.
 
                         try
                         {
@@ -94,12 +91,7 @@ namespace AMS
                                 node.Name = entry.HostName;
                             }
                         }
-
-                        // Обрабатываем исключения.
-
-                        catch (SocketException) 
-                        { 
-                        }
+                        catch (SocketException) { }
 
                         // Задаём MAC-адрес узла.
 
@@ -111,9 +103,6 @@ namespace AMS
 
                     }
                 }
-
-                // Если получен запрос на отмену операции.
-
                 else
                 {
                     // Покидаем функцию.

@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
 namespace AMS
-{
-    /// <summary>
-    /// Форма "Модуль анализа узлов".
-    /// </summary>
+{    
     public partial class Analysis : Form
     {
         // Для связи с главной формой. Список состояний узлов.
@@ -110,8 +108,6 @@ namespace AMS
 
             using (FileStream fs = new FileStream(filename, FileMode.Open))
             {
-                // Блок кода, в котором может произойти исключение.
-
                 try
                 {
                     // Заполняем элемент формы ListView.

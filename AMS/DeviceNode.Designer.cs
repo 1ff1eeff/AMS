@@ -34,7 +34,7 @@ namespace AMS
             this.components = new System.ComponentModel.Container();
             this.button1 = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.lbName = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -54,19 +54,19 @@ namespace AMS
             this.toolTip1.InitialDelay = 50;
             this.toolTip1.ReshowDelay = 10;
             // 
-            // lbName
+            // label1
             // 
-            this.lbName.AutoEllipsis = true;
-            this.lbName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lbName.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lbName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lbName.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.lbName.Location = new System.Drawing.Point(0, 62);
-            this.lbName.Name = "lbName";
-            this.lbName.Size = new System.Drawing.Size(96, 34);
-            this.lbName.TabIndex = 1;
-            this.lbName.Text = "Имя узла";
-            this.lbName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.AutoEllipsis = true;
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label1.Location = new System.Drawing.Point(0, 62);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(96, 34);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Имя узла";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // DeviceNode
             // 
@@ -75,7 +75,7 @@ namespace AMS
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImage = global::AMS.Properties.Resources.PC_Unknown;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.Controls.Add(this.lbName);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Cursor = System.Windows.Forms.Cursors.SizeAll;
             this.DoubleBuffered = true;
@@ -91,6 +91,6 @@ namespace AMS
 
         private Button button1;
         private ToolTip toolTip1;
-        private Label lbName;
+        private Label label1;
     }
 }

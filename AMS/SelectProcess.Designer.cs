@@ -82,7 +82,7 @@
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.label1);
             this.Name = "SelectProcess";
-            this.Text = "Выбор процесса";
+            this.Text = "SelectProcess";
             this.Load += new System.EventHandler(this.SelectProcess_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

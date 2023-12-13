@@ -1,19 +1,19 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AMS
 {
-    /// <summary>
-    /// Форма "Показать лицензионную информацию".
-    /// </summary>
     public partial class ShowLicense : Form
     {
-        /// <summary>
-        /// Стандартный конструктор.
-        /// </summary>
         public ShowLicense()
         {
-            // Инициализация компонентов.
-
             InitializeComponent();
         }
     }
