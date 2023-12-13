@@ -31,34 +31,37 @@ namespace AMS
         /// </summary>
         private void InitializeComponent()
         {
-            this.tbName = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
-            this.lbServices = new System.Windows.Forms.ListBox();
+            this.listBox4 = new System.Windows.Forms.ListBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.cbProtocol = new System.Windows.Forms.ComboBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.cbStandard = new System.Windows.Forms.ComboBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.lbType = new System.Windows.Forms.ListBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.tbIp = new System.Windows.Forms.TextBox();
-            this.tbMac = new System.Windows.Forms.TextBox();
-            this.tbNameOnMap = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button12 = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tbName
+            // textBox1
             // 
-            this.tbName.Location = new System.Drawing.Point(152, 24);
-            this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(130, 20);
-            this.tbName.TabIndex = 26;
+            this.textBox1.Location = new System.Drawing.Point(152, 24);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(130, 20);
+            this.textBox1.TabIndex = 26;
             // 
             // button7
             // 
@@ -92,7 +95,7 @@ namespace AMS
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(406, 134);
+            this.button11.Location = new System.Drawing.Point(489, 111);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(77, 20);
             this.button11.TabIndex = 23;
@@ -100,28 +103,28 @@ namespace AMS
             this.button11.UseVisualStyleBackColor = true;
             this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
-            // lbServices
+            // listBox4
             // 
-            this.lbServices.FormattingEnabled = true;
-            this.lbServices.Location = new System.Drawing.Point(297, 72);
-            this.lbServices.Name = "lbServices";
-            this.lbServices.Size = new System.Drawing.Size(269, 56);
-            this.lbServices.TabIndex = 22;
+            this.listBox4.FormattingEnabled = true;
+            this.listBox4.Location = new System.Drawing.Point(297, 111);
+            this.listBox4.Name = "listBox4";
+            this.listBox4.Size = new System.Drawing.Size(187, 43);
+            this.listBox4.TabIndex = 22;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.label12.Location = new System.Drawing.Point(297, 56);
+            this.label12.Location = new System.Drawing.Point(297, 95);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(59, 15);
             this.label12.TabIndex = 21;
             this.label12.Text = "Сервисы";
             // 
-            // cbProtocol
+            // comboBox2
             // 
-            this.cbProtocol.FormattingEnabled = true;
-            this.cbProtocol.Items.AddRange(new object[] {
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
             "TCP/IP",
             "TCP/IPv6",
             "UDP",
@@ -208,10 +211,10 @@ namespace AMS
             "WAP",
             "X.25",
             "XNS"});
-            this.cbProtocol.Location = new System.Drawing.Point(297, 211);
-            this.cbProtocol.Name = "cbProtocol";
-            this.cbProtocol.Size = new System.Drawing.Size(270, 21);
-            this.cbProtocol.TabIndex = 20;
+            this.comboBox2.Location = new System.Drawing.Point(297, 211);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(270, 21);
+            this.comboBox2.TabIndex = 20;
             // 
             // label9
             // 
@@ -223,10 +226,10 @@ namespace AMS
             this.label9.TabIndex = 19;
             this.label9.Text = "Протокол передачи пакетов";
             // 
-            // cbStandard
+            // comboBox1
             // 
-            this.cbStandard.FormattingEnabled = true;
-            this.cbStandard.Items.AddRange(new object[] {
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
             "10Base-2 Thin Ethernet 10 Mb/s",
             "10Base-5 Thick Ethernet 10 Mb/s",
             "10Base-F, 10Base-FL Ethernet 10 Mb/s",
@@ -239,10 +242,10 @@ namespace AMS
             "1000Base-LX Gigabit Ethernet 1000 Mb/s",
             "1000Base-SX Gigabit Ethernet 1000 Mb/s",
             "1000Base-T Gigabit Ethernet 1000 Mb/s"});
-            this.cbStandard.Location = new System.Drawing.Point(297, 173);
-            this.cbStandard.Name = "cbStandard";
-            this.cbStandard.Size = new System.Drawing.Size(270, 21);
-            this.cbStandard.TabIndex = 18;
+            this.comboBox1.Location = new System.Drawing.Point(297, 173);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(270, 21);
+            this.comboBox1.TabIndex = 18;
             // 
             // label8
             // 
@@ -258,7 +261,7 @@ namespace AMS
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.label6.Location = new System.Drawing.Point(434, 6);
+            this.label6.Location = new System.Drawing.Point(438, 57);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(71, 15);
             this.label6.TabIndex = 12;
@@ -268,16 +271,16 @@ namespace AMS
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.label5.Location = new System.Drawing.Point(297, 6);
+            this.label5.Location = new System.Drawing.Point(297, 56);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(56, 15);
             this.label5.TabIndex = 7;
             this.label5.Text = "IP-адрес";
             // 
-            // lbType
+            // listBox1
             // 
-            this.lbType.FormattingEnabled = true;
-            this.lbType.Items.AddRange(new object[] {
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Items.AddRange(new object[] {
             "Сеть",
             "Компьютер",
             "Принтер сетевой",
@@ -328,11 +331,11 @@ namespace AMS
             "Ленточная библиотека",
             "ИБП",
             "Плоттер"});
-            this.lbType.Location = new System.Drawing.Point(12, 72);
-            this.lbType.Name = "lbType";
-            this.lbType.Size = new System.Drawing.Size(270, 160);
-            this.lbType.TabIndex = 4;
-            this.lbType.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_DoubleClick);
+            this.listBox1.Location = new System.Drawing.Point(12, 72);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(270, 160);
+            this.listBox1.TabIndex = 4;
+            this.listBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_DoubleClick);
             // 
             // label3
             // 
@@ -354,26 +357,47 @@ namespace AMS
             this.label2.TabIndex = 1;
             this.label2.Text = "NetBIOS имя узла";
             // 
-            // tbIp
+            // panel1
             // 
-            this.tbIp.Location = new System.Drawing.Point(297, 24);
-            this.tbIp.Name = "tbIp";
-            this.tbIp.Size = new System.Drawing.Size(129, 20);
-            this.tbIp.TabIndex = 28;
+            this.panel1.Controls.Add(this.button12);
+            this.panel1.Location = new System.Drawing.Point(300, 9);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(269, 45);
+            this.panel1.TabIndex = 27;
             // 
-            // tbMac
+            // button12
             // 
-            this.tbMac.Location = new System.Drawing.Point(437, 24);
-            this.tbMac.Name = "tbMac";
-            this.tbMac.Size = new System.Drawing.Size(129, 20);
-            this.tbMac.TabIndex = 29;
+            this.button12.BackColor = System.Drawing.SystemColors.Control;
+            this.button12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button12.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.button12.Location = new System.Drawing.Point(0, 0);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(269, 45);
+            this.button12.TabIndex = 0;
+            this.button12.Text = "(Тестирование)\r\nЭтот компьютер";
+            this.button12.UseVisualStyleBackColor = false;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
-            // tbNameOnMap
+            // textBox2
             // 
-            this.tbNameOnMap.Location = new System.Drawing.Point(12, 24);
-            this.tbNameOnMap.Name = "tbNameOnMap";
-            this.tbNameOnMap.Size = new System.Drawing.Size(130, 20);
-            this.tbNameOnMap.TabIndex = 31;
+            this.textBox2.Location = new System.Drawing.Point(297, 73);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(129, 20);
+            this.textBox2.TabIndex = 28;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(438, 73);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(129, 20);
+            this.textBox3.TabIndex = 29;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(12, 24);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(130, 20);
+            this.textBox4.TabIndex = 31;
             // 
             // label1
             // 
@@ -390,53 +414,57 @@ namespace AMS
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(581, 273);
-            this.Controls.Add(this.tbNameOnMap);
+            this.Controls.Add(this.textBox4);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.tbMac);
-            this.Controls.Add(this.tbIp);
-            this.Controls.Add(this.tbName);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.lbType);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.button11);
-            this.Controls.Add(this.lbServices);
+            this.Controls.Add(this.listBox4);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label12);
-            this.Controls.Add(this.cbProtocol);
+            this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.cbStandard);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label6);
             this.Name = "CreateNode";
             this.Text = "Создание новго узла";
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private ListBox lbType;
+        private ListBox listBox1;
         private Label label3;
         private Label label2;
         private Label label5;
         private Label label6;
         private Button button7;
         private Button button8;
-        private ComboBox cbStandard;
+        private ComboBox comboBox1;
         private Label label8;
-        private ComboBox cbProtocol;
+        private ComboBox comboBox2;
         private Label label9;
         private Button button10;
         private Button button11;
-        private ListBox lbServices;
+        private ListBox listBox4;
         private Label label12;
-        private TextBox tbName;
-        private TextBox tbIp;
-        private TextBox tbMac;
-        private TextBox tbNameOnMap;
+        private TextBox textBox1;
+        private Panel panel1;
+        private Button button12;
+        private TextBox textBox2;
+        private TextBox textBox3;
+        private TextBox textBox4;
         private Label label1;
     }
 }

@@ -50,9 +50,9 @@ namespace AMS
             this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.label2.Location = new System.Drawing.Point(10, 8);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(50, 15);
+            this.label2.Size = new System.Drawing.Size(49, 15);
             this.label2.TabIndex = 13;
-            this.label2.Text = "Служба";
+            this.label2.Text = "Сервис";
             // 
             // button7
             // 
@@ -87,7 +87,7 @@ namespace AMS
             this.MaximumSize = new System.Drawing.Size(198, 116);
             this.MinimumSize = new System.Drawing.Size(198, 116);
             this.Name = "CreateService";
-            this.Text = "Добавить службу";
+            this.Text = "Добавить сервис";
             this.ResumeLayout(false);
             this.PerformLayout();
 

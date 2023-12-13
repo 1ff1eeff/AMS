@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Xml.Linq;
 
 namespace AMS
 {
-    /// <summary>
-    /// Форма "Модуль мониторинга узлов".
-    /// </summary>
     public partial class CreateTest : Form
     {
         // Для связи со списком, содержащем информацию о выбранных узлах.

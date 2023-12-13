@@ -9,9 +9,6 @@ using System.Runtime.InteropServices;
 
 namespace AMS
 {
-    /// <summary>
-    /// Форма "Создание новой карты".
-    /// </summary>
     public partial class CreateMap : Form
     {
         // Для связи с элементом главной формы, содержащим карты.
@@ -37,13 +34,8 @@ namespace AMS
 
         private const string _strEmpty = "";
 
-        /// <summary>
-        /// Стандартный конструктор.
-        /// </summary>        
         public CreateMap()
         {
-            // Инициализация компонентов.
-
             InitializeComponent();
         }
 

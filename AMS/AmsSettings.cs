@@ -42,7 +42,7 @@ namespace AMS
         private bool _smsNotification = false;
 
         /// <summary>
-        /// Способ отправки SMS (через "adb" или "email").
+        /// Способ отправки SMS - через "adb" или "email".
         /// </summary>
 
         private string _wayToSendSms = "email";
@@ -155,7 +155,7 @@ namespace AMS
         public bool SmsNotification { get => _smsNotification; set => _smsNotification = value; }
 
         /// <summary>
-        /// Определяет методы доступа к значению свойства "Способ отправки SMS (через "adb" или "email")".
+        /// Определяет методы доступа к значению свойства "Способ отправки SMS - через "adb" или "email"".
         /// </summary>
         public string WayToSendSms { get => _wayToSendSms; set => _wayToSendSms = value; }
 
@@ -170,7 +170,7 @@ namespace AMS
         public string PhoneToSMS { get => _phoneToSMS; set => _phoneToSMS = value; }
 
         /// <summary>
-        /// Определяет методы доступа к значению свойства "Требуется транслитерация SMS".
+        /// Определяет методы доступа к значению свойства "Транслитерация SMS".
         /// </summary>
         public bool SmsNeedsTranslit { get => _smsNeedsTranslit; set => _smsNeedsTranslit = value; }
 
@@ -180,7 +180,7 @@ namespace AMS
         public string EmailToSMS { get => _emailToSMS; set => _emailToSMS = value; }
 
         /// <summary>
-        /// Определяет методы доступа к значению свойства "Требуется транслитерация e-mail".
+        /// Определяет методы доступа к значению свойства "Транслитерация SMS".
         /// </summary>
         public bool EmailNeedsTranslit { get => _emailNeedsTranslit; set => _emailNeedsTranslit = value; }
 

@@ -7,7 +7,7 @@ using System.Drawing;
 namespace AMS
 {
     /// <summary>
-    /// Класс для хранения и управления информацией об узле сети.
+    /// Класс для хранения и управления информацией об узлах сети.
     /// </summary>
     public class AmsNode
     {
@@ -102,51 +102,51 @@ namespace AMS
         public string Name { get => name; set => name = value; }
 
         /// <summary>
-        /// Имя узла на карте.
+        /// Определяет методы доступа к значению свойства "Имя узла на карте".
         /// </summary>
         public string NameOnMap { get => nameOnMap; set => nameOnMap = value; }
         /// <summary>
-        /// Тип узла.
+        /// Определяет методы доступа к значению свойства "Тип узла".
         /// </summary>
         public string Type { get => type; set => type = value; }
 
         /// <summary>
-        /// Стандарт передачи данных.
+        /// Определяет методы доступа к значению свойства "Стандарт передачи данных".
         /// </summary>
         public string Standard { get => standard; set => standard = value; }
 
         /// <summary>
-        /// Протокол передачи данных.
+        /// Определяет методы доступа к значению свойства "Протокол передачи данных".
         /// </summary>
         public string Protocol { get => protocol; set => protocol = value; }
 
         /// <summary>
-        /// IP-адрес узла.
+        /// Определяет методы доступа к значению свойства "IP-адрес узла".
         /// </summary>
         public string Ip { get => ip; set => ip = value; }
 
         /// <summary>
-        /// MAC-адрес узла.
+        /// Определяет методы доступа к значению свойства "MAC-адрес узла".
         /// </summary>
         public string Mac { get => mac; set => mac = value; }
 
         /// <summary>
-        /// Отслеживаемые сервисы узла.
+        /// Определяет методы доступа к значению свойства "Отслеживаемые сервисы узла".
         /// </summary>
         public string[] Services { get => services; set => services = value; }
 
         /// <summary>
-        /// Узел выделен на карте.
+        /// Определяет методы доступа к значению свойства "Узел выделен на карте".
         /// </summary>
         public bool IsSelected { get => isSelected; set => isSelected = value; }
 
         /// <summary>
-        /// ID узла.
+        /// Определяет методы доступа к значению свойства "ID узла".
         /// </summary>
         public string Id { get => id; set => id = value; }
 
         /// <summary>
-        /// Положение узла на карте.
+        /// Определяет методы доступа к значению свойства "Положение узла на карте".
         /// </summary>
         public Point Location { get => location; set => location = value; }
 
@@ -238,7 +238,7 @@ namespace AMS
                 // Если результат логического умножения IP-адреса и старших бит равен 
                 // результату логического умножения маски и старших бит, то IP-адрес находится в одной подсети с АСМ.
                 // Иначе проверяемый IP-адрес и АСМ находятся в разных подсетях.
-                //(134744072 & 4294901760 == 3232235622 & 4294901760) -> (134742016 == 3232235520) -> false
+                //(134744072 & 4294901760 == 3232235622 & 4294901760 -> 134742016 == 3232235520 -> false
 
                 isMaskMatch = (ip & significantBits) == (mask & significantBits);
 

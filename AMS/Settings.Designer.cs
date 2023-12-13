@@ -34,9 +34,9 @@ namespace AMS
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             this.label5 = new System.Windows.Forms.Label();
-            this.btnOpenLogsFolder = new System.Windows.Forms.Button();
-            this.btnOpenMapsFolder = new System.Windows.Forms.Button();
-            this.btnOpenCfg = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.tbLogsFolder = new System.Windows.Forms.TextBox();
             this.tbMapsFolder = new System.Windows.Forms.TextBox();
             this.tbConfigFile = new System.Windows.Forms.TextBox();
@@ -44,23 +44,23 @@ namespace AMS
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
-            this.tbSmtpPassword = new System.Windows.Forms.TextBox();
+            this.textBox10 = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
             this.textBox9 = new System.Windows.Forms.TextBox();
-            this.pnlSmsEmail = new System.Windows.Forms.Panel();
-            this.ckEmailTrans = new System.Windows.Forms.CheckBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.label30 = new System.Windows.Forms.Label();
             this.textBox13 = new System.Windows.Forms.TextBox();
-            this.pnlSmsAdb = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.ckSmsTrans = new System.Windows.Forms.CheckBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.btnOpenAdbFile = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
             this.label29 = new System.Windows.Forms.Label();
             this.tbAdb = new System.Windows.Forms.TextBox();
             this.textBox12 = new System.Windows.Forms.TextBox();
-            this.rbtnSmsEmail = new System.Windows.Forms.RadioButton();
-            this.rbtnSmsAdb = new System.Windows.Forms.RadioButton();
+            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.label27 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.textBox8 = new System.Windows.Forms.TextBox();
@@ -69,26 +69,26 @@ namespace AMS
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnOk = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.ckSmsNoti = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.button7 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.ckSsl = new System.Windows.Forms.CheckBox();
-            this.ckSmsEmail = new System.Windows.Forms.CheckBox();
-            this.btnLicense = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.button6 = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.fbdLogsFolder = new System.Windows.Forms.FolderBrowserDialog();
             this.fbdMapsFolder = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
-            this.pnlSmsEmail.SuspendLayout();
-            this.pnlSmsAdb.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -106,35 +106,35 @@ namespace AMS
             this.label5.TabIndex = 20;
             this.label5.Text = "Директория хранения журналов мониторинга:";
             // 
-            // btnOpenLogsFolder
+            // button3
             // 
-            this.btnOpenLogsFolder.Location = new System.Drawing.Point(283, 363);
-            this.btnOpenLogsFolder.Name = "btnOpenLogsFolder";
-            this.btnOpenLogsFolder.Size = new System.Drawing.Size(27, 21);
-            this.btnOpenLogsFolder.TabIndex = 17;
-            this.btnOpenLogsFolder.Text = "...";
-            this.btnOpenLogsFolder.UseVisualStyleBackColor = true;
-            this.btnOpenLogsFolder.Click += new System.EventHandler(this.btnOpenLogsFolder_Click);
+            this.button3.Location = new System.Drawing.Point(283, 363);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(27, 21);
+            this.button3.TabIndex = 17;
+            this.button3.Text = "...";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // btnOpenMapsFolder
+            // button2
             // 
-            this.btnOpenMapsFolder.Location = new System.Drawing.Point(283, 311);
-            this.btnOpenMapsFolder.Name = "btnOpenMapsFolder";
-            this.btnOpenMapsFolder.Size = new System.Drawing.Size(27, 21);
-            this.btnOpenMapsFolder.TabIndex = 16;
-            this.btnOpenMapsFolder.Text = "...";
-            this.btnOpenMapsFolder.UseVisualStyleBackColor = true;
-            this.btnOpenMapsFolder.Click += new System.EventHandler(this.btnOpenMapsFolder_Click);
+            this.button2.Location = new System.Drawing.Point(283, 311);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(27, 21);
+            this.button2.TabIndex = 16;
+            this.button2.Text = "...";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // btnOpenCfg
+            // button1
             // 
-            this.btnOpenCfg.Location = new System.Drawing.Point(283, 258);
-            this.btnOpenCfg.Name = "btnOpenCfg";
-            this.btnOpenCfg.Size = new System.Drawing.Size(27, 21);
-            this.btnOpenCfg.TabIndex = 15;
-            this.btnOpenCfg.Text = "...";
-            this.btnOpenCfg.UseVisualStyleBackColor = true;
-            this.btnOpenCfg.Click += new System.EventHandler(this.btnOpenCfg_Click);
+            this.button1.Location = new System.Drawing.Point(283, 258);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(27, 21);
+            this.button1.TabIndex = 15;
+            this.button1.Text = "...";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // tbLogsFolder
             // 
@@ -195,13 +195,13 @@ namespace AMS
             this.label24.TabIndex = 33;
             this.label24.Text = "Пароль:";
             // 
-            // tbSmtpPassword
+            // textBox10
             // 
-            this.tbSmtpPassword.Location = new System.Drawing.Point(116, 80);
-            this.tbSmtpPassword.Name = "tbSmtpPassword";
-            this.tbSmtpPassword.Size = new System.Drawing.Size(159, 20);
-            this.tbSmtpPassword.TabIndex = 32;
-            this.tbSmtpPassword.UseSystemPasswordChar = true;
+            this.textBox10.Location = new System.Drawing.Point(116, 80);
+            this.textBox10.Name = "textBox10";
+            this.textBox10.Size = new System.Drawing.Size(159, 20);
+            this.textBox10.TabIndex = 32;
+            this.textBox10.UseSystemPasswordChar = true;
             // 
             // label23
             // 
@@ -219,26 +219,26 @@ namespace AMS
             this.textBox9.Size = new System.Drawing.Size(192, 20);
             this.textBox9.TabIndex = 28;
             // 
-            // pnlSmsEmail
+            // panel2
             // 
-            this.pnlSmsEmail.Controls.Add(this.ckEmailTrans);
-            this.pnlSmsEmail.Controls.Add(this.label30);
-            this.pnlSmsEmail.Controls.Add(this.textBox13);
-            this.pnlSmsEmail.Enabled = false;
-            this.pnlSmsEmail.Location = new System.Drawing.Point(6, 263);
-            this.pnlSmsEmail.Name = "pnlSmsEmail";
-            this.pnlSmsEmail.Size = new System.Drawing.Size(307, 63);
-            this.pnlSmsEmail.TabIndex = 55;
+            this.panel2.Controls.Add(this.checkBox4);
+            this.panel2.Controls.Add(this.label30);
+            this.panel2.Controls.Add(this.textBox13);
+            this.panel2.Enabled = false;
+            this.panel2.Location = new System.Drawing.Point(6, 263);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(307, 63);
+            this.panel2.TabIndex = 55;
             // 
             // checkBox4
             // 
-            this.ckEmailTrans.AutoSize = true;
-            this.ckEmailTrans.Location = new System.Drawing.Point(3, 42);
-            this.ckEmailTrans.Name = "checkBox4";
-            this.ckEmailTrans.Size = new System.Drawing.Size(187, 17);
-            this.ckEmailTrans.TabIndex = 52;
-            this.ckEmailTrans.Text = "Транслитерировать сообщение";
-            this.ckEmailTrans.UseVisualStyleBackColor = true;
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(3, 42);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(187, 17);
+            this.checkBox4.TabIndex = 52;
+            this.checkBox4.Text = "Транслитерировать сообщение";
+            this.checkBox4.UseVisualStyleBackColor = true;
             // 
             // label30
             // 
@@ -256,19 +256,19 @@ namespace AMS
             this.textBox13.Size = new System.Drawing.Size(301, 20);
             this.textBox13.TabIndex = 51;
             // 
-            // pnlSmsAdb
+            // panel1
             // 
-            this.pnlSmsAdb.Controls.Add(this.richTextBox1);
-            this.pnlSmsAdb.Controls.Add(this.ckSmsTrans);
-            this.pnlSmsAdb.Controls.Add(this.label6);
-            this.pnlSmsAdb.Controls.Add(this.btnOpenAdbFile);
-            this.pnlSmsAdb.Controls.Add(this.label29);
-            this.pnlSmsAdb.Controls.Add(this.tbAdb);
-            this.pnlSmsAdb.Controls.Add(this.textBox12);
-            this.pnlSmsAdb.Location = new System.Drawing.Point(3, 24);
-            this.pnlSmsAdb.Name = "pnlSmsAdb";
-            this.pnlSmsAdb.Size = new System.Drawing.Size(307, 204);
-            this.pnlSmsAdb.TabIndex = 54;
+            this.panel1.Controls.Add(this.richTextBox1);
+            this.panel1.Controls.Add(this.checkBox5);
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.button8);
+            this.panel1.Controls.Add(this.label29);
+            this.panel1.Controls.Add(this.tbAdb);
+            this.panel1.Controls.Add(this.textBox12);
+            this.panel1.Location = new System.Drawing.Point(3, 24);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(307, 204);
+            this.panel1.TabIndex = 54;
             // 
             // richTextBox1
             // 
@@ -281,13 +281,13 @@ namespace AMS
             // 
             // checkBox5
             // 
-            this.ckSmsTrans.AutoSize = true;
-            this.ckSmsTrans.Location = new System.Drawing.Point(1, 42);
-            this.ckSmsTrans.Name = "checkBox5";
-            this.ckSmsTrans.Size = new System.Drawing.Size(187, 17);
-            this.ckSmsTrans.TabIndex = 53;
-            this.ckSmsTrans.Text = "Транслитерировать сообщение";
-            this.ckSmsTrans.UseVisualStyleBackColor = true;
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Location = new System.Drawing.Point(1, 42);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(187, 17);
+            this.checkBox5.TabIndex = 53;
+            this.checkBox5.Text = "Транслитерировать сообщение";
+            this.checkBox5.UseVisualStyleBackColor = true;
             // 
             // label6
             // 
@@ -298,15 +298,15 @@ namespace AMS
             this.label6.TabIndex = 66;
             this.label6.Text = "Путь до adb.exe (Android Debug Bridge)";
             // 
-            // btnOpenAdbFile
+            // button8
             // 
-            this.btnOpenAdbFile.Location = new System.Drawing.Point(276, 78);
-            this.btnOpenAdbFile.Name = "btnOpenAdbFile";
-            this.btnOpenAdbFile.Size = new System.Drawing.Size(27, 21);
-            this.btnOpenAdbFile.TabIndex = 65;
-            this.btnOpenAdbFile.Text = "...";
-            this.btnOpenAdbFile.UseVisualStyleBackColor = true;
-            this.btnOpenAdbFile.Click += new System.EventHandler(this.btnOpenAdbFile_Click);
+            this.button8.Location = new System.Drawing.Point(276, 78);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(27, 21);
+            this.button8.TabIndex = 65;
+            this.button8.Text = "...";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // label29
             // 
@@ -331,29 +331,29 @@ namespace AMS
             this.textBox12.Size = new System.Drawing.Size(301, 20);
             this.textBox12.TabIndex = 47;
             // 
-            // rbtnSmsEmail
+            // radioButton4
             // 
-            this.rbtnSmsEmail.AutoSize = true;
-            this.rbtnSmsEmail.Location = new System.Drawing.Point(6, 240);
-            this.rbtnSmsEmail.Name = "rbtnSmsEmail";
-            this.rbtnSmsEmail.Size = new System.Drawing.Size(237, 17);
-            this.rbtnSmsEmail.TabIndex = 49;
-            this.rbtnSmsEmail.Text = "Отправлять SMS через E-mail (SMS-шлюз)";
-            this.rbtnSmsEmail.UseVisualStyleBackColor = true;
-            this.rbtnSmsEmail.CheckedChanged += new System.EventHandler(this.rbtnSmsEmail_CheckedChanged);
+            this.radioButton4.AutoSize = true;
+            this.radioButton4.Location = new System.Drawing.Point(6, 240);
+            this.radioButton4.Name = "radioButton4";
+            this.radioButton4.Size = new System.Drawing.Size(237, 17);
+            this.radioButton4.TabIndex = 49;
+            this.radioButton4.Text = "Отправлять SMS через E-mail (SMS-шлюз)";
+            this.radioButton4.UseVisualStyleBackColor = true;
+            this.radioButton4.CheckedChanged += new System.EventHandler(this.radioButton4_CheckedChanged);
             // 
-            // rbtnSmsAdb
+            // radioButton3
             // 
-            this.rbtnSmsAdb.AutoSize = true;
-            this.rbtnSmsAdb.Checked = true;
-            this.rbtnSmsAdb.Location = new System.Drawing.Point(3, 3);
-            this.rbtnSmsAdb.Name = "rbtnSmsAdb";
-            this.rbtnSmsAdb.Size = new System.Drawing.Size(168, 17);
-            this.rbtnSmsAdb.TabIndex = 41;
-            this.rbtnSmsAdb.TabStop = true;
-            this.rbtnSmsAdb.Text = "Отправлять SMS через ADB";
-            this.rbtnSmsAdb.UseVisualStyleBackColor = true;
-            this.rbtnSmsAdb.CheckedChanged += new System.EventHandler(this.rbtnSmsAdb_CheckedChanged);
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Checked = true;
+            this.radioButton3.Location = new System.Drawing.Point(3, 3);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(168, 17);
+            this.radioButton3.TabIndex = 41;
+            this.radioButton3.TabStop = true;
+            this.radioButton3.Text = "Отправлять SMS через ADB";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            this.radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
             // 
             // label27
             // 
@@ -426,25 +426,25 @@ namespace AMS
             this.label19.TabIndex = 22;
             this.label19.Text = "Параметры отправления E-mail";
             // 
-            // btnCancel
+            // button5
             // 
-            this.btnCancel.Location = new System.Drawing.Point(573, 3);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(67, 23);
-            this.btnCancel.TabIndex = 19;
-            this.btnCancel.Text = "Отмена";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.button5.Location = new System.Drawing.Point(573, 3);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(67, 23);
+            this.button5.TabIndex = 19;
+            this.button5.Text = "Отмена";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
-            // btnOk
+            // button4
             // 
-            this.btnOk.Location = new System.Drawing.Point(498, 3);
-            this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(66, 23);
-            this.btnOk.TabIndex = 18;
-            this.btnOk.Text = "ОК";
-            this.btnOk.UseVisualStyleBackColor = true;
-            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+            this.button4.Location = new System.Drawing.Point(498, 3);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(66, 23);
+            this.button4.TabIndex = 18;
+            this.button4.Text = "ОК";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // splitContainer1
             // 
@@ -455,16 +455,16 @@ namespace AMS
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.ckSmsNoti);
+            this.splitContainer1.Panel1.Controls.Add(this.checkBox3);
             this.splitContainer1.Panel1.Controls.Add(this.panel4);
             this.splitContainer1.Panel1.Controls.Add(this.label2);
             this.splitContainer1.Panel1.Controls.Add(this.panel3);
-            this.splitContainer1.Panel1.Controls.Add(this.ckSmsEmail);
+            this.splitContainer1.Panel1.Controls.Add(this.checkBox2);
             this.splitContainer1.Panel1.Controls.Add(this.label5);
-            this.splitContainer1.Panel1.Controls.Add(this.btnOpenLogsFolder);
+            this.splitContainer1.Panel1.Controls.Add(this.button3);
             this.splitContainer1.Panel1.Controls.Add(this.label27);
-            this.splitContainer1.Panel1.Controls.Add(this.btnOpenMapsFolder);
-            this.splitContainer1.Panel1.Controls.Add(this.btnOpenCfg);
+            this.splitContainer1.Panel1.Controls.Add(this.button2);
+            this.splitContainer1.Panel1.Controls.Add(this.button1);
             this.splitContainer1.Panel1.Controls.Add(this.tbLogsFolder);
             this.splitContainer1.Panel1.Controls.Add(this.tbMapsFolder);
             this.splitContainer1.Panel1.Controls.Add(this.tbConfigFile);
@@ -474,9 +474,9 @@ namespace AMS
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.btnLicense);
-            this.splitContainer1.Panel2.Controls.Add(this.btnCancel);
-            this.splitContainer1.Panel2.Controls.Add(this.btnOk);
+            this.splitContainer1.Panel2.Controls.Add(this.button6);
+            this.splitContainer1.Panel2.Controls.Add(this.button5);
+            this.splitContainer1.Panel2.Controls.Add(this.button4);
             this.splitContainer1.Size = new System.Drawing.Size(646, 435);
             this.splitContainer1.SplitterDistance = 401;
             this.splitContainer1.SplitterWidth = 3;
@@ -484,21 +484,21 @@ namespace AMS
             // 
             // checkBox3
             // 
-            this.ckSmsNoti.AutoSize = true;
-            this.ckSmsNoti.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ckSmsNoti.Location = new System.Drawing.Point(327, 28);
-            this.ckSmsNoti.Name = "checkBox3";
-            this.ckSmsNoti.Size = new System.Drawing.Size(205, 17);
-            this.ckSmsNoti.TabIndex = 63;
-            this.ckSmsNoti.Text = "Оповещать посредством SMS";
-            this.ckSmsNoti.UseVisualStyleBackColor = true;
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox3.Location = new System.Drawing.Point(327, 28);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(205, 17);
+            this.checkBox3.TabIndex = 63;
+            this.checkBox3.Text = "Оповещать посредством SMS";
+            this.checkBox3.UseVisualStyleBackColor = true;
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.rbtnSmsAdb);
-            this.panel4.Controls.Add(this.rbtnSmsEmail);
-            this.panel4.Controls.Add(this.pnlSmsEmail);
-            this.panel4.Controls.Add(this.pnlSmsAdb);
+            this.panel4.Controls.Add(this.radioButton3);
+            this.panel4.Controls.Add(this.radioButton4);
+            this.panel4.Controls.Add(this.panel2);
+            this.panel4.Controls.Add(this.panel1);
             this.panel4.Location = new System.Drawing.Point(327, 51);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(313, 333);
@@ -513,12 +513,12 @@ namespace AMS
             this.panel3.Controls.Add(this.textBox1);
             this.panel3.Controls.Add(this.textBox7);
             this.panel3.Controls.Add(this.label21);
-            this.panel3.Controls.Add(this.ckSsl);
+            this.panel3.Controls.Add(this.checkBox1);
             this.panel3.Controls.Add(this.label20);
             this.panel3.Controls.Add(this.label23);
             this.panel3.Controls.Add(this.textBox9);
             this.panel3.Controls.Add(this.textBox6);
-            this.panel3.Controls.Add(this.tbSmtpPassword);
+            this.panel3.Controls.Add(this.textBox10);
             this.panel3.Controls.Add(this.label24);
             this.panel3.Location = new System.Drawing.Point(3, 51);
             this.panel3.Name = "panel3";
@@ -542,7 +542,7 @@ namespace AMS
             this.button7.TabIndex = 59;
             this.button7.Text = "👁";
             this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.btnHidePassword_Click);
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // textBox1
             // 
@@ -553,36 +553,37 @@ namespace AMS
             // 
             // checkBox1
             // 
-            this.ckSsl.AutoSize = true;
-            this.ckSsl.Checked = true;
-            this.ckSsl.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckSsl.Location = new System.Drawing.Point(262, 128);
-            this.ckSsl.Name = "checkBox1";
-            this.ckSsl.Size = new System.Drawing.Size(46, 17);
-            this.ckSsl.TabIndex = 56;
-            this.ckSsl.Text = "SSL";
-            this.ckSsl.UseVisualStyleBackColor = true;
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(262, 128);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(46, 17);
+            this.checkBox1.TabIndex = 56;
+            this.checkBox1.Text = "SSL";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // checkBox2
             // 
-            this.ckSmsEmail.AutoSize = true;
-            this.ckSmsEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ckSmsEmail.Location = new System.Drawing.Point(7, 28);
-            this.ckSmsEmail.Name = "checkBox2";
-            this.ckSmsEmail.Size = new System.Drawing.Size(205, 17);
-            this.ckSmsEmail.TabIndex = 60;
-            this.ckSmsEmail.Text = "Оповещать посредтвом e-mail";
-            this.ckSmsEmail.UseVisualStyleBackColor = true;
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox2.Location = new System.Drawing.Point(7, 28);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(205, 17);
+            this.checkBox2.TabIndex = 60;
+            this.checkBox2.Text = "Оповещать посредтвом e-mail";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
-            // btnLicense
+            // button6
             // 
-            this.btnLicense.Location = new System.Drawing.Point(7, 3);
-            this.btnLicense.Name = "btnLicense";
-            this.btnLicense.Size = new System.Drawing.Size(140, 23);
-            this.btnLicense.TabIndex = 56;
-            this.btnLicense.Text = "Показать лицензию";
-            this.btnLicense.UseVisualStyleBackColor = true;
-            this.btnLicense.Click += new System.EventHandler(this.btnLicense_Click);
+            this.button6.Location = new System.Drawing.Point(7, 3);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(140, 23);
+            this.button6.TabIndex = 56;
+            this.button6.Text = "Показать лицензию";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // openFileDialog1
             // 
@@ -601,10 +602,10 @@ namespace AMS
             this.Name = "Settings";
             this.Text = "Настройки приложения";
             this.Load += new System.EventHandler(this.Settings_Load);
-            this.pnlSmsEmail.ResumeLayout(false);
-            this.pnlSmsEmail.PerformLayout();
-            this.pnlSmsAdb.ResumeLayout(false);
-            this.pnlSmsAdb.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -626,11 +627,11 @@ namespace AMS
         private Label label4;
         private Label label3;
         private FolderBrowserDialog folderBrowserDialog1;
-        private Button btnOpenLogsFolder;
-        private Button btnOpenMapsFolder;
-        private Button btnOpenCfg;
-        private Button btnCancel;
-        private Button btnOk;
+        private Button button3;
+        private Button button2;
+        private Button button1;
+        private Button button5;
+        private Button button4;
         private Label label5;
         private SplitContainer splitContainer1;
         private ToolTip toolTip1;
@@ -644,32 +645,32 @@ namespace AMS
         private Label label24;
         private Label label23;
         private Label label26;
-        private RadioButton rbtnSmsAdb;
+        private RadioButton radioButton3;
         private Label label27;
         private TextBox textBox12;
         private Label label29;
         private TextBox textBox13;
         private Label label30;
-        private RadioButton rbtnSmsEmail;
-        private TextBox tbSmtpPassword;
-        private Panel pnlSmsAdb;
-        private Panel pnlSmsEmail;
+        private RadioButton radioButton4;
+        private TextBox textBox10;
+        private Panel panel1;
+        private Panel panel2;
         private FolderBrowserDialog fbdLogsFolder;
         private FolderBrowserDialog fbdMapsFolder;
-        private Button btnLicense;
+        private Button button6;
         private OpenFileDialog openFileDialog1;
-        private CheckBox ckSsl;
+        private CheckBox checkBox1;
         private TextBox textBox1;
         private Label label1;
         private Button button7;
         private Panel panel3;
-        private CheckBox ckSmsEmail;
+        private CheckBox checkBox2;
         private Panel panel4;
-        private CheckBox ckSmsNoti;
-        private CheckBox ckEmailTrans;
-        private CheckBox ckSmsTrans;
+        private CheckBox checkBox3;
+        private CheckBox checkBox4;
+        private CheckBox checkBox5;
         private Label label6;
-        private Button btnOpenAdbFile;
+        private Button button8;
         private TextBox tbAdb;
         private RichTextBox richTextBox1;
         private OpenFileDialog openFileDialog2;
