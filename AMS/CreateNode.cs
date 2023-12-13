@@ -1,43 +1,80 @@
 ﻿using System;
 using System.Drawing;
 using System.Linq;
-using System.Net;
 using System.Windows.Forms;
-using System.Net.Sockets;
 
 namespace AMS
 {
+    /// <summary>
+    /// Форма "Создание нового узла".
+    /// </summary>
     public partial class CreateNode : Form
     {
         // Для связи с главной формой
         public TabControl tc;
 
+        /// <summary>
+        /// Стандартный конструктор.
+        /// </summary>
         public CreateNode()
         {
+            // Инициализация компонентов.
+
             InitializeComponent();
         }
 
         /// <summary>
-        /// Получает значения всех элементов списка
+        /// Получает имена запущенных служб.
         /// </summary>
-        private static string[] GetAllListBoxText(ListBox listBox)
+        /// <param name="listBox">Содержит имена запущенных служб.</param>
+        /// <returns>Массив строк, содержащий имена запущенных служб.</returns>
+        private static string[] GetSrvices(ListBox listBox)
         {
+            // Объявляем и инициализируем массив строк.
+
             string[] myText = new string[listBox.Items.Count];
+
+            // Анализируем список запущенных служб.
+
             for (int i = 0; i < listBox.Items.Count; i++)
+            {
+                // Добавляем службу в массив строк.
+
                 myText[i] = listBox.Items[i].ToString();
+            }
+
+            // Покидаем функцию и возвращаем массив строк, содержащий имена запущенных служб.
+
             return myText;
         }
 
+        /// <summary>
+        /// Список элементов.
+        /// Событие "Двойное нажатие кнопки мыши".
+        /// </summary>
         private void listBox1_DoubleClick(object sender, MouseEventArgs e)
         {
-            textBox1.Text += " (" + listBox1.GetItemText(listBox1.SelectedItem) + ")";
+            // Добавляем к полю для ввода "NetBIOS имя узла"
+            // выбранный тип узла в скобках.
+
+            tbName.Text += " (" + lbType.GetItemText(lbType.SelectedItem) + ")";
         }
 
-        // Диалог "Добавить сервис в список"
+        /// <summary>
+        /// Кнопка "Добавить".
+        /// </summary>
         private void button11_Click(object sender, EventArgs e)
         {
+            // Создаём экземпляр формы "Добавить службу".
+
             CreateService createService = new CreateService();
-            createService.lbService = listBox4;
+
+            // Передаём управление элементом ListBox.
+
+            createService.lbService = lbServices;
+
+            // Открываем форму в формате диалогового окна.
+
             createService.ShowDialog();
         }
 
@@ -48,123 +85,149 @@ namespace AMS
 
         Point FindSpace(TabControl tc)
         {
-            
-            // Позиция нового узла
-                        
+
+            // Объявляем и инициализируем объект класса Point для хранения позиции создаваемого узла.
+
             Point pos = new Point(10, 10);
-            
-            // Разделитель
-            
+
+            // Объявляем и инициализируем переменную для хранения значения размера разделителя.
+
             int spacer = 10;
 
-            // Получаем список всех узлов размещённых на вкладке карты
+            // Получаем список всех узлов размещённых на вкладке карты.
 
             foreach (DeviceNode node in tc.SelectedTab.Controls.OfType<DeviceNode>())
             {
+                // Если узел существует.
+
                 if (node != null)
                 {
-                    // Если текущий узел ниже - перемещаем новый узел вниз
+                    // Если текущий узел ниже создаваемого.
 
-                    if (node.Location.Y > pos.Y)                     
+                    if (node.Location.Y > pos.Y)
+                    {
+                        // Перемещаем новый узел вниз на значение высоты узла плюс значение разделителя.
+
                         pos.Y += node.Height + spacer;
-                    
-                    // Если текущий узел правее - сдвигаем новый узел вправо
+                    }
+
+                    // Если текущий узел правее создаваемого.
 
                     if (node.Location.X >= pos.X)
                     {
+                        // Сдвигаем новый узел вправо на значение ширины узла плюс значение разделителя.
+
                         pos.X = node.Location.X + node.Size.Width + spacer;
 
-                        // Если на вкладке не хватает места - перемещаем новый узел вниз
+                        // Если на вкладке не хватает места для нового узла.
 
                         if (pos.X >= tc.Width - (node.Size.Width + spacer))
                         {
+                            // Сбрасываем положение по ширине.
+
                             pos.X = spacer;
+
+                            // Перемещаем новый узел вниз на значение высоты узла плюс значение разделителя.
+
                             pos.Y += node.Height + spacer;
                         }
                     }
                 }
             }
+
+            // Покидаем функцию и возвращаем значение 
+
             return pos;
         }
 
-        // ОК
+        // Кнопка "ОК".
         private void button7_Click(object sender, EventArgs e)
         {
+            // Объявляем и инициализируем объект класса AmsNode,
+            // содержащий информацию об узле сети.
+
             AmsNode node = new AmsNode()
             {
+                // Определяем поле "Уникальный идентификатор узла" как новый экземпляр структуры Guid.
+
                 Id = Guid.NewGuid().ToString(),
-                Ip = textBox2.Text,
-                Mac = textBox3.Text,
-                Name = textBox1.Text,
-                Services = GetAllListBoxText(listBox4),
-                Type = listBox1.Text,
-                Standard = comboBox1.Text,
-                Protocol = comboBox2.Text,                
-                NameOnMap = textBox4.Text                
+
+                // Определяем поле "IP-адрес узла" значением поля для ввода "IP-адрес".
+
+                Ip = tbIp.Text,
+
+                // Определяем поле "MAC-адрес узла" значением поля для ввода "MAC-адрес".
+
+                Mac = tbMac.Text,
+
+                // Определяем поле "Имя узла" значением поля для ввода "NetBIOS имя узла".
+
+                Name = tbName.Text,
+
+                // Определяем поле "Службы" значением поля для ввода "Службы".
+
+                Services = GetSrvices(lbServices),
+
+                // Определяем поле "Тип узла" значением поля для ввода "Тип устройства".
+
+                Type = lbType.Text,
+
+                // Определяем поле "Стандарт передачи данных" значением поля для ввода "Стандарт передачи данных".
+
+                Standard = cbStandard.Text,
+
+                // Определяем поле "Протокол передачи данных" значением поля для ввода "Протокол передачи данных".
+
+                Protocol = cbProtocol.Text,
+
+                // Определяем поле "Имя узла на карте" значением поля для ввода "Имя узла на карте".
+
+                NameOnMap = tbNameOnMap.Text                
             };
 
 
+            // Подготавливаем пользовательский компонент, представляющий узел.
 
             DeviceNode dn = new DeviceNode
             {
+                // Определяем положение на карте.
+
                 Location = FindSpace(tc),
+
+                // Передаём информацию об узле.
+
                 DNode = node
             };
 
+            // Добавляем новый элемент на карту.
+
             tc.TabPages[tc.SelectedIndex].Controls.Add(dn);
+            
+            // Закрываем форму.
 
             Close();
         }
 
-        // Отмена
+        // Кнопка "Отмена".
         private void button8_Click(object sender, EventArgs e)
         {
+            // Закрываем форму.
+
             Close();
-        }
-
-        // ТЕСТОВЫЙ РЕЖИМ! Заполняем произвольными данными
-        private void button12_Click(object sender, EventArgs e)
-        {
-
-            AmsNode node = new AmsNode();                       
-            string nodeName = Dns.GetHostName();
-            if (nodeName.Length > 0)
-            {
-                textBox2.Text = Dns.GetHostAddresses(nodeName).First
-                                (f => f.AddressFamily == AddressFamily.InterNetwork).ToString(); ;
-                
-                textBox1.Text = nodeName;
-
-                node.SetMac(Dns.GetHostAddresses(nodeName).First
-                                (f => f.AddressFamily == AddressFamily.InterNetwork));
-                
-                textBox3.Text = node.Mac;
-            }
-            else
-            {
-                node.Ip = "192.168.0.102";
-                node.Name = "DESKTOP-HTQEQ9D";
-                node.Mac = "2a:12:4c:10:0a:21";
-            }
-
-            textBox4.Text = "Мой компьютер";
-
-            listBox1.SelectedIndex = 1;
-
-            listBox4.Items.Clear();
-            listBox4.Items.Add("AMS");
-            listBox4.Items.Add("notepad");
-
-            comboBox1.SelectedIndex = 4;
-
-            comboBox2.SelectedIndex = 0;
         }
 
         // Удалить сервис из списка
         private void button10_Click(object sender, EventArgs e)
         {
-            if (listBox4.Items.Count > 0 && listBox4.SelectedIndex >= 0)
-                listBox4.Items.RemoveAt(listBox4.SelectedIndex);
+            // Если в компоненте, отображающем запущенные службы
+            // добавлен и выделен хотя бы один элемент. 
+
+            if (lbServices.Items.Count > 0 && lbServices.SelectedIndex >= 0)
+            {
+                // Удаляем выделенный элемент.
+
+                lbServices.Items.RemoveAt(lbServices.SelectedIndex);
+            }
         }
     }
 }
